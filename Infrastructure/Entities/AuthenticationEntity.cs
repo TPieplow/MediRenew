@@ -14,3 +14,4 @@ public class AuthenticationEntity
     public int EmployeeId { get; set; }
 
 }
+
