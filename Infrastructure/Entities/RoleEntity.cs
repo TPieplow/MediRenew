@@ -3,11 +3,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infrastructure.Entities;
 
-public class EmployeeEntity
+public class RoleEntity
 {
     [Key]
     public int Id { get; set; }
 
-    [ForeignKey(nameof(RoleEntity))]
-    public int RoleId { get; set; }
+    [Required]
+    [Column(TypeName = "nvarchar(24)")]
+    public string Role { get; set; } = null!;
 }
+

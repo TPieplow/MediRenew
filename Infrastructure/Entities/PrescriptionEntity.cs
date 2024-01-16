@@ -9,6 +9,7 @@ public class PrescriptionEntity
     public int Id { get; set; }
 
     [Required]
+    [Column(TypeName = "nvarchar(MAX)")]
     public string PrescriptionDetails { get; set; } = null!;
 
     [ForeignKey(nameof(PatientEntity))]
