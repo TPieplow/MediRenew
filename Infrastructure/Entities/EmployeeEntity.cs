@@ -6,7 +6,7 @@ namespace Infrastructure.Entities;
 public class EmployeeEntity
 {
     [Key]
-    public int EmployeeId { get; set; }
+    public int Id { get; set; }
 
     [Required]
     [ForeignKey(nameof(RoleEntity))]
