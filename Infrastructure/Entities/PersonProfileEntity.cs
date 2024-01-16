@@ -22,7 +22,7 @@ public class PersonProfileEntity
     public string Email { get; set; } = null!;
 
     [Required]
-    [Column(TypeName = "nvarchar(20)")] 
+    [Column(TypeName = "nvarchar(20)")]
     public string PhoneNumber { get; set; } = null!;
 
     [Column(TypeName = "nvarchar(50)")]
