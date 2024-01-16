@@ -1,6 +1,6 @@
 ﻿namespace Infrastructure.Contexts;
 
-internal class CodeFirstDbContext
+public class CodeFirstDbContext
 {
 
 }
