@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Infrastructure.Contexts;
 
-namespace Infrastructure.Contexts
+internal class CodeFirstDbContext
 {
-    internal class CodeFirstDbContext
-    {
-    }
+
 }

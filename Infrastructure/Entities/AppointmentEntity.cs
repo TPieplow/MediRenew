@@ -7,10 +7,12 @@ public class AppointmentEntity
 {
     [Key]
     public int Id { get; set; }
+
     [Required]
     public DateTime AppointmentDate { get; set; }
 
     [Required]
+    [Column(TypeName = "nvarchar(MAX)")]
     public string AppointmentDetails { get; set; } = null!;
 
     [ForeignKey(nameof(PatientEntity))]
