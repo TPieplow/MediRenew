@@ -12,6 +12,7 @@ public class PrescriptionEntity
     [Column(TypeName = "nvarchar(MAX)")]
     public string PrescriptionDetails { get; set; } = null!;
 
+    [Required]
     [ForeignKey(nameof(PatientEntity))]
     public int PatientId { get; set; }
 

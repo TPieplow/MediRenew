@@ -11,5 +11,6 @@ public class RoleEntity
     [Required]
     [Column(TypeName = "nvarchar(24)")]
     public string Role { get; set; } = null!;
+
 }
 

@@ -5,7 +5,6 @@ namespace Infrastructure.Entities;
 
 public class AuthenticationEntity
 {
-    
     [Column(TypeName = "nvarchar(64)")]
     public string UserName { get; set; } = null!;
 

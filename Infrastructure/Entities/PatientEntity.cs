@@ -24,4 +24,6 @@ public class PatientEntity
     [Required]
     [ForeignKey(nameof(PrescriptionEntity))]
     public int PrescriptionId { get; set; }
+
+    public virtual PersonProfileEntity PersonProfile { get; set; } = null!;
 }

@@ -17,6 +17,6 @@ public class Program
             services.AddDbContext<CodeFirstDbContext>(x => x.UseSqlServer(@"Data Source=localhost;Initial Catalog=MediRenewDb;Integrated Security=True;Trust Server Certificate=True"));
         });
 
-        builder.Build().Run();
+        builder.Build();
     }
 }
