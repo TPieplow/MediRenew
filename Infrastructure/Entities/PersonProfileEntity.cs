@@ -41,12 +41,12 @@ public class PersonProfileEntity
     [Column(TypeName = "varchar(13)")]
     public int SocialSecurityNo { get; set; }
 
-    public bool? ActivePrescriptions { get; set; }
+    public bool ActivePrescriptions { get; set; }
     public DateTime? LastVisit { get; set; }
 
     [Required]
-    [DatabaseGenerated(DatabaseGeneratedOption.None)]
-    [ForeignKey(nameof(PersonEntity))]
+    [ForeignKey(nameof(PersonId))]
     public int PersonId { get; set; }
 
+    public virtual PersonEntity? Person { get; set; }
 }

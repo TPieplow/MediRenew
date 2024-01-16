@@ -29,6 +29,5 @@ public class CodeFirstDbContext(DbContextOptions<CodeFirstDbContext> options) : 
         modelBuilder.Entity<AuthenticationEntity>()
             .HasIndex(x => x.UserName)
             .IsUnique();
-
     }
 }

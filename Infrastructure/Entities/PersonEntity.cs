@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infrastructure.Entities;
@@ -10,9 +9,9 @@ public class PersonEntity
     public int Id { get; set; }
 
     [Required]
-    [ForeignKey(nameof(RoleEntity))]
-    public int RoleId { get; set; }
+    
+    public int ProfileId { get; set; }
 
-    public virtual RoleEntity Role { get; set; } = null!;
-
+    [ForeignKey(nameof(ProfileId))]
+    public virtual PersonProfileEntity? Profile { get; set; } = null!;
 }

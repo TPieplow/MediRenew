@@ -17,9 +17,16 @@ public class AppointmentEntity
     public string AppointmentDetails { get; set; } = null!;
 
     [Required]
-    [ForeignKey(nameof(PersonEntity))]
-    public int PersonId { get; set; }
+    [ForeignKey(nameof(Doctor))]
+    public int DoctorId { get; set; }
 
-    [DeleteBehavior(DeleteBehavior.ClientSetNull)]
-    public virtual PersonEntity? Person { get; set; }
+    [Required]
+    [ForeignKey(nameof(Patient))]
+    public int PatientId { get; set; }
+
+    [ForeignKey(nameof(DoctorId))]
+    public virtual PersonEntity? Doctor { get; set; }
+
+    [ForeignKey(nameof(PatientId))]
+    public virtual PersonEntity? Patient { get; set; }
 }
