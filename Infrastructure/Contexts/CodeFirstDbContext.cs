@@ -12,7 +12,7 @@ public class CodeFirstDbContext(DbContextOptions<CodeFirstDbContext> options) : 
     public virtual DbSet<PersonProfileEntity> PersonProfiles { get; set; }
     public virtual DbSet<PrescriptionEntity> Prescriptions { get; set; }
     public virtual DbSet<RoleEntity> Roles { get; set; }
-
+   
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<RoleEntity>()
