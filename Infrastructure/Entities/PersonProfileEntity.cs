@@ -5,6 +5,9 @@ namespace Infrastructure.Entities;
 
 public class PersonProfileEntity
 {
+    [Key]
+    public int ProfileId { get; set; }
+
     [Required]
     [Column(TypeName = "nvarchar(64)")]
     public string FirstName { get; set; } = null!;
@@ -33,9 +36,14 @@ public class PersonProfileEntity
     [Column(TypeName = "nvarchar(50)")]
     public string StreetName { get; set; } = null!;
 
+    [Required]
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
     [ForeignKey(nameof(EmployeeEntity))]
     public int EmployeeId { get; set; }
 
+    [Required]
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
     [ForeignKey(nameof(PatientEntity))]
     public int PatientId { get; set; }
+
 }

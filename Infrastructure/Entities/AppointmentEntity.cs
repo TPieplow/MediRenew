@@ -15,9 +15,11 @@ public class AppointmentEntity
     [Column(TypeName = "nvarchar(MAX)")]
     public string AppointmentDetails { get; set; } = null!;
 
+    [Required]
     [ForeignKey(nameof(PatientEntity))]
     public int PatientId { get; set; }
 
+    [Required]
     [ForeignKey(nameof(EmployeeEntity))]
     public int EmployeeId { get; set; }
 }
