@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infrastructure.Entities;
@@ -37,13 +38,15 @@ public class PersonProfileEntity
     public string StreetName { get; set; } = null!;
 
     [Required]
-    [DatabaseGenerated(DatabaseGeneratedOption.None)]
-    [ForeignKey(nameof(EmployeeEntity))]
-    public int EmployeeId { get; set; }
+    [Column(TypeName = "varchar(13)")]
+    public int SocialSecurityNo { get; set; }
+
+    public bool? ActivePrescriptions { get; set; }
+    public DateTime? LastVisit { get; set; }
 
     [Required]
     [DatabaseGenerated(DatabaseGeneratedOption.None)]
-    [ForeignKey(nameof(PatientEntity))]
-    public int PatientId { get; set; }
+    [ForeignKey(nameof(PersonEntity))]
+    public int PersonId { get; set; }
 
 }

@@ -14,7 +14,7 @@ public class Program
 
         builder.ConfigureServices(services =>
         {
-            services.AddDbContext<CodeFirstDbContext>(x => x.UseSqlServer(@"Data Source=localhost;Initial Catalog=MediRenewDb;Integrated Security=True;Trust Server Certificate=True"));
+            services.AddDbContext<CodeFirstDbContext>(x => x.UseSqlServer(@"Data Source=localhost;Initial Catalog=MediRenewHospitalDb;Integrated Security=True;Trust Server Certificate=True"));
         });
 
         builder.Build();

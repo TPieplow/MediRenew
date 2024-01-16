@@ -7,8 +7,7 @@ public class CodeFirstDbContext(DbContextOptions<CodeFirstDbContext> options) : 
 {
     public virtual DbSet<AppointmentEntity> Appointments { get; set; }
     public virtual DbSet<AuthenticationEntity> Authentications { get; set; }
-    public virtual DbSet<EmployeeEntity> Employees { get; set; }
-    public virtual DbSet<PatientEntity> Patients { get; set; }
+    public virtual DbSet<PersonEntity> Persons { get; set; }
     public virtual DbSet<PersonProfileEntity> PersonProfiles { get; set; }
     public virtual DbSet<PrescriptionEntity> Prescriptions { get; set; }
     public virtual DbSet<RoleEntity> Roles { get; set; }
@@ -23,12 +22,13 @@ public class CodeFirstDbContext(DbContextOptions<CodeFirstDbContext> options) : 
             .HasIndex(x => x.Email)
             .IsUnique();
 
-        modelBuilder.Entity<PatientEntity>()
+        modelBuilder.Entity<PersonProfileEntity>()
             .HasIndex(x => x.SocialSecurityNo)
             .IsUnique();
 
         modelBuilder.Entity<AuthenticationEntity>()
             .HasIndex(x => x.UserName)
             .IsUnique();
+
     }
 }

@@ -13,8 +13,8 @@ public class AuthenticationEntity
 
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.None)]
-    [ForeignKey(nameof(EmployeeEntity))]
-    public int EmployeeId { get; set; }
+    [ForeignKey(nameof(PersonEntity))]
+    public int PersonId { get; set; }
 
 }
 
