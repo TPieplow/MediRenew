@@ -4016,23 +4016,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\hassa\\.nuget\\packages\\": {},
+    "C:\\Users\\tedpi\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\hassa\\source\\repos\\MediRenew\\Infrastructure\\Infrastructure.csproj",
+      "projectUniqueName": "C:\\EC\\sql\\MediRenew\\Infrastructure\\Infrastructure.csproj",
       "projectName": "Infrastructure",
-      "projectPath": "C:\\Users\\hassa\\source\\repos\\MediRenew\\Infrastructure\\Infrastructure.csproj",
-      "packagesPath": "C:\\Users\\hassa\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\hassa\\source\\repos\\MediRenew\\Infrastructure\\obj\\",
+      "projectPath": "C:\\EC\\sql\\MediRenew\\Infrastructure\\Infrastructure.csproj",
+      "packagesPath": "C:\\Users\\tedpi\\.nuget\\packages\\",
+      "outputPath": "C:\\EC\\sql\\MediRenew\\Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\hassa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\tedpi\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
