@@ -49,4 +49,8 @@ public class PersonProfileEntity
     public int PersonId { get; set; }
 
     public virtual PersonEntity? Person { get; set; }
+
+    [ForeignKey(nameof(RoleEntity))]
+    public int RoleEntityId { get; set; }
+    public virtual RoleEntity? RoleEntity { get; set;}
 }
