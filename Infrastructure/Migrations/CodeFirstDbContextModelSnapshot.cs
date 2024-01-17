@@ -44,7 +44,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("Appointments");
+                    b.ToTable("Appointments", (string)null);
                 });
 
             modelBuilder.Entity("Infrastructure.Entities.AuthenticationEntity", b =>
@@ -65,7 +65,7 @@ namespace Infrastructure.Migrations
                     b.HasIndex("UserName")
                         .IsUnique();
 
-                    b.ToTable("Authentications");
+                    b.ToTable("Authentications", (string)null);
                 });
 
             modelBuilder.Entity("Infrastructure.Entities.PersonEntity", b =>
@@ -83,7 +83,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("Persons");
+                    b.ToTable("Persons", (string)null);
                 });
 
             modelBuilder.Entity("Infrastructure.Entities.PersonProfileEntity", b =>
@@ -147,7 +147,7 @@ namespace Infrastructure.Migrations
                     b.HasIndex("SocialSecurityNo")
                         .IsUnique();
 
-                    b.ToTable("PersonProfiles");
+                    b.ToTable("PersonProfiles", (string)null);
                 });
 
             modelBuilder.Entity("Infrastructure.Entities.PrescriptionEntity", b =>
@@ -169,7 +169,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("Prescriptions");
+                    b.ToTable("Prescriptions", (string)null);
                 });
 
             modelBuilder.Entity("Infrastructure.Entities.RoleEntity", b =>
@@ -189,7 +189,7 @@ namespace Infrastructure.Migrations
                     b.HasIndex("Role")
                         .IsUnique();
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("Infrastructure.Entities.AppointmentEntity", b =>

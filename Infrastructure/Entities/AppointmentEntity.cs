@@ -23,3 +23,4 @@ public class AppointmentEntity
     [DeleteBehavior(DeleteBehavior.ClientSetNull)]
     public virtual PersonEntity? Person { get; set; }
 }
+
