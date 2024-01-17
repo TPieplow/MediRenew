@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infrastructure.Entities;
@@ -14,8 +15,15 @@ public class PrescriptionEntity
 
     [Required]
     [ForeignKey(nameof(PersonEntity))]
-    public int PersonId { get; set; }
+    public int DoctorId { get; set; }
 
-    public virtual PersonEntity Person { get; set; } = null!;
+    [Required]
+    [ForeignKey(nameof(PersonEntity))]
+    public int PatientId { get; set; }
 
+    [DeleteBehavior(DeleteBehavior.ClientSetNull)]
+    public virtual PersonEntity? Doctor { get; set; }
+
+    [DeleteBehavior(DeleteBehavior.ClientSetNull)]
+    public virtual PersonEntity? Patient { get; set; }
 }

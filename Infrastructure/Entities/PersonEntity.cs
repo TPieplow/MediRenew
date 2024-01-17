@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infrastructure.Entities;
@@ -7,12 +6,14 @@ namespace Infrastructure.Entities;
 public class PersonEntity
 {
     [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
 
-    [Required]
-    [ForeignKey(nameof(RoleEntity))]
-    public int RoleId { get; set; }
+    public DateTime? Created { get; set; }
+    public bool Active { get; set; }
+    public DateTime? Updated { get; set; }
 
-    public virtual RoleEntity Role { get; set; } = null!;
+    public virtual PersonProfileEntity PersonProfile { get; set; } = null!;
 
+    public ICollection<AppointmentEntity> Appointments = new List<AppointmentEntity>();
 }
