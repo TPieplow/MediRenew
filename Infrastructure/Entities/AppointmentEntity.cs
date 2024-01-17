@@ -23,5 +23,7 @@ public class AppointmentEntity
     [Required]
     [ForeignKey(nameof(PersonEntity))]
     public int PatientId { get; set; }
+
+    public ICollection<PersonEntity> Persons = new List<PersonEntity>();
 }
 

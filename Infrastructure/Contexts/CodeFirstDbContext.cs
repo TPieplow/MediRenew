@@ -32,6 +32,10 @@ public class CodeFirstDbContext(DbContextOptions<CodeFirstDbContext> options) : 
             .WithOne(b => b.Person)
             .HasForeignKey<PersonProfileEntity>(c => c.PersonId);
 
+        modelBuilder.Entity<PersonEntity>()
+            .HasMany(a => a.Appointments)
+            .WithMany(b => b.Persons);
+
         modelBuilder.Entity<AuthenticationEntity>()
             .HasIndex(x => x.UserName)
             .IsUnique();
