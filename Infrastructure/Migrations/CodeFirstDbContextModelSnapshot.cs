@@ -37,14 +37,21 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(MAX)");
 
-                    b.Property<int>("PersonId")
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PatientId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+<<<<<<< HEAD
                     b.HasIndex("PersonId");
 
                     b.ToTable("Appointments", (string)null);
+=======
+                    b.ToTable("Appointments");
+>>>>>>> 27ab09b0e8d08d7ca2ba60edccb1bd6030218a2e
                 });
 
             modelBuilder.Entity("Infrastructure.Entities.AuthenticationEntity", b =>
@@ -65,7 +72,25 @@ namespace Infrastructure.Migrations
                     b.HasIndex("UserName")
                         .IsUnique();
 
+<<<<<<< HEAD
                     b.ToTable("Authentications", (string)null);
+=======
+                    b.ToTable("Authentications");
+
+                    b.HasData(
+                        new
+                        {
+                            PersonId = 3,
+                            Password = "asdtasd",
+                            UserName = "tastast"
+                        },
+                        new
+                        {
+                            PersonId = 4,
+                            Password = "asdtasdt",
+                            UserName = "tasdt"
+                        });
+>>>>>>> 27ab09b0e8d08d7ca2ba60edccb1bd6030218a2e
                 });
 
             modelBuilder.Entity("Infrastructure.Entities.PersonEntity", b =>
@@ -76,14 +101,38 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("Updated")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
+<<<<<<< HEAD
                     b.HasIndex("RoleId");
 
                     b.ToTable("Persons", (string)null);
+=======
+                    b.ToTable("Persons");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = -2,
+                            Active = true,
+                            Created = new DateTime(2024, 1, 17, 15, 45, 1, 587, DateTimeKind.Utc).AddTicks(1981)
+                        },
+                        new
+                        {
+                            Id = -3,
+                            Active = true,
+                            Created = new DateTime(2024, 1, 17, 15, 45, 1, 587, DateTimeKind.Utc).AddTicks(1986)
+                        });
+>>>>>>> 27ab09b0e8d08d7ca2ba60edccb1bd6030218a2e
                 });
 
             modelBuilder.Entity("Infrastructure.Entities.PersonProfileEntity", b =>
@@ -94,7 +143,7 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProfileId"));
 
-                    b.Property<bool?>("ActivePrescriptions")
+                    b.Property<bool>("ActivePrescriptions")
                         .HasColumnType("bit");
 
                     b.Property<string>("City")
@@ -131,6 +180,9 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(7)");
 
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
                     b.Property<string>("SocialSecurityNo")
                         .IsRequired()
                         .HasColumnType("varchar(13)");
@@ -144,10 +196,55 @@ namespace Infrastructure.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
+                    b.HasIndex("PersonId")
+                        .IsUnique();
+
+                    b.HasIndex("RoleId");
+
                     b.HasIndex("SocialSecurityNo")
                         .IsUnique();
 
+<<<<<<< HEAD
                     b.ToTable("PersonProfiles", (string)null);
+=======
+                    b.ToTable("PersonProfiles");
+
+                    b.HasData(
+                        new
+                        {
+                            ProfileId = 1,
+                            ActivePrescriptions = true,
+                            City = "Toarp",
+                            Country = "Polski",
+                            Email = "Hassan.A@gmail.com",
+                            FirstName = "Hassan",
+                            LastName = "Al-Heidari",
+                            LastVisit = new DateTime(2024, 1, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PersonId = -2,
+                            PhoneNumber = "1234567890",
+                            PostalCode = "24550",
+                            RoleId = 3,
+                            SocialSecurityNo = "987654321",
+                            StreetName = "Toarpsvägen"
+                        },
+                        new
+                        {
+                            ProfileId = 2,
+                            ActivePrescriptions = true,
+                            City = "Blentarp",
+                            Country = "Deutsch",
+                            Email = "Ted.P@gmail.com",
+                            FirstName = "Ted",
+                            LastName = "Pieplow",
+                            LastVisit = new DateTime(2024, 1, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PersonId = -3,
+                            PhoneNumber = "0022334455",
+                            PostalCode = "27450",
+                            RoleId = 2,
+                            SocialSecurityNo = "880330",
+                            StreetName = "Vildsvinsvägen"
+                        });
+>>>>>>> 27ab09b0e8d08d7ca2ba60edccb1bd6030218a2e
                 });
 
             modelBuilder.Entity("Infrastructure.Entities.PrescriptionEntity", b =>
@@ -158,7 +255,10 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("PersonId")
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PatientId")
                         .HasColumnType("int");
 
                     b.Property<string>("PrescriptionDetails")
@@ -167,7 +267,9 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PersonId");
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("PatientId");
 
                     b.ToTable("Prescriptions", (string)null);
                 });
@@ -189,39 +291,70 @@ namespace Infrastructure.Migrations
                     b.HasIndex("Role")
                         .IsUnique();
 
+<<<<<<< HEAD
                     b.ToTable("Roles", (string)null);
+=======
+                    b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Role = "Admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Role = "Doctor"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Role = "Patient"
+                        });
+>>>>>>> 27ab09b0e8d08d7ca2ba60edccb1bd6030218a2e
                 });
 
-            modelBuilder.Entity("Infrastructure.Entities.AppointmentEntity", b =>
+            modelBuilder.Entity("Infrastructure.Entities.PersonProfileEntity", b =>
                 {
                     b.HasOne("Infrastructure.Entities.PersonEntity", "Person")
-                        .WithMany()
-                        .HasForeignKey("PersonId")
+                        .WithOne("PersonProfile")
+                        .HasForeignKey("Infrastructure.Entities.PersonProfileEntity", "PersonId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Person");
-                });
-
-            modelBuilder.Entity("Infrastructure.Entities.PersonEntity", b =>
-                {
                     b.HasOne("Infrastructure.Entities.RoleEntity", "Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Person");
+
                     b.Navigation("Role");
                 });
 
             modelBuilder.Entity("Infrastructure.Entities.PrescriptionEntity", b =>
                 {
-                    b.HasOne("Infrastructure.Entities.PersonEntity", "Person")
+                    b.HasOne("Infrastructure.Entities.PersonEntity", "Doctor")
                         .WithMany()
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("DoctorId")
                         .IsRequired();
 
-                    b.Navigation("Person");
+                    b.HasOne("Infrastructure.Entities.PersonEntity", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientId")
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("Infrastructure.Entities.PersonEntity", b =>
+                {
+                    b.Navigation("PersonProfile")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
