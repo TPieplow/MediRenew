@@ -12,5 +12,6 @@ public class RoleEntity
     [Column(TypeName = "nvarchar(24)")]
     public string Role { get; set; } = null!;
 
+    public virtual ICollection<PersonProfileEntity> PersonProfiles { get; set; } = new List<PersonProfileEntity>();
 }
 

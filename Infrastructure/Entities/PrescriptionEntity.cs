@@ -13,9 +13,16 @@ public class PrescriptionEntity
     public string PrescriptionDetails { get; set; } = null!;
 
     [Required]
-    [ForeignKey(nameof(PersonEntity))]
-    public int PersonId { get; set; }
+    [ForeignKey(nameof(Doctor))]
+    public int DoctorId { get; set; }
 
-    public virtual PersonEntity Person { get; set; } = null!;
+    [Required]
+    [ForeignKey(nameof(Patient))]
+    public int PatientId { get; set; }
 
+    [ForeignKey(nameof(DoctorId))]
+    public virtual PersonEntity? Doctor { get; set; }
+
+    [ForeignKey(nameof(PatientId))]
+    public virtual PersonEntity? Patient { get; set; }
 }
