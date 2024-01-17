@@ -21,7 +21,7 @@ public class AppointmentEntity
     public int DoctorId { get; set; }
 
     [Required]
-    [ForeignKey(nameof(Patient))]
+    [ForeignKey(nameof(PersonEntity))]
     public int PatientId { get; set; }
 
     [ForeignKey(nameof(DoctorId))]

@@ -1,4 +1,5 @@
-﻿using Infrastructure.Entities;
+﻿using Infrastructure.DataSeed;
+using Infrastructure.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Contexts;
@@ -29,5 +30,7 @@ public class CodeFirstDbContext(DbContextOptions<CodeFirstDbContext> options) : 
         modelBuilder.Entity<AuthenticationEntity>()
             .HasIndex(x => x.UserName)
             .IsUnique();
+
+        DataSeeder.SeedData(modelBuilder);
     }
 }
