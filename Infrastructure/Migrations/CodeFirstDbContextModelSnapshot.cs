@@ -50,21 +50,21 @@ namespace Infrastructure.Migrations
                             PatientId = 1,
                             DoctorId = 1,
                             Comments = "Headfraction",
-                            Date = new DateTime(2024, 1, 18, 13, 18, 54, 708, DateTimeKind.Local).AddTicks(8114)
+                            Date = new DateTime(2024, 1, 18, 14, 31, 24, 702, DateTimeKind.Local).AddTicks(6315)
                         },
                         new
                         {
                             PatientId = 2,
                             DoctorId = 2,
                             Comments = "Pungbråck",
-                            Date = new DateTime(2024, 1, 18, 13, 18, 54, 708, DateTimeKind.Local).AddTicks(8175)
+                            Date = new DateTime(2024, 1, 18, 14, 31, 24, 702, DateTimeKind.Local).AddTicks(6363)
                         },
                         new
                         {
                             PatientId = 3,
                             DoctorId = 3,
                             Comments = "Headfraction",
-                            Date = new DateTime(2024, 1, 18, 13, 18, 54, 708, DateTimeKind.Local).AddTicks(8177)
+                            Date = new DateTime(2024, 1, 18, 14, 31, 24, 702, DateTimeKind.Local).AddTicks(6368)
                         });
                 });
 
@@ -85,15 +85,6 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-                    b.HasIndex("PersonId");
-
-                    b.ToTable("Appointments", (string)null);
-=======
-=======
->>>>>>> Hassans_branch
                     b.ToTable("Departments");
 
                     b.HasData(
@@ -238,7 +229,6 @@ namespace Infrastructure.Migrations
                     b.Property<int>("PharmacyId")
                         .HasColumnType("int");
 
-<<<<<<< HEAD
                     b.Property<decimal>("TotalCost")
                         .HasPrecision(10, 2)
                         .HasColumnType("decimal(10,2)");
@@ -264,51 +254,6 @@ namespace Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("Infrastructure.HospitalEntities.PatientEntity", b =>
-<<<<<<< HEAD
->>>>>>> d8759a46a99d994baf59f861508d361a2b0cbecf
-=======
->>>>>>> Hassans_branch
-=======
-                    b.ToTable("Appointments");
-                });
-
-            modelBuilder.Entity("Infrastructure.Entities.AuthenticationEntity", b =>
-                {
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(64)");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(64)");
-
-                    b.HasKey("PersonId");
-
-                    b.HasIndex("UserName")
-                        .IsUnique();
-
-                    b.ToTable("Authentications");
-
-                    b.HasData(
-                        new
-                        {
-                            PersonId = 3,
-                            Password = "asdtasd",
-                            UserName = "tastast"
-                        },
-                        new
-                        {
-                            PersonId = 4,
-                            Password = "asdtasdt",
-                            UserName = "tasdt"
-                        });
-                });
-
-            modelBuilder.Entity("Infrastructure.Entities.PersonEntity", b =>
->>>>>>> 27ab09b0e8d08d7ca2ba60edccb1bd6030218a2e
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -316,50 +261,9 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-<<<<<<< HEAD
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(24)");
-=======
-                    b.Property<bool>("Active")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("Updated")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Persons");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = -2,
-                            Active = true,
-                            Created = new DateTime(2024, 1, 17, 19, 40, 36, 288, DateTimeKind.Utc).AddTicks(3783)
-                        },
-                        new
-                        {
-                            Id = -3,
-                            Active = true,
-                            Created = new DateTime(2024, 1, 17, 19, 40, 36, 288, DateTimeKind.Utc).AddTicks(3787)
-                        });
-                });
-
-            modelBuilder.Entity("Infrastructure.Entities.PersonProfileEntity", b =>
-                {
-                    b.Property<int>("ProfileId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProfileId"));
-
-                    b.Property<bool>("ActivePrescriptions")
-                        .HasColumnType("bit");
->>>>>>> 27ab09b0e8d08d7ca2ba60edccb1bd6030218a2e
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -388,16 +292,10 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(7)");
 
-<<<<<<< HEAD
                     b.HasKey("Id");
-=======
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
->>>>>>> 27ab09b0e8d08d7ca2ba60edccb1bd6030218a2e
 
                     b.ToTable("Patients");
 
-<<<<<<< HEAD
                     b.HasData(
                         new
                         {
@@ -431,61 +329,6 @@ namespace Infrastructure.Migrations
                             LastName = "testLastName3",
                             PhoneNumber = "183856789",
                             PostalCode = "19375"
-=======
-                    b.Property<string>("StreetName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("ProfileId");
-
-                    b.HasIndex("Email")
-                        .IsUnique();
-
-                    b.HasIndex("PersonId")
-                        .IsUnique();
-
-                    b.HasIndex("RoleId");
-
-                    b.HasIndex("SocialSecurityNo")
-                        .IsUnique();
-
-                    b.ToTable("PersonProfiles");
-
-                    b.HasData(
-                        new
-                        {
-                            ProfileId = 1,
-                            ActivePrescriptions = true,
-                            City = "Toarp",
-                            Country = "Polski",
-                            Email = "Hassan.A@gmail.com",
-                            FirstName = "Hassan",
-                            LastName = "Al-Heidari",
-                            LastVisit = new DateTime(2024, 1, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PersonId = -2,
-                            PhoneNumber = "1234567890",
-                            PostalCode = "24550",
-                            RoleId = 3,
-                            SocialSecurityNo = "987654321",
-                            StreetName = "Toarpsvägen"
-                        },
-                        new
-                        {
-                            ProfileId = 2,
-                            ActivePrescriptions = true,
-                            City = "Blentarp",
-                            Country = "Deutsch",
-                            Email = "Ted.P@gmail.com",
-                            FirstName = "Ted",
-                            LastName = "Pieplow",
-                            LastVisit = new DateTime(2024, 1, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            PersonId = -3,
-                            PhoneNumber = "0022334455",
-                            PostalCode = "27450",
-                            RoleId = 2,
-                            SocialSecurityNo = "880330",
-                            StreetName = "Vildsvinsvägen"
->>>>>>> 27ab09b0e8d08d7ca2ba60edccb1bd6030218a2e
                         });
                 });
 
@@ -517,12 +360,6 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("PatientId");
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-                    b.ToTable("Prescriptions", (string)null);
-=======
-=======
->>>>>>> Hassans_branch
                     b.ToTable("Pharmacys");
 
                     b.HasData(
@@ -547,10 +384,6 @@ namespace Infrastructure.Migrations
                             Dosage = "400mg",
                             MedicationName = "Beta-adrenergic blockers"
                         });
-<<<<<<< HEAD
->>>>>>> d8759a46a99d994baf59f861508d361a2b0cbecf
-=======
->>>>>>> Hassans_branch
                 });
 
             modelBuilder.Entity("Infrastructure.HospitalEntities.PrescriptionEntity", b =>
@@ -600,7 +433,7 @@ namespace Infrastructure.Migrations
                         {
                             Id = 1,
                             Cost = 10.0m,
-                            Date = new DateTime(2024, 1, 18, 13, 18, 54, 708, DateTimeKind.Local).AddTicks(8226),
+                            Date = new DateTime(2024, 1, 18, 14, 31, 24, 702, DateTimeKind.Local).AddTicks(6414),
                             DoctorId = 1,
                             Instructions = "Every 4 hour",
                             MedicationName = "Ibuprofen",
@@ -611,7 +444,7 @@ namespace Infrastructure.Migrations
                         {
                             Id = 2,
                             Cost = 5.0m,
-                            Date = new DateTime(2024, 1, 18, 13, 18, 54, 708, DateTimeKind.Local).AddTicks(8239),
+                            Date = new DateTime(2024, 1, 18, 14, 31, 24, 702, DateTimeKind.Local).AddTicks(6420),
                             DoctorId = 2,
                             Instructions = "Every 4 hour",
                             MedicationName = "Paracetamol",
@@ -622,7 +455,7 @@ namespace Infrastructure.Migrations
                         {
                             Id = 3,
                             Cost = 50.0m,
-                            Date = new DateTime(2024, 1, 18, 13, 18, 54, 708, DateTimeKind.Local).AddTicks(8241),
+                            Date = new DateTime(2024, 1, 18, 14, 31, 24, 702, DateTimeKind.Local).AddTicks(6424),
                             DoctorId = 3,
                             Instructions = "Twice a day, morning and before bed",
                             MedicationName = "Beta-adrenergic blockers",
@@ -709,15 +542,6 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DepartmentId");
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-                    b.ToTable("Roles", (string)null);
-=======
-=======
->>>>>>> Hassans_branch
                     b.ToTable("Staff");
 
                     b.HasData(
@@ -772,61 +596,9 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Infrastructure.HospitalEntities.InvoiceEntity", b =>
                 {
                     b.HasOne("Infrastructure.HospitalEntities.PatientEntity", "Patient")
-<<<<<<< HEAD
->>>>>>> d8759a46a99d994baf59f861508d361a2b0cbecf
-=======
->>>>>>> Hassans_branch
-=======
-                    b.ToTable("Roles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Role = "Admin"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Role = "Doctor"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Role = "Patient"
-                        });
-                });
-
-            modelBuilder.Entity("Infrastructure.Entities.PersonProfileEntity", b =>
-                {
-                    b.HasOne("Infrastructure.Entities.PersonEntity", "Person")
-                        .WithOne("PersonProfile")
-                        .HasForeignKey("Infrastructure.Entities.PersonProfileEntity", "PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Infrastructure.Entities.RoleEntity", "Role")
-                        .WithMany("PersonProfiles")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Person");
-
-                    b.Navigation("Role");
-                });
-
-            modelBuilder.Entity("Infrastructure.Entities.PrescriptionEntity", b =>
-                {
-                    b.HasOne("Infrastructure.Entities.PersonEntity", "Doctor")
-                        .WithMany()
-                        .HasForeignKey("DoctorId")
-                        .IsRequired();
-
-                    b.HasOne("Infrastructure.Entities.PersonEntity", "Patient")
->>>>>>> 27ab09b0e8d08d7ca2ba60edccb1bd6030218a2e
                         .WithMany()
                         .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Infrastructure.HospitalEntities.PharmacyEntity", "Pharmacy")
@@ -855,7 +627,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("Patient");
                 });
 
-<<<<<<< HEAD
             modelBuilder.Entity("Infrastructure.HospitalEntities.PrescriptionEntity", b =>
                 {
                     b.HasOne("Infrastructure.HospitalEntities.DoctorEntity", "Doctor")
@@ -896,28 +667,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("Patient");
 
                     b.Navigation("Staff");
-                });
-
-            modelBuilder.Entity("Infrastructure.HospitalEntities.StaffEntity", b =>
-                {
-                    b.HasOne("Infrastructure.HospitalEntities.DepartmentEntity", "Department")
-                        .WithMany()
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Department");
-=======
-            modelBuilder.Entity("Infrastructure.Entities.PersonEntity", b =>
-                {
-                    b.Navigation("PersonProfile")
-                        .IsRequired();
->>>>>>> 27ab09b0e8d08d7ca2ba60edccb1bd6030218a2e
-                });
-
-            modelBuilder.Entity("Infrastructure.Entities.RoleEntity", b =>
-                {
-                    b.Navigation("PersonProfiles");
                 });
 #pragma warning restore 612, 618
         }

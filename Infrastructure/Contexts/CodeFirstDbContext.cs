@@ -1,6 +1,7 @@
-﻿using global::Infrastructure.DataSeed;
-using global::Infrastructure.HospitalEntities;
+﻿using Infrastructure.DataSeed;
+using Infrastructure.HospitalEntities;
 using Microsoft.EntityFrameworkCore;
+
 namespace Infrastructure.Contexts;
 
 public class CodeFirstDbContext(DbContextOptions<CodeFirstDbContext> options) : DbContext(options)

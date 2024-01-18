@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(CodeFirstDbContext))]
-    [Migration("20240118121854_InitialMigrationWithSeed")]
-    partial class InitialMigrationWithSeed
+    [Migration("20240118133124_Test")]
+    partial class Test
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,21 +53,21 @@ namespace Infrastructure.Migrations
                             PatientId = 1,
                             DoctorId = 1,
                             Comments = "Headfraction",
-                            Date = new DateTime(2024, 1, 18, 13, 18, 54, 708, DateTimeKind.Local).AddTicks(8114)
+                            Date = new DateTime(2024, 1, 18, 14, 31, 24, 702, DateTimeKind.Local).AddTicks(6315)
                         },
                         new
                         {
                             PatientId = 2,
                             DoctorId = 2,
                             Comments = "Pungbråck",
-                            Date = new DateTime(2024, 1, 18, 13, 18, 54, 708, DateTimeKind.Local).AddTicks(8175)
+                            Date = new DateTime(2024, 1, 18, 14, 31, 24, 702, DateTimeKind.Local).AddTicks(6363)
                         },
                         new
                         {
                             PatientId = 3,
                             DoctorId = 3,
                             Comments = "Headfraction",
-                            Date = new DateTime(2024, 1, 18, 13, 18, 54, 708, DateTimeKind.Local).AddTicks(8177)
+                            Date = new DateTime(2024, 1, 18, 14, 31, 24, 702, DateTimeKind.Local).AddTicks(6368)
                         });
                 });
 
@@ -436,7 +436,7 @@ namespace Infrastructure.Migrations
                         {
                             Id = 1,
                             Cost = 10.0m,
-                            Date = new DateTime(2024, 1, 18, 13, 18, 54, 708, DateTimeKind.Local).AddTicks(8226),
+                            Date = new DateTime(2024, 1, 18, 14, 31, 24, 702, DateTimeKind.Local).AddTicks(6414),
                             DoctorId = 1,
                             Instructions = "Every 4 hour",
                             MedicationName = "Ibuprofen",
@@ -447,7 +447,7 @@ namespace Infrastructure.Migrations
                         {
                             Id = 2,
                             Cost = 5.0m,
-                            Date = new DateTime(2024, 1, 18, 13, 18, 54, 708, DateTimeKind.Local).AddTicks(8239),
+                            Date = new DateTime(2024, 1, 18, 14, 31, 24, 702, DateTimeKind.Local).AddTicks(6420),
                             DoctorId = 2,
                             Instructions = "Every 4 hour",
                             MedicationName = "Paracetamol",
@@ -458,7 +458,7 @@ namespace Infrastructure.Migrations
                         {
                             Id = 3,
                             Cost = 50.0m,
-                            Date = new DateTime(2024, 1, 18, 13, 18, 54, 708, DateTimeKind.Local).AddTicks(8241),
+                            Date = new DateTime(2024, 1, 18, 14, 31, 24, 702, DateTimeKind.Local).AddTicks(6424),
                             DoctorId = 3,
                             Instructions = "Twice a day, morning and before bed",
                             MedicationName = "Beta-adrenergic blockers",
@@ -544,8 +544,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(24)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DepartmentId");
 
                     b.ToTable("Staff");
 
@@ -672,17 +670,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("Patient");
 
                     b.Navigation("Staff");
-                });
-
-            modelBuilder.Entity("Infrastructure.HospitalEntities.StaffEntity", b =>
-                {
-                    b.HasOne("Infrastructure.HospitalEntities.DepartmentEntity", "Department")
-                        .WithMany()
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Department");
                 });
 #pragma warning restore 612, 618
         }
