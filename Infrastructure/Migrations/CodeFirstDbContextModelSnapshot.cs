@@ -85,6 +85,15 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+                    b.HasIndex("PersonId");
+
+                    b.ToTable("Appointments", (string)null);
+=======
+=======
+>>>>>>> Hassans_branch
                     b.ToTable("Departments");
 
                     b.HasData(
@@ -255,6 +264,10 @@ namespace Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("Infrastructure.HospitalEntities.PatientEntity", b =>
+<<<<<<< HEAD
+>>>>>>> d8759a46a99d994baf59f861508d361a2b0cbecf
+=======
+>>>>>>> Hassans_branch
 =======
                     b.ToTable("Appointments");
                 });
@@ -326,13 +339,13 @@ namespace Infrastructure.Migrations
                         {
                             Id = -2,
                             Active = true,
-                            Created = new DateTime(2024, 1, 17, 15, 45, 1, 587, DateTimeKind.Utc).AddTicks(1981)
+                            Created = new DateTime(2024, 1, 17, 19, 40, 36, 288, DateTimeKind.Utc).AddTicks(3783)
                         },
                         new
                         {
                             Id = -3,
                             Active = true,
-                            Created = new DateTime(2024, 1, 17, 15, 45, 1, 587, DateTimeKind.Utc).AddTicks(1986)
+                            Created = new DateTime(2024, 1, 17, 19, 40, 36, 288, DateTimeKind.Utc).AddTicks(3787)
                         });
                 });
 
@@ -504,6 +517,12 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("PatientId");
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+                    b.ToTable("Prescriptions", (string)null);
+=======
+=======
+>>>>>>> Hassans_branch
                     b.ToTable("Pharmacys");
 
                     b.HasData(
@@ -528,6 +547,10 @@ namespace Infrastructure.Migrations
                             Dosage = "400mg",
                             MedicationName = "Beta-adrenergic blockers"
                         });
+<<<<<<< HEAD
+>>>>>>> d8759a46a99d994baf59f861508d361a2b0cbecf
+=======
+>>>>>>> Hassans_branch
                 });
 
             modelBuilder.Entity("Infrastructure.HospitalEntities.PrescriptionEntity", b =>
@@ -689,6 +712,12 @@ namespace Infrastructure.Migrations
                     b.HasIndex("DepartmentId");
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+                    b.ToTable("Roles", (string)null);
+=======
+=======
+>>>>>>> Hassans_branch
                     b.ToTable("Staff");
 
                     b.HasData(
@@ -743,6 +772,10 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Infrastructure.HospitalEntities.InvoiceEntity", b =>
                 {
                     b.HasOne("Infrastructure.HospitalEntities.PatientEntity", "Patient")
+<<<<<<< HEAD
+>>>>>>> d8759a46a99d994baf59f861508d361a2b0cbecf
+=======
+>>>>>>> Hassans_branch
 =======
                     b.ToTable("Roles");
 
@@ -773,7 +806,7 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("Infrastructure.Entities.RoleEntity", "Role")
-                        .WithMany()
+                        .WithMany("PersonProfiles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -880,6 +913,11 @@ namespace Infrastructure.Migrations
                     b.Navigation("PersonProfile")
                         .IsRequired();
 >>>>>>> 27ab09b0e8d08d7ca2ba60edccb1bd6030218a2e
+                });
+
+            modelBuilder.Entity("Infrastructure.Entities.RoleEntity", b =>
+                {
+                    b.Navigation("PersonProfiles");
                 });
 #pragma warning restore 612, 618
         }

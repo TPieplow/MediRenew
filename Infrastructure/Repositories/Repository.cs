@@ -66,5 +66,4 @@ public abstract class Repository<TEntity> where TEntity : class
         catch (Exception ex) { Debug.WriteLine($"ERROR : {ex.Message}"); }
         return null!;
     }
-
 }
