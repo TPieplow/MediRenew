@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class FreshDb : Migration
+    public partial class Test : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -146,8 +146,8 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "Active", "Created", "Updated" },
                 values: new object[,]
                 {
-                    { -3, true, new DateTime(2024, 1, 17, 15, 45, 1, 587, DateTimeKind.Utc).AddTicks(1986), null },
-                    { -2, true, new DateTime(2024, 1, 17, 15, 45, 1, 587, DateTimeKind.Utc).AddTicks(1981), null }
+                    { -3, true, new DateTime(2024, 1, 17, 19, 40, 36, 288, DateTimeKind.Utc).AddTicks(3787), null },
+                    { -2, true, new DateTime(2024, 1, 17, 19, 40, 36, 288, DateTimeKind.Utc).AddTicks(3783), null }
                 });
 
             migrationBuilder.InsertData(

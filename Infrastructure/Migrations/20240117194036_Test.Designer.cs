@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(CodeFirstDbContext))]
-    [Migration("20240117154501_FreshDb")]
-    partial class FreshDb
+    [Migration("20240117194036_Test")]
+    partial class Test
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -112,13 +112,13 @@ namespace Infrastructure.Migrations
                         {
                             Id = -2,
                             Active = true,
-                            Created = new DateTime(2024, 1, 17, 15, 45, 1, 587, DateTimeKind.Utc).AddTicks(1981)
+                            Created = new DateTime(2024, 1, 17, 19, 40, 36, 288, DateTimeKind.Utc).AddTicks(3783)
                         },
                         new
                         {
                             Id = -3,
                             Active = true,
-                            Created = new DateTime(2024, 1, 17, 15, 45, 1, 587, DateTimeKind.Utc).AddTicks(1986)
+                            Created = new DateTime(2024, 1, 17, 19, 40, 36, 288, DateTimeKind.Utc).AddTicks(3787)
                         });
                 });
 
@@ -303,7 +303,7 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("Infrastructure.Entities.RoleEntity", "Role")
-                        .WithMany()
+                        .WithMany("PersonProfiles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -334,6 +334,11 @@ namespace Infrastructure.Migrations
                 {
                     b.Navigation("PersonProfile")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Infrastructure.Entities.RoleEntity", b =>
+                {
+                    b.Navigation("PersonProfiles");
                 });
 #pragma warning restore 612, 618
         }

@@ -45,13 +45,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-<<<<<<< HEAD
-                    b.HasIndex("PersonId");
-
-                    b.ToTable("Appointments", (string)null);
-=======
                     b.ToTable("Appointments");
->>>>>>> 27ab09b0e8d08d7ca2ba60edccb1bd6030218a2e
                 });
 
             modelBuilder.Entity("Infrastructure.Entities.AuthenticationEntity", b =>
@@ -72,9 +66,6 @@ namespace Infrastructure.Migrations
                     b.HasIndex("UserName")
                         .IsUnique();
 
-<<<<<<< HEAD
-                    b.ToTable("Authentications", (string)null);
-=======
                     b.ToTable("Authentications");
 
                     b.HasData(
@@ -90,7 +81,6 @@ namespace Infrastructure.Migrations
                             Password = "asdtasdt",
                             UserName = "tasdt"
                         });
->>>>>>> 27ab09b0e8d08d7ca2ba60edccb1bd6030218a2e
                 });
 
             modelBuilder.Entity("Infrastructure.Entities.PersonEntity", b =>
@@ -112,11 +102,6 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-<<<<<<< HEAD
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("Persons", (string)null);
-=======
                     b.ToTable("Persons");
 
                     b.HasData(
@@ -124,15 +109,14 @@ namespace Infrastructure.Migrations
                         {
                             Id = -2,
                             Active = true,
-                            Created = new DateTime(2024, 1, 17, 15, 45, 1, 587, DateTimeKind.Utc).AddTicks(1981)
+                            Created = new DateTime(2024, 1, 17, 19, 40, 36, 288, DateTimeKind.Utc).AddTicks(3783)
                         },
                         new
                         {
                             Id = -3,
                             Active = true,
-                            Created = new DateTime(2024, 1, 17, 15, 45, 1, 587, DateTimeKind.Utc).AddTicks(1986)
+                            Created = new DateTime(2024, 1, 17, 19, 40, 36, 288, DateTimeKind.Utc).AddTicks(3787)
                         });
->>>>>>> 27ab09b0e8d08d7ca2ba60edccb1bd6030218a2e
                 });
 
             modelBuilder.Entity("Infrastructure.Entities.PersonProfileEntity", b =>
@@ -204,9 +188,6 @@ namespace Infrastructure.Migrations
                     b.HasIndex("SocialSecurityNo")
                         .IsUnique();
 
-<<<<<<< HEAD
-                    b.ToTable("PersonProfiles", (string)null);
-=======
                     b.ToTable("PersonProfiles");
 
                     b.HasData(
@@ -244,7 +225,6 @@ namespace Infrastructure.Migrations
                             SocialSecurityNo = "880330",
                             StreetName = "Vildsvinsvägen"
                         });
->>>>>>> 27ab09b0e8d08d7ca2ba60edccb1bd6030218a2e
                 });
 
             modelBuilder.Entity("Infrastructure.Entities.PrescriptionEntity", b =>
@@ -271,7 +251,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("PatientId");
 
-                    b.ToTable("Prescriptions", (string)null);
+                    b.ToTable("Prescriptions");
                 });
 
             modelBuilder.Entity("Infrastructure.Entities.RoleEntity", b =>
@@ -291,9 +271,6 @@ namespace Infrastructure.Migrations
                     b.HasIndex("Role")
                         .IsUnique();
 
-<<<<<<< HEAD
-                    b.ToTable("Roles", (string)null);
-=======
                     b.ToTable("Roles");
 
                     b.HasData(
@@ -312,7 +289,6 @@ namespace Infrastructure.Migrations
                             Id = 3,
                             Role = "Patient"
                         });
->>>>>>> 27ab09b0e8d08d7ca2ba60edccb1bd6030218a2e
                 });
 
             modelBuilder.Entity("Infrastructure.Entities.PersonProfileEntity", b =>
@@ -324,7 +300,7 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("Infrastructure.Entities.RoleEntity", "Role")
-                        .WithMany()
+                        .WithMany("PersonProfiles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -355,6 +331,11 @@ namespace Infrastructure.Migrations
                 {
                     b.Navigation("PersonProfile")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Infrastructure.Entities.RoleEntity", b =>
+                {
+                    b.Navigation("PersonProfiles");
                 });
 #pragma warning restore 612, 618
         }

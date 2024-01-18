@@ -58,7 +58,7 @@ namespace Infrastructure.DataSeed
                     LastVisit = new DateTime(2024, 1, 16),
                     PersonId = -3,
                     RoleId = 2,
-                    
+
                 });
         }
 
