@@ -9,16 +9,15 @@ namespace Infrastructure.HospitalEntities
         public int Id { get; set; }
 
         [Required]
+        public bool IsOccupied { get; set; }
+
+        [Required]
         public int RoomNumber { get; set; }
 
-        [ForeignKey(nameof(Patient))]
+        [ForeignKey(nameof(PatientEntity))]
         public int? PatientId { get; set; }
 
-        [ForeignKey(nameof(Staff))]
+        [ForeignKey(nameof(StaffEntity))]
         public int? StaffId { get; set; }
-
-        public virtual PatientEntity? Patient { get; set; }
-
-        public virtual StaffEntity? Staff { get; set; }
     }
 }

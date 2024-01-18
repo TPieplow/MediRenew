@@ -50,21 +50,21 @@ namespace Infrastructure.Migrations
                             PatientId = 1,
                             DoctorId = 1,
                             Comments = "Headfraction",
-                            Date = new DateTime(2024, 1, 18, 14, 31, 24, 702, DateTimeKind.Local).AddTicks(6315)
+                            Date = new DateTime(2024, 1, 18, 16, 51, 0, 690, DateTimeKind.Local).AddTicks(1016)
                         },
                         new
                         {
                             PatientId = 2,
                             DoctorId = 2,
                             Comments = "Pungbråck",
-                            Date = new DateTime(2024, 1, 18, 14, 31, 24, 702, DateTimeKind.Local).AddTicks(6363)
+                            Date = new DateTime(2024, 1, 18, 16, 51, 0, 690, DateTimeKind.Local).AddTicks(1053)
                         },
                         new
                         {
                             PatientId = 3,
                             DoctorId = 3,
                             Comments = "Headfraction",
-                            Date = new DateTime(2024, 1, 18, 14, 31, 24, 702, DateTimeKind.Local).AddTicks(6368)
+                            Date = new DateTime(2024, 1, 18, 16, 51, 0, 690, DateTimeKind.Local).AddTicks(1059)
                         });
                 });
 
@@ -78,39 +78,44 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("DepartmentName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("HospitalId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DepartmentName")
+                        .IsUnique();
+
+                    b.HasIndex("HospitalId");
+
                     b.ToTable("Departments");
 
                     b.HasData(
                         new
                         {
-                            Id = -1,
+                            Id = 1,
                             DepartmentName = "Surgery",
-                            HospitalId = 0
+                            HospitalId = 1
                         },
                         new
                         {
                             Id = 2,
                             DepartmentName = "Cardiology",
-                            HospitalId = 0
+                            HospitalId = 1
                         },
                         new
                         {
                             Id = 3,
                             DepartmentName = "Neurology",
-                            HospitalId = 0
+                            HospitalId = 1
                         },
                         new
                         {
                             Id = 4,
                             DepartmentName = "Emergeny Department (ER)",
-                            HospitalId = 0
+                            HospitalId = 1
                         });
                 });
 
@@ -138,6 +143,8 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
 
                     b.ToTable("Doctors");
 
@@ -199,7 +206,7 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = -1,
+                            Id = 1,
                             HospitalAddress = "testroad 25",
                             HospitalName = "Hospital1",
                             HospitalPhoneNumber = "0707-070707",
@@ -340,25 +347,11 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("DoctorId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Dosage")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(128)");
-
                     b.Property<string>("MedicationName")
                         .IsRequired()
                         .HasColumnType("nvarchar(64)");
 
-                    b.Property<int?>("PatientId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("DoctorId");
-
-                    b.HasIndex("PatientId");
 
                     b.ToTable("Pharmacys");
 
@@ -366,22 +359,16 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            DoctorId = 1,
-                            Dosage = "1g",
                             MedicationName = "Ibuprofen"
                         },
                         new
                         {
                             Id = 2,
-                            DoctorId = 2,
-                            Dosage = "500mg",
                             MedicationName = "Paracetamol"
                         },
                         new
                         {
                             Id = 3,
-                            DoctorId = 3,
-                            Dosage = "400mg",
                             MedicationName = "Beta-adrenergic blockers"
                         });
                 });
@@ -404,13 +391,9 @@ namespace Infrastructure.Migrations
                     b.Property<int>("DoctorId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Instructions")
+                    b.Property<string>("Dosage")
                         .IsRequired()
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("MedicationName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(64)");
+                        .HasColumnType("nvarchar(MAX)");
 
                     b.Property<int>("PatientId")
                         .HasColumnType("int");
@@ -433,10 +416,9 @@ namespace Infrastructure.Migrations
                         {
                             Id = 1,
                             Cost = 10.0m,
-                            Date = new DateTime(2024, 1, 18, 14, 31, 24, 702, DateTimeKind.Local).AddTicks(6414),
+                            Date = new DateTime(2024, 1, 18, 16, 51, 0, 690, DateTimeKind.Local).AddTicks(1096),
                             DoctorId = 1,
-                            Instructions = "Every 4 hour",
-                            MedicationName = "Ibuprofen",
+                            Dosage = "Every 4 hour",
                             PatientId = 1,
                             PharmacyId = 1
                         },
@@ -444,10 +426,9 @@ namespace Infrastructure.Migrations
                         {
                             Id = 2,
                             Cost = 5.0m,
-                            Date = new DateTime(2024, 1, 18, 14, 31, 24, 702, DateTimeKind.Local).AddTicks(6420),
+                            Date = new DateTime(2024, 1, 18, 16, 51, 0, 690, DateTimeKind.Local).AddTicks(1101),
                             DoctorId = 2,
-                            Instructions = "Every 4 hour",
-                            MedicationName = "Paracetamol",
+                            Dosage = "Every 4 hour",
                             PatientId = 2,
                             PharmacyId = 2
                         },
@@ -455,10 +436,9 @@ namespace Infrastructure.Migrations
                         {
                             Id = 3,
                             Cost = 50.0m,
-                            Date = new DateTime(2024, 1, 18, 14, 31, 24, 702, DateTimeKind.Local).AddTicks(6424),
+                            Date = new DateTime(2024, 1, 18, 16, 51, 0, 690, DateTimeKind.Local).AddTicks(1104),
                             DoctorId = 3,
-                            Instructions = "Twice a day, morning and before bed",
-                            MedicationName = "Beta-adrenergic blockers",
+                            Dosage = "Twice a day, morning and before bed",
                             PatientId = 3,
                             PharmacyId = 3
                         });
@@ -472,6 +452,9 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("IsOccupied")
+                        .HasColumnType("bit");
+
                     b.Property<int?>("PatientId")
                         .HasColumnType("int");
 
@@ -483,16 +466,13 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PatientId");
-
-                    b.HasIndex("StaffId");
-
                     b.ToTable("Rooms");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
+                            IsOccupied = true,
                             PatientId = 1,
                             RoomNumber = 1,
                             StaffId = 1
@@ -500,13 +480,13 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            PatientId = 2,
-                            RoomNumber = 2,
-                            StaffId = 2
+                            IsOccupied = false,
+                            RoomNumber = 2
                         },
                         new
                         {
                             Id = 3,
+                            IsOccupied = true,
                             PatientId = 3,
                             RoomNumber = 3,
                             StaffId = 3
@@ -541,6 +521,8 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(24)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
 
                     b.ToTable("Staff");
 
@@ -593,6 +575,28 @@ namespace Infrastructure.Migrations
                     b.Navigation("Patient");
                 });
 
+            modelBuilder.Entity("Infrastructure.HospitalEntities.DepartmentEntity", b =>
+                {
+                    b.HasOne("Infrastructure.HospitalEntities.HospitalEntity", "Hospital")
+                        .WithMany("Departments")
+                        .HasForeignKey("HospitalId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Hospital");
+                });
+
+            modelBuilder.Entity("Infrastructure.HospitalEntities.DoctorEntity", b =>
+                {
+                    b.HasOne("Infrastructure.HospitalEntities.DepartmentEntity", "Department")
+                        .WithMany("Doctors")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Department");
+                });
+
             modelBuilder.Entity("Infrastructure.HospitalEntities.InvoiceEntity", b =>
                 {
                     b.HasOne("Infrastructure.HospitalEntities.PatientEntity", "Patient")
@@ -610,21 +614,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("Patient");
 
                     b.Navigation("Pharmacy");
-                });
-
-            modelBuilder.Entity("Infrastructure.HospitalEntities.PharmacyEntity", b =>
-                {
-                    b.HasOne("Infrastructure.HospitalEntities.DoctorEntity", "Doctor")
-                        .WithMany()
-                        .HasForeignKey("DoctorId");
-
-                    b.HasOne("Infrastructure.HospitalEntities.PatientEntity", "Patient")
-                        .WithMany()
-                        .HasForeignKey("PatientId");
-
-                    b.Navigation("Doctor");
-
-                    b.Navigation("Patient");
                 });
 
             modelBuilder.Entity("Infrastructure.HospitalEntities.PrescriptionEntity", b =>
@@ -654,19 +643,27 @@ namespace Infrastructure.Migrations
                     b.Navigation("Pharmacy");
                 });
 
-            modelBuilder.Entity("Infrastructure.HospitalEntities.RoomEntity", b =>
+            modelBuilder.Entity("Infrastructure.HospitalEntities.StaffEntity", b =>
                 {
-                    b.HasOne("Infrastructure.HospitalEntities.PatientEntity", "Patient")
-                        .WithMany()
-                        .HasForeignKey("PatientId");
+                    b.HasOne("Infrastructure.HospitalEntities.DepartmentEntity", "Department")
+                        .WithMany("Staff")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-                    b.HasOne("Infrastructure.HospitalEntities.StaffEntity", "Staff")
-                        .WithMany()
-                        .HasForeignKey("StaffId");
+                    b.Navigation("Department");
+                });
 
-                    b.Navigation("Patient");
+            modelBuilder.Entity("Infrastructure.HospitalEntities.DepartmentEntity", b =>
+                {
+                    b.Navigation("Doctors");
 
                     b.Navigation("Staff");
+                });
+
+            modelBuilder.Entity("Infrastructure.HospitalEntities.HospitalEntity", b =>
+                {
+                    b.Navigation("Departments");
                 });
 #pragma warning restore 612, 618
         }

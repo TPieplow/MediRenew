@@ -20,7 +20,12 @@ public class DoctorEntity
     [Column(TypeName = "nvarchar(20)")]
     public string PhoneNumber { get; set; } = null!;
 
+    [Required]
     [ForeignKey(nameof(DepartmentEntity))]
     public int DepartmentId { get; set;}
+
+    public virtual DepartmentEntity Department { get; set; } = null!;
+
+    public ICollection<PrescriptionEntity> Prescriptions = new List<PrescriptionEntity>();
 
 }
