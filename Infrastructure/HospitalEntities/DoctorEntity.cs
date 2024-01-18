@@ -23,4 +23,8 @@ public class DoctorEntity
     [ForeignKey(nameof(DepartmentEntity))]
     public int DepartmentId { get; set;}
 
+    public virtual DepartmentEntity Department { get; set; } = null!;
+
+    public ICollection<PrescriptionEntity> Prescriptions = new List<PrescriptionEntity>();
+
 }

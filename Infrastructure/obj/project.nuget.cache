@@ -1,10 +1,6 @@
 {
   "version": 2,
-<<<<<<< HEAD
-  "dgSpecHash": "Fr21tlGzG559gurProrLPZD8rktlRrKsrDZzMWiPmFXEGIk9CASE8QzqoV6pKch2Sk4YBbzyQM7nH/Q9+timAA==",
-=======
-  "dgSpecHash": "0qbiREN5TEiq3XtIf2zM6cKdmO36Z8H2C8RydJtge5YlkPAV5LLwEMSI8COzUvKEHttcKM+6tTjWNTQeuC+VVw==",
->>>>>>> 6a01d01 (save)
+  "dgSpecHash": "zEZzjQvMIO40bD/X/z9sfdzc8DabvULbzQYDCX/FEAAEXNLQ245P+Hd6AGA5WD8NOEMiky2TFyu0vU2EJdIsdA==",
   "success": true,
   "projectFilePath": "C:\\EC\\sql\\MediRenew\\Infrastructure\\Infrastructure.csproj",
   "expectedPackageFiles": [

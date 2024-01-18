@@ -24,9 +24,9 @@ public class StaffEntity
     [Column(TypeName = "nvarchar(20)")]
     public string PhoneNumber { get; set; } = null!;
 
-    [ForeignKey(nameof(Department))]
+    [ForeignKey(nameof(DepartmentEntity))]
     public int DepartmentId { get; set; }
-    public virtual DepartmentEntity Department { get; set; } = null!;
+    
 
     //Lista med doctors och staff??
 

@@ -21,20 +21,20 @@ public class PrescriptionEntity
     public decimal Cost { get; set; }
 
     [Required]
-    [Column(TypeName = "nvarchar(255)")]
-    public string Instructions { get; set; } = null!;
+    [Column(TypeName = "nvarchar(MAX)")]
+    public string Dosage { get; set; } = null!;
 
     [Required]
-    [ForeignKey(nameof(Patient))]
+    [ForeignKey(nameof(PatientEntity))]
     public int PatientId { get; set; }
     public virtual PatientEntity Patient { get; set; } = null!;
 
     [Required]
-    [ForeignKey(nameof(Doctor))]
+    [ForeignKey(nameof(DoctorEntity))]
     public int DoctorId {  get; set; }
     public virtual DoctorEntity Doctor { get; set; } = null!;
 
-    [ForeignKey(nameof(Pharmacy))]
+    [ForeignKey(nameof(PharmacyEntity))]
     public int PharmacyId { get; set; }
     public virtual PharmacyEntity? Pharmacy { get; set; }
 }

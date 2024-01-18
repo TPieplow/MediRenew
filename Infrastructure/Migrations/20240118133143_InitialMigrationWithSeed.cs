@@ -94,12 +94,6 @@ namespace Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Staff", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Staff_Departments_DepartmentId",
-                        column: x => x.DepartmentId,
-                        principalTable: "Departments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -284,16 +278,21 @@ namespace Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "Staff",
                 columns: new[] { "Id", "DepartmentId", "FirstName", "LastName", "PhoneNumber", "RoleName" },
-                values: new object[] { 1, 1, "SexyNurse1", "test", "0124356879", "Nurse" });
+                values: new object[,]
+                {
+                    { 1, 1, "SexyNurse1", "test", "0124356879", "Nurse" },
+                    { 2, 2, "SexyNurse2", "test", "009988774", "Cleaner" },
+                    { 3, 3, "SexyNurse3", "test", "5432167890", "Receptionist" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Appointments",
                 columns: new[] { "DoctorId", "PatientId", "Comments", "Date" },
                 values: new object[,]
                 {
-                    { 1, 1, "Headfraction", new DateTime(2024, 1, 18, 13, 18, 54, 708, DateTimeKind.Local).AddTicks(8114) },
-                    { 2, 2, "Pungbråck", new DateTime(2024, 1, 18, 13, 18, 54, 708, DateTimeKind.Local).AddTicks(8175) },
-                    { 3, 3, "Headfraction", new DateTime(2024, 1, 18, 13, 18, 54, 708, DateTimeKind.Local).AddTicks(8177) }
+                    { 1, 1, "Headfraction", new DateTime(2024, 1, 18, 14, 31, 42, 790, DateTimeKind.Local).AddTicks(5562) },
+                    { 2, 2, "Pungbråck", new DateTime(2024, 1, 18, 14, 31, 42, 790, DateTimeKind.Local).AddTicks(5619) },
+                    { 3, 3, "Headfraction", new DateTime(2024, 1, 18, 14, 31, 42, 790, DateTimeKind.Local).AddTicks(5621) }
                 });
 
             migrationBuilder.InsertData(
@@ -309,15 +308,11 @@ namespace Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "Rooms",
                 columns: new[] { "Id", "PatientId", "RoomNumber", "StaffId" },
-                values: new object[] { 1, 1, 1, 1 });
-
-            migrationBuilder.InsertData(
-                table: "Staff",
-                columns: new[] { "Id", "DepartmentId", "FirstName", "LastName", "PhoneNumber", "RoleName" },
                 values: new object[,]
                 {
-                    { 2, 2, "SexyNurse2", "test", "009988774", "Cleaner" },
-                    { 3, 3, "SexyNurse3", "test", "5432167890", "Receptionist" }
+                    { 1, 1, 1, 1 },
+                    { 2, 2, 2, 2 },
+                    { 3, 3, 3, 3 }
                 });
 
             migrationBuilder.InsertData(
@@ -330,18 +325,9 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "Cost", "Date", "DoctorId", "Instructions", "MedicationName", "PatientId", "PharmacyId" },
                 values: new object[,]
                 {
-                    { 1, 10.0m, new DateTime(2024, 1, 18, 13, 18, 54, 708, DateTimeKind.Local).AddTicks(8226), 1, "Every 4 hour", "Ibuprofen", 1, 1 },
-                    { 2, 5.0m, new DateTime(2024, 1, 18, 13, 18, 54, 708, DateTimeKind.Local).AddTicks(8239), 2, "Every 4 hour", "Paracetamol", 2, 2 },
-                    { 3, 50.0m, new DateTime(2024, 1, 18, 13, 18, 54, 708, DateTimeKind.Local).AddTicks(8241), 3, "Twice a day, morning and before bed", "Beta-adrenergic blockers", 3, 3 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Rooms",
-                columns: new[] { "Id", "PatientId", "RoomNumber", "StaffId" },
-                values: new object[,]
-                {
-                    { 2, 2, 2, 2 },
-                    { 3, 3, 3, 3 }
+                    { 1, 10.0m, new DateTime(2024, 1, 18, 14, 31, 42, 790, DateTimeKind.Local).AddTicks(5698), 1, "Every 4 hour", "Ibuprofen", 1, 1 },
+                    { 2, 5.0m, new DateTime(2024, 1, 18, 14, 31, 42, 790, DateTimeKind.Local).AddTicks(5705), 2, "Every 4 hour", "Paracetamol", 2, 2 },
+                    { 3, 50.0m, new DateTime(2024, 1, 18, 14, 31, 42, 790, DateTimeKind.Local).AddTicks(5707), 3, "Twice a day, morning and before bed", "Beta-adrenergic blockers", 3, 3 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -393,11 +379,6 @@ namespace Infrastructure.Migrations
                 name: "IX_Rooms_StaffId",
                 table: "Rooms",
                 column: "StaffId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Staff_DepartmentId",
-                table: "Staff",
-                column: "DepartmentId");
         }
 
         /// <inheritdoc />
@@ -405,6 +386,9 @@ namespace Infrastructure.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Appointments");
+
+            migrationBuilder.DropTable(
+                name: "Departments");
 
             migrationBuilder.DropTable(
                 name: "Hospitals");
@@ -429,9 +413,6 @@ namespace Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Patients");
-
-            migrationBuilder.DropTable(
-                name: "Departments");
         }
     }
 }
