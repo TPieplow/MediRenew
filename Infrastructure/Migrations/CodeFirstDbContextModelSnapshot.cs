@@ -85,6 +85,15 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+                    b.HasIndex("PersonId");
+
+                    b.ToTable("Appointments", (string)null);
+=======
+=======
+>>>>>>> Hassans_branch
                     b.ToTable("Departments");
 
                     b.HasData(
@@ -255,6 +264,10 @@ namespace Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("Infrastructure.HospitalEntities.PatientEntity", b =>
+<<<<<<< HEAD
+>>>>>>> d8759a46a99d994baf59f861508d361a2b0cbecf
+=======
+>>>>>>> Hassans_branch
 =======
                     b.ToTable("Appointments");
                 });
@@ -504,6 +517,12 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("PatientId");
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+                    b.ToTable("Prescriptions", (string)null);
+=======
+=======
+>>>>>>> Hassans_branch
                     b.ToTable("Pharmacys");
 
                     b.HasData(
@@ -528,6 +547,10 @@ namespace Infrastructure.Migrations
                             Dosage = "400mg",
                             MedicationName = "Beta-adrenergic blockers"
                         });
+<<<<<<< HEAD
+>>>>>>> d8759a46a99d994baf59f861508d361a2b0cbecf
+=======
+>>>>>>> Hassans_branch
                 });
 
             modelBuilder.Entity("Infrastructure.HospitalEntities.PrescriptionEntity", b =>
@@ -689,6 +712,12 @@ namespace Infrastructure.Migrations
                     b.HasIndex("DepartmentId");
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+                    b.ToTable("Roles", (string)null);
+=======
+=======
+>>>>>>> Hassans_branch
                     b.ToTable("Staff");
 
                     b.HasData(
@@ -743,6 +772,10 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Infrastructure.HospitalEntities.InvoiceEntity", b =>
                 {
                     b.HasOne("Infrastructure.HospitalEntities.PatientEntity", "Patient")
+<<<<<<< HEAD
+>>>>>>> d8759a46a99d994baf59f861508d361a2b0cbecf
+=======
+>>>>>>> Hassans_branch
 =======
                     b.ToTable("Roles");
 
