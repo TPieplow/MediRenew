@@ -27,6 +27,11 @@ public class CodeFirstDbContext(DbContextOptions<CodeFirstDbContext> options) : 
             .HasIndex(x => x.SocialSecurityNo)
             .IsUnique();
 
+        modelBuilder.Entity<PersonEntity>()
+            .HasOne(a => a.PersonProfile)
+            .WithOne(b => b.Person)
+            .HasForeignKey<PersonProfileEntity>(c => c.PersonId);
+
         modelBuilder.Entity<AuthenticationEntity>()
             .HasIndex(x => x.UserName)
             .IsUnique();

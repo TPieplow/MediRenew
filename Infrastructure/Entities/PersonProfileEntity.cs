@@ -44,13 +44,10 @@ public class PersonProfileEntity
     public bool ActivePrescriptions { get; set; }
     public DateTime? LastVisit { get; set; }
 
-    [Required]
-    [ForeignKey(nameof(PersonId))]
+
+
+    public int RoleId { get; set; }
     public int PersonId { get; set; }
-
-    public virtual PersonEntity? Person { get; set; }
-
-    [ForeignKey(nameof(RoleEntity))]
-    public int RoleEntityId { get; set; }
-    public virtual RoleEntity? RoleEntity { get; set;}
+    public virtual PersonEntity Person { get; set; } = null!;
+    public virtual RoleEntity Role { get; set; } = null!;
 }

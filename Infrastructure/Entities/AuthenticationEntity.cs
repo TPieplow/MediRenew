@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infrastructure.Entities;
@@ -6,7 +7,8 @@ namespace Infrastructure.Entities;
 public class AuthenticationEntity
 {
     [Key]
-    [ForeignKey(nameof(Person))]
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    [ForeignKey(nameof(PersonEntity))]
     public int PersonId { get; set; }
 
     [Required]
@@ -17,6 +19,5 @@ public class AuthenticationEntity
     [Column(TypeName = "nvarchar(64)")]
     public string Password { get; set; } = null!;
 
-    public virtual PersonEntity? Person { get; set; }
 }
 

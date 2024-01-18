@@ -7,9 +7,9 @@ namespace Infrastructure.DataSeed
     {
         public static void SeedData(ModelBuilder modelBuilder)
         {
+            SeedPersons(modelBuilder);
             SeedRoles(modelBuilder);
             SeedPersonProfiles(modelBuilder);
-            SeedPersons(modelBuilder);
             SeedAuthentications(modelBuilder);
         }
 
@@ -39,8 +39,8 @@ namespace Infrastructure.DataSeed
                     SocialSecurityNo = 987654321,
                     ActivePrescriptions = true,
                     LastVisit = new DateTime(2024, 1, 16),
-                    PersonId = 1,
-                    RoleEntityId = 3
+                    PersonId = -2,
+                    RoleId = 3,
                 },
                 new PersonProfileEntity
                 {
@@ -56,8 +56,9 @@ namespace Infrastructure.DataSeed
                     SocialSecurityNo = 880330,
                     ActivePrescriptions = true,
                     LastVisit = new DateTime(2024, 1, 16),
-                    PersonId = 2,
-                    RoleEntityId = 2
+                    PersonId = -3,
+                    RoleId = 2,
+                    
                 });
         }
 
@@ -66,11 +67,17 @@ namespace Infrastructure.DataSeed
             modelBuilder.Entity<PersonEntity>().HasData(
                 new PersonEntity
                 {
-                    Id = 1,
+                    Id = -2,
+                    Created = DateTime.UtcNow,
+                    Active = true,
+                    Updated = null
                 },
                 new PersonEntity
                 {
-                    Id = 2,
+                    Id = -3,
+                    Created = DateTime.UtcNow,
+                    Active = true,
+                    Updated = null
                 }
                 );
         }
@@ -80,7 +87,15 @@ namespace Infrastructure.DataSeed
             modelBuilder.Entity<AuthenticationEntity>().HasData(
                 new AuthenticationEntity
                 {
-
+                    PersonId = 3,
+                    UserName = "tastast",
+                    Password = "asdtasd"
+                },
+                new AuthenticationEntity
+                {
+                    PersonId = 4,
+                    UserName = "tasdt",
+                    Password = "asdtasdt"
                 });
         }
     }

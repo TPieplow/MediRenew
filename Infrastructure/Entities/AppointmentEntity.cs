@@ -17,16 +17,10 @@ public class AppointmentEntity
     public string AppointmentDetails { get; set; } = null!;
 
     [Required]
-    [ForeignKey(nameof(Doctor))]
+    [ForeignKey(nameof(PersonEntity))]
     public int DoctorId { get; set; }
 
     [Required]
     [ForeignKey(nameof(PersonEntity))]
     public int PatientId { get; set; }
-
-    [ForeignKey(nameof(DoctorId))]
-    public virtual PersonEntity? Doctor { get; set; }
-
-    [ForeignKey(nameof(PatientId))]
-    public virtual PersonEntity? Patient { get; set; }
 }

@@ -6,12 +6,14 @@ namespace Infrastructure.Entities;
 public class PersonEntity
 {
     [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
 
-    [Required]
-    
-    public int ProfileId { get; set; }
+    public DateTime? Created { get; set; }
+    public bool Active { get; set; }
+    public DateTime? Updated { get; set; }
 
-    [ForeignKey(nameof(ProfileId))]
-    public virtual PersonProfileEntity? Profile { get; set; } = null!;
+    public virtual PersonProfileEntity PersonProfile { get; set; } = null!;
+
+    public ICollection<AppointmentEntity> Appointments = new List<AppointmentEntity>();
 }
