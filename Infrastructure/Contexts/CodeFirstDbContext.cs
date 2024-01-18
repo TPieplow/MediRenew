@@ -28,7 +28,18 @@ public class CodeFirstDbContext(DbContextOptions<CodeFirstDbContext> options) : 
         //    .Property(p => p.Cost)
         //    .HasColumnType("decimal(10, 2)");
 
+<<<<<<< HEAD
         DataSeederHospital.HospitalSeeder(modelBuilder);
+=======
+        modelBuilder.Entity<PersonEntity>()
+            .HasOne(a => a.PersonProfile)
+            .WithOne(b => b.Person)
+            .HasForeignKey<PersonProfileEntity>(c => c.PersonId);
+
+        modelBuilder.Entity<AuthenticationEntity>()
+            .HasIndex(x => x.UserName)
+            .IsUnique();
+>>>>>>> 27ab09b0e8d08d7ca2ba60edccb1bd6030218a2e
 
         //lägg till mer konfig om det behövs.
     }
