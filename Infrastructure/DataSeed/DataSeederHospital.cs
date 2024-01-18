@@ -26,7 +26,7 @@ namespace Infrastructure.DataSeed
 
                 new HospitalEntity()
                 {
-                    Id = -1,
+                    Id = 1,
                     HospitalName = "Hospital1",
                     HospitalAddress = "testroad 25",
                     HospitalPhoneNumber = "0707-070707",
@@ -39,23 +39,27 @@ namespace Infrastructure.DataSeed
             modelBuilder.Entity<DepartmentEntity>().HasData(
                 new DepartmentEntity()
                 {
-                    Id = -1, 
+                    Id = 1, 
                     DepartmentName = "Surgery",
+                    HospitalId = 1,
                 },
                 new DepartmentEntity()
                 {
                     Id = 2,
                     DepartmentName = "Cardiology",
+                    HospitalId = 1
                 },
                 new DepartmentEntity()
                 {
                     Id = 3,
                     DepartmentName = "Neurology",
+                    HospitalId = 1
                 },
                 new DepartmentEntity()
                 {
                     Id = 4,
                     DepartmentName = "Emergeny Department (ER)",
+                    HospitalId = 1
                 });
         }
 
@@ -166,22 +170,19 @@ namespace Infrastructure.DataSeed
                 {
                     Id = 1,
                     MedicationName = "Ibuprofen",
-                    Dosage = "1g",
-                    DoctorId = 1,
+
                 },
                 new PharmacyEntity()
                 {
                     Id = 2,
                     MedicationName = "Paracetamol",
-                    Dosage = "500mg",
-                    DoctorId = 2,
+
                 },
                 new PharmacyEntity()
                 {
                     Id = 3,
                     MedicationName = "Beta-adrenergic blockers",
-                    Dosage = "400mg",
-                    DoctorId = 3,
+
                 });
         }
 
@@ -219,6 +220,7 @@ namespace Infrastructure.DataSeed
                 new RoomEntity()
                 {
                     Id = 1,
+                    IsOccupied = true,
                     RoomNumber = 1,
                     PatientId = 1,
                     StaffId = 1
@@ -226,13 +228,15 @@ namespace Infrastructure.DataSeed
                 new RoomEntity()
                 {
                     Id = 2,
+                    IsOccupied = false,
                     RoomNumber = 2,
-                    PatientId = 2,
-                    StaffId = 2
+                    PatientId = null,
+                    StaffId = null
                 },
                 new RoomEntity()
                 {
                     Id = 3,
+                    IsOccupied = true,
                     RoomNumber = 3,
                     PatientId = 3,
                     StaffId = 3
@@ -245,10 +249,9 @@ namespace Infrastructure.DataSeed
                 new PrescriptionEntity()
                 {
                     Id = 1,
-                    MedicationName = "Ibuprofen",
                     Date = DateTime.Now,
                     Cost = 10.0m,
-                    Instructions = "Every 4 hour",
+                    Dosage = "Every 4 hour",
                     PatientId = 1,
                     DoctorId = 1,
                     PharmacyId = 1,
@@ -256,10 +259,9 @@ namespace Infrastructure.DataSeed
                 new PrescriptionEntity()
                 {
                     Id = 2,
-                    MedicationName = "Paracetamol",
                     Date = DateTime.Now,
                     Cost = 5.0m,
-                    Instructions = "Every 4 hour",
+                    Dosage = "Every 4 hour",
                     PatientId = 2,
                     DoctorId = 2,
                     PharmacyId = 2,
@@ -267,10 +269,9 @@ namespace Infrastructure.DataSeed
                 new PrescriptionEntity()
                 {
                     Id = 3,
-                    MedicationName = "Beta-adrenergic blockers",
                     Date = DateTime.Now,
                     Cost = 50.0m,
-                    Instructions = "Twice a day, morning and before bed",
+                    Dosage = "Twice a day, morning and before bed",
                     PatientId = 3,
                     DoctorId = 3,
                     PharmacyId = 3,

@@ -24,23 +24,29 @@ public class CodeFirstDbContext(DbContextOptions<CodeFirstDbContext> options) : 
         modelBuilder.Entity<AppointmentEntity>().HasKey(
             nameof(AppointmentEntity.PatientId), nameof(AppointmentEntity.DoctorId));
 
-        //modelBuilder.Entity<PrescriptionEntity>()
-        //    .Property(p => p.Cost)
-        //    .HasColumnType("decimal(10, 2)");
+        modelBuilder.Entity<DepartmentEntity>()
+            .HasOne(d => d.Hospital)
+            .WithMany(h => h.Departments)
+            .HasForeignKey(d => d.HospitalId)
+            .OnDelete(DeleteBehavior.Restrict);
 
-<<<<<<< HEAD
-        DataSeederHospital.HospitalSeeder(modelBuilder);
-=======
-        modelBuilder.Entity<PersonEntity>()
-            .HasOne(a => a.PersonProfile)
-            .WithOne(b => b.Person)
-            .HasForeignKey<PersonProfileEntity>(c => c.PersonId);
+        modelBuilder.Entity<DoctorEntity>()
+            .HasOne(d => d.Department)
+            .WithMany(c => c.Doctors)
+            .HasForeignKey(f => f.DepartmentId)
+            .OnDelete(DeleteBehavior.Restrict);
 
-        modelBuilder.Entity<AuthenticationEntity>()
-            .HasIndex(x => x.UserName)
+        modelBuilder.Entity<StaffEntity>()
+            .HasOne(d => d.Department)
+            .WithMany(s => s.Staff)
+            .HasForeignKey(f => f.DepartmentId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<DepartmentEntity>()
+            .HasIndex(d => d.DepartmentName)
             .IsUnique();
->>>>>>> 27ab09b0e8d08d7ca2ba60edccb1bd6030218a2e
 
-        //lägg till mer konfig om det behövs.
+        DataSeederHospital.HospitalSeeder(modelBuilder);
+
     }
 }
