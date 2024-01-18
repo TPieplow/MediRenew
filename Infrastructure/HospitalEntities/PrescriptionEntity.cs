@@ -10,10 +10,6 @@ public class PrescriptionEntity
     public int Id { get; set; }
 
     [Required]
-    [Column(TypeName = "nvarchar(64)")]
-    public string MedicationName { get; set; } = null!;
-
-    [Required]
     public DateTime Date { get; set; }
 
     [Required]
@@ -27,14 +23,17 @@ public class PrescriptionEntity
     [Required]
     [ForeignKey(nameof(PatientEntity))]
     public int PatientId { get; set; }
-    public virtual PatientEntity Patient { get; set; } = null!;
 
     [Required]
     [ForeignKey(nameof(DoctorEntity))]
     public int DoctorId {  get; set; }
-    public virtual DoctorEntity Doctor { get; set; } = null!;
 
+
+    [Required]
     [ForeignKey(nameof(PharmacyEntity))]
     public int PharmacyId { get; set; }
-    public virtual PharmacyEntity? Pharmacy { get; set; }
+
+    public virtual PatientEntity Patient { get; set; } = null!;
+    public virtual DoctorEntity Doctor { get; set; } = null!;
+    public virtual PharmacyEntity Pharmacy { get; set; } = null!;
 }

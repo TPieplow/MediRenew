@@ -26,7 +26,7 @@ namespace Infrastructure.DataSeed
 
                 new HospitalEntity()
                 {
-                    Id = -1,
+                    Id = 1,
                     HospitalName = "Hospital1",
                     HospitalAddress = "testroad 25",
                     HospitalPhoneNumber = "0707-070707",
@@ -39,23 +39,27 @@ namespace Infrastructure.DataSeed
             modelBuilder.Entity<DepartmentEntity>().HasData(
                 new DepartmentEntity()
                 {
-                    Id = -1, 
+                    Id = 1, 
                     DepartmentName = "Surgery",
+                    HospitalId = 1,
                 },
                 new DepartmentEntity()
                 {
                     Id = 2,
                     DepartmentName = "Cardiology",
+                    HospitalId = 1
                 },
                 new DepartmentEntity()
                 {
                     Id = 3,
                     DepartmentName = "Neurology",
+                    HospitalId = 1
                 },
                 new DepartmentEntity()
                 {
                     Id = 4,
                     DepartmentName = "Emergeny Department (ER)",
+                    HospitalId = 1
                 });
         }
 

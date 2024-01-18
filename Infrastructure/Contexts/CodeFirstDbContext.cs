@@ -28,13 +28,15 @@ public class CodeFirstDbContext(DbContextOptions<CodeFirstDbContext> options) : 
             .OnDelete(DeleteBehavior.Restrict); ;
 
         modelBuilder.Entity<DepartmentEntity>()
-            .HasIndex(d => d.DepartmentName)
-            .IsUnique();
+            .HasOne(d => d.Hospital)
+            .WithMany(h => h.Departments)
+            .HasForeignKey(d => d.HospitalId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<DoctorEntity>()
             .HasOne(d => d.Department)
             .WithMany(c => c.Doctors)
-            .HasForeignKey(d => d.DepartmentId)
+            .HasForeignKey(f => f.DepartmentId)
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<StaffEntity>()
@@ -43,15 +45,12 @@ public class CodeFirstDbContext(DbContextOptions<CodeFirstDbContext> options) : 
             .HasForeignKey(f => f.DepartmentId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        
-
-        modelBuilder.Entity<AppointmentEntity>()
-            .HasKey(nameof(AppointmentEntity.PatientId), nameof(AppointmentEntity.DoctorId));
+        modelBuilder.Entity<DepartmentEntity>()
+            .HasIndex(d => d.DepartmentName)
+            .IsUnique();
 
 
         DataSeederHospital.HospitalSeeder(modelBuilder);
 
-
-        //lägg till mer konfig om det behövs.
     }
 }

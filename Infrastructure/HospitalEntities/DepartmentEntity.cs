@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infrastructure.HospitalEntities;
 
+
     [Index(nameof(DepartmentName), IsUnique = true)]
 public class DepartmentEntity
 {
@@ -13,11 +14,14 @@ public class DepartmentEntity
     [Required]
     public string DepartmentName { get; set; } = null!;
 
+    [Required]
     [ForeignKey(nameof(HospitalEntity))]
     public int HospitalId {  get; set; }
+
     public virtual HospitalEntity Hospital { get; set; } = null!;
 
-    public ICollection<DoctorEntity> Doctors = new HashSet<DoctorEntity>();
-    public ICollection<StaffEntity> Staff = new HashSet<StaffEntity>();
-    
+    public ICollection<DoctorEntity> Doctors = new List<DoctorEntity>();
+
+    public ICollection<StaffEntity> Staff = new List<StaffEntity>();
+
 }
