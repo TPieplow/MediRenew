@@ -1,32 +1,36 @@
 ﻿using Infrastructure.DataSeed;
-using Infrastructure.Entities;
+using Infrastructure.HospitalEntities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Contexts;
 
 public class CodeFirstDbContext(DbContextOptions<CodeFirstDbContext> options) : DbContext(options)
 {
+    public virtual DbSet<HospitalEntity> Hospitals { get; set; }
+    public virtual DbSet<DepartmentEntity> Departments { get; set; }
+    public virtual DbSet<DoctorEntity> Doctors { get; set; }
+    public virtual DbSet<StaffEntity> Staff { get; set; }
+    public virtual DbSet<PatientEntity> Patients { get; set; }
+    public virtual DbSet<PharmacyEntity> Pharmacys { get; set; }
     public virtual DbSet<AppointmentEntity> Appointments { get; set; }
-    public virtual DbSet<AuthenticationEntity> Authentications { get; set; }
-    public virtual DbSet<PersonEntity> Persons { get; set; }
-    public virtual DbSet<PersonProfileEntity> PersonProfiles { get; set; }
+    public virtual DbSet<RoomEntity> Rooms { get; set; }
     public virtual DbSet<PrescriptionEntity> Prescriptions { get; set; }
-    public virtual DbSet<RoleEntity> Roles { get; set; }
+    public virtual DbSet<InvoiceEntity> Invoices { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<RoleEntity>()
-            .HasIndex(x => x.Role)
-            .IsUnique();
 
-        modelBuilder.Entity<PersonProfileEntity>()
-            .HasIndex(x => x.Email)
-            .IsUnique();
+        modelBuilder.Entity<AppointmentEntity>().HasKey(
+            nameof(AppointmentEntity.PatientId), nameof(AppointmentEntity.DoctorId));
 
-        modelBuilder.Entity<PersonProfileEntity>()
-            .HasIndex(x => x.SocialSecurityNo)
-            .IsUnique();
+        //modelBuilder.Entity<PrescriptionEntity>()
+        //    .Property(p => p.Cost)
+        //    .HasColumnType("decimal(10, 2)");
 
+<<<<<<< HEAD
+        DataSeederHospital.HospitalSeeder(modelBuilder);
+=======
         modelBuilder.Entity<PersonEntity>()
             .HasOne(a => a.PersonProfile)
             .WithOne(b => b.Person)
@@ -39,7 +43,8 @@ public class CodeFirstDbContext(DbContextOptions<CodeFirstDbContext> options) : 
         modelBuilder.Entity<AuthenticationEntity>()
             .HasIndex(x => x.UserName)
             .IsUnique();
+>>>>>>> 27ab09b0e8d08d7ca2ba60edccb1bd6030218a2e
 
-        DataSeeder.SeedData(modelBuilder);
+        //lägg till mer konfig om det behövs.
     }
 }
