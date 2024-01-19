@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Business.DTOs;
 
-namespace Business.DTOs
+public class PrescriptionDTO
 {
-    internal class PrescriptionDTO
-    {
-    }
+    public int Id { get; set; }
+    public DateTime Date { get; set; }
+    public decimal Cost { get; set; }
+    public string Dosage { get; set; } = null!;
+    public int PatientId { get; set; }
+    public int DoctorId { get; set; }
+    public int PharmacyId { get; set; }
 }
+
