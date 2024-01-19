@@ -42,5 +42,5 @@ public class PatientEntity
     [ForeignKey(nameof(PharmacyEntity))]
     public int? PharmacyId { get; set; }
 
-    public ICollection<PrescriptionEntity> Prescriptions = new List<PrescriptionEntity>();
+    public ICollection<PrescriptionEntity> Prescriptions { get; set; } = new List<PrescriptionEntity>();
 }

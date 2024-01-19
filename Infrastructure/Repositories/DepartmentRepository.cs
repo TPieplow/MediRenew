@@ -14,7 +14,7 @@ public class DepartmentRepository : Repository<DepartmentEntity>
 
     public override Task<DepartmentEntity> Create(DepartmentEntity entity)
     {
-        return base.Create(entity);
+       _context.Departments.Add(entity);
     }
 
     public override Task<bool> Delete(Expression<Func<DepartmentEntity, bool>> predicate)

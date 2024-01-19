@@ -28,6 +28,19 @@ public abstract class Repository<TEntity> where TEntity : class
         return null!;
     }
 
+    public virtual TEntity GetOne(Expression<Func<TEntity, bool>> predicate)
+    {
+        try
+        {
+            return _context.Set<TEntity>().FirstOrDefault(predicate)!;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"ERROR: {ex.Message}");
+        }
+        return null!;
+    }
+
     public virtual async Task<IEnumerable<TEntity>> GetAll()
     {
         try
