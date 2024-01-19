@@ -16,9 +16,7 @@ public class PatientRepository : Repository<PatientEntity>
 
     public override async Task<IEnumerable<PatientEntity>> GetAll()
     {
-        return await _context.Patients
-            .Include(patient => patient.Prescriptions)
-            .ToListAsync();
+        return await _context.Patients.ToListAsync();
     }
 
     public override async Task<PatientEntity> GetOne(Expression<Func<PatientEntity, bool>> predicate)
