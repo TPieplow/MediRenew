@@ -14,9 +14,8 @@ public class DepartmentRepository : Repository<DepartmentEntity>
 
     public override Task<DepartmentEntity> Create(DepartmentEntity entity)
     {
-       _context.Departments.Add(entity);
+        return base.Create(entity);
     }
-
     public override Task<bool> Delete(Expression<Func<DepartmentEntity, bool>> predicate)
     {
         return base.Delete(predicate);
@@ -27,7 +26,7 @@ public class DepartmentRepository : Repository<DepartmentEntity>
         return base.GetAll();
     }
 
-    public override DepartmentEntity GetOne(Expression<Func<DepartmentEntity, bool>> predicate)
+    public override Task<DepartmentEntity> GetOne(Expression<Func<DepartmentEntity, bool>> predicate)
     {
         return base.GetOne(predicate);
     }

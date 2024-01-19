@@ -28,17 +28,20 @@ public abstract class Repository<TEntity> where TEntity : class
         return null!;
     }
 
-    public virtual TEntity GetOne(Expression<Func<TEntity, bool>> predicate)
+    public virtual async Task<TEntity> GetOne(Expression<Func<TEntity, bool>> predicate)
     {
         try
         {
-            return _context.Set<TEntity>().FirstOrDefault(predicate)!;
+            var entity = await _context.Set<TEntity>()
+                .FirstOrDefaultAsync(predicate);
+
+            return entity ?? throw new Exception("Entity not found");
         }
         catch (Exception ex)
         {
             Debug.WriteLine($"ERROR: {ex.Message}");
+            return null;
         }
-        return null!;
     }
 
     public virtual async Task<IEnumerable<TEntity>> GetAll()
@@ -78,5 +81,18 @@ public abstract class Repository<TEntity> where TEntity : class
         }
         catch (Exception ex) { Debug.WriteLine($"ERROR : {ex.Message}"); }
         return null!;
+    }
+
+    public virtual bool Exists(Expression<Func<TEntity, bool>> predicate)
+    {
+        try
+        {
+            return _context.Set<TEntity>().Any(predicate);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"ERROR: {ex.Message}");
+            return false;
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Infrastructure.Contexts;
+using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -15,7 +16,7 @@ public class Program
         builder.ConfigureServices(services =>
         {
             services.AddDbContext<CodeFirstDbContext>(x => x.UseSqlServer(@"Data Source=localhost;Initial Catalog=HospitalDb;Integrated Security=True;Trust Server Certificate=True"));
-            
+            services.AddScoped<PatientRepository>();
         });
 
         builder.Build();
