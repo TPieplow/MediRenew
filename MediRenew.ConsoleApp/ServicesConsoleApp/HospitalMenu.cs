@@ -2,9 +2,9 @@
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp;
 
-public class HospitalMenu(Patient patientService)
+public class HospitalMenu(PatientHandler patient)
 {
-    public readonly Patient _patientService = patientService;
+    public readonly PatientHandler _patient = patient;
 
     public async Task MenuAsync()
     {
@@ -33,7 +33,7 @@ public class HospitalMenu(Patient patientService)
             switch (choice)
             {
                 case "1":
-                    await _patientService.AddPatient();
+                    await _patient.AddPatient();
                     break;
 
                 case "2":

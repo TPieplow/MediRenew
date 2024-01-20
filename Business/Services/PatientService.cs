@@ -16,7 +16,7 @@ public class PatientService(PatientRepository patientRepository)
         {
             if (_patientRepository.Exists(x => x.Email == newPatient.Email))
             {
-                var existingPatientEntity = _patientRepository.GetOne(x => x.Email == newPatient.Email);
+                var existingPatientEntity = _patientRepository.GetOneAsync(x => x.Email == newPatient.Email);
 
                 return false;
             }
@@ -49,7 +49,7 @@ public class PatientService(PatientRepository patientRepository)
         {
             if (_patientRepository.Exists(x => x.Id == patientId))
             {
-                var patient = await _patientRepository.GetOne(x => x.Id == patientId);
+                var patient = await _patientRepository.GetOneAsync(x => x.Id == patientId);
                 if (patient is not null)
                 {
                     return patient;
@@ -72,7 +72,7 @@ public class PatientService(PatientRepository patientRepository)
     public async Task<IEnumerable<PatientDTO>> GetAllPatients()
     {
         var patients = new List<PatientDTO>();
-        var result = await _patientRepository.GetAll();
+        var result = await _patientRepository.GetAllAsync();
 
         foreach (var patient in result)
         {

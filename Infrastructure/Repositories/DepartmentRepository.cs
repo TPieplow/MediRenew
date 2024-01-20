@@ -12,27 +12,27 @@ public class DepartmentRepository : Repository<DepartmentEntity>
         _context = context;
     }
 
-    public override Task<DepartmentEntity> Create(DepartmentEntity entity)
+    public override Task<DepartmentEntity> CreateAsync(DepartmentEntity entity)
     {
-        return base.Create(entity);
+        return base.CreateAsync(entity);
     }
-    public override Task<bool> Delete(Expression<Func<DepartmentEntity, bool>> predicate)
+    public override Task<bool> DeleteAsync(Expression<Func<DepartmentEntity, bool>> predicate)
     {
-        return base.Delete(predicate);
-    }
-
-    public override Task<IEnumerable<DepartmentEntity>> GetAll()
-    {
-        return base.GetAll();
+        return base.DeleteAsync(predicate);
     }
 
-    public override Task<DepartmentEntity> GetOne(Expression<Func<DepartmentEntity, bool>> predicate)
+    public override Task<IEnumerable<DepartmentEntity>> GetAllAsync()
     {
-        return base.GetOne(predicate);
+        return base.GetAllAsync();
     }
 
-    public override Task<DepartmentEntity> Update(DepartmentEntity entity)
+    public override Task<DepartmentEntity> GetOneAsync(Expression<Func<DepartmentEntity, bool>> predicate)
     {
-        return base.Update(entity);
+        return base.GetOneAsync(predicate);
+    }
+
+    public override Task<DepartmentEntity> UpdateAsync(DepartmentEntity entity)
+    {
+        return base.UpdateAsync(entity);
     }
 }

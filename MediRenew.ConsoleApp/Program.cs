@@ -1,4 +1,6 @@
-﻿using Infrastructure.Contexts;
+﻿
+using Business.Services;
+using Infrastructure.Contexts;
 using Infrastructure.Repositories;
 using MediRenew.ConsoleApp.Login;
 using MediRenew.ConsoleApp.ServicesConsoleApp;
@@ -11,7 +13,7 @@ namespace MediRenew.ConsoleApp;
 
 class Program
 {
-    static void Main(string[] args)
+    static async Task Main(string[] args)
     {
         var builder = Host.CreateDefaultBuilder();
 
@@ -19,6 +21,8 @@ class Program
         {
             services.AddDbContext<CodeFirstDbContext>(x => x.UseSqlServer(@"Data Source=localhost;Initial Catalog=HospitalDb;Integrated Security=True;Trust Server Certificate=True"));
             services.AddScoped<PatientRepository>();
+            services.AddScoped<PatientService>();
+            services.AddScoped<PatientHandler>();
             services.AddScoped<LoginService>();
         });
 
@@ -29,10 +33,10 @@ class Program
             var serviceProvider = scope.ServiceProvider;
             var loginService = serviceProvider.GetRequiredService<LoginService>();
 
-            if (LoginService.Login())
+            if (loginService.Login())
             {
-                var hospitalMenu = new HospitalMenu(serviceProvider.GetRequiredService<Patient>());
-                hospitalMenu.MenuAsync();
+                var hospitalMenu = new HospitalMenu(serviceProvider.GetRequiredService<PatientHandler>());
+                await hospitalMenu.MenuAsync();
             }
             else
             {

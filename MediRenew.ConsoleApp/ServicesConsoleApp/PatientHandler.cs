@@ -1,18 +1,15 @@
 ﻿using Business.DTOs;
 using Business.Services;
-using Infrastructure.HospitalEntities;
-using Infrastructure.Repositories;
+
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp;
 
-public class Patient
+public class PatientHandler
 {
-    private readonly PatientRepository _patientRepository;
     private readonly PatientService _patientService;
 
-    public Patient(PatientRepository patientRepository, PatientService patientService)
+    public PatientHandler(PatientService patientService)
     {
-        _patientRepository = patientRepository;
         _patientService = patientService;
     }
 
