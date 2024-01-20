@@ -1,4 +1,5 @@
-﻿namespace MediRenew.ConsoleApp.Login;
+﻿using Spectre.Console;
+namespace MediRenew.ConsoleApp.Login;
 
 public class LoginService
 {
@@ -10,46 +11,67 @@ public class LoginService
         const int maxAttempts = 3;
 
         Console.Clear();
-        Console.WriteLine("\tWelcome to MediRenew, a Hospital Database Handler! ");
-        Console.Write("\t------------------------------------------------------\n");
-        Console.Write("\n\n\tLogin credentials:\n");
-        Console.Write("\tUsername: Hans@domain.com\n");
-        Console.Write("\tPassword: Bytmig123\n");
- 
+
+        AnsiConsole.Write(new FigletText("MediRenew").Centered().Color(Color.Yellow));
+
+        var rule = new Rule();
+        rule.RuleStyle("Hotpink");
+        AnsiConsole.Write(rule);
+
+        AnsiConsole.Write(new Rule("\n[Yellow]The Number One - Hospital Database Handler![/]").RuleStyle(Color.HotPink));
+
+        rule = new Rule();
+        rule.RuleStyle("Hotpink");
+        AnsiConsole.Write(rule);
+
+        AnsiConsole.Write(
+        new Table()
+        .BorderStyle(Color.HotPink)
+            .AddColumn(new TableColumn("[Yellow]Login Credentials[/]").Centered())
+            .AddRow("[Yellow]Username: Hans@domain.com[/]")
+            .AddRow("[Yellow]Password: Bytmig123![/]").Centered());
+
         do
         {
-            Console.Write("\n\tUsername: ");
+            AnsiConsole.Write(
+            new Table()
+                .BorderStyle(Color.HotPink)
+                .AddColumn(new TableColumn("Login").Centered())
+                .Centered());
+
+            AnsiConsole.Write(new Rule("\n[yellow]Username:[/]").LeftJustified());
             username = Console.ReadLine()!;
 
-            Console.Write("\n\tPassword");
+            AnsiConsole.Write(new Rule("\n[yellow]Password:[/]").LeftJustified());
             password = Console.ReadLine()!;
             if (IsValidLogin(username, password))
             {
                 Console.Clear();
-                Console.WriteLine("\tLogged in successfully!\n\n");
+                AnsiConsole.Write(new Rule("\t[yellow]Logged in successfully![/]\n\n").LeftJustified());
                 return true;
             }
             else
-
+            {
                 loginAttempts++;
-            if (loginAttempts < maxAttempts)
-            {
-                Console.WriteLine("\tInvalid credentials. Please try again.");
-            }
-            else
-            {
-                Console.WriteLine("\tYou have entered wrong credentials more than 3 times. Please wait 10 minutes before trying again");
-                Thread.Sleep(10 * 60 * 1000);
-                loginAttempts = 0;
+                if (loginAttempts < maxAttempts)
+                {
+                    AnsiConsole.Write(new Rule("\t[yellow]Invalid credentials. Please try again.[/]").LeftJustified());
+                }
+                else
+                {
+                    AnsiConsole.Write(new Rule("\tYou have entered wrong credentials more than 3 times. Please wait 10 minutes before trying again").LeftJustified());
+                    Thread.Sleep(10 * 60 * 1000);
+                    loginAttempts = 0;
+                }
             }
 
         } while (loginAttempts < maxAttempts);
-        Console.WriteLine("\tExiting application due to multiple failed login attempts");
+        AnsiConsole.Write(new Rule("\tExiting application due to multiple failed login attempts").LeftJustified());
         return false;
     }
 
     private static bool IsValidLogin(string username, string password)
     {
-        return username == "Hans@domain.com" && password == "Bytmig123";
+        return username == "Hans@domain.com" && password == "Bytmig123!";
     }
 }

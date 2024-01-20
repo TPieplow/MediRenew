@@ -44,4 +44,29 @@ public class PatientRepository : Repository<PatientEntity>
             return null;
         }
     }
+
+    public PatientEntity GetByIdIncludePrescription(int id)
+    {
+        return _context.Patients.Include(x => x.Prescriptions)
+            .FirstOrDefault(x => x.Id == id)!;
+    }
+
+    public bool RemovePatient(int id)
+    {
+        var patient = _context.Patients.Find(id);
+        if (patient is { })
+        {
+            _context.Patients.Remove(patient);
+            return true;
+        }
+
+        return false;
+    }
+
+    public override Task<PatientEntity> UpdateAsync(PatientEntity entity)
+    {
+        return base.UpdateAsync(entity);
+    }
+
+
 }
