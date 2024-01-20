@@ -14,12 +14,12 @@ public class PatientRepository : Repository<PatientEntity>
         _context = context;
     }
 
-    public override async Task<IEnumerable<PatientEntity>> GetAll()
+    public override async Task<IEnumerable<PatientEntity>> GetAllAsync()
     {
         return await _context.Patients.ToListAsync();
     }
 
-    public override async Task<PatientEntity> GetOne(Expression<Func<PatientEntity, bool>> predicate)
+    public override async Task<PatientEntity> GetOneAsync(Expression<Func<PatientEntity, bool>> predicate)
     {
         try
         {

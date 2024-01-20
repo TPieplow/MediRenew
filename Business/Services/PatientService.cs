@@ -10,7 +10,7 @@ public class PatientService(PatientRepository patientRepository)
 {
     private readonly PatientRepository _patientRepository = patientRepository;
 
-    public async Task<bool> AddPatient(PatientDTO newPatient)
+    public async Task<bool> AddPatientAsync(PatientDTO newPatient)
     {
         try
         {
@@ -31,7 +31,7 @@ public class PatientService(PatientRepository patientRepository)
                 PostalCode = newPatient.PostalCode,
                 City = newPatient.City,
             };
-            var result = await _patientRepository.Create(newPatientEntity);
+            var result = await _patientRepository.CreateAsync(newPatientEntity);
             if (result is not null)
                 return true;
 

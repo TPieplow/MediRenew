@@ -31,8 +31,8 @@ class Program
 
             if (LoginService.Login())
             {
-                var hospitalMenu = new HospitalMenu(serviceProvider.GetRequiredService<PatientService>());
-                hospitalMenu.Menu();
+                var hospitalMenu = new HospitalMenu(serviceProvider.GetRequiredService<Patient>());
+                hospitalMenu.MenuAsync();
             }
             else
             {

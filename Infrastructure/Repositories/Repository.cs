@@ -14,7 +14,7 @@ public abstract class Repository<TEntity> where TEntity : class
         _context = context;
     }
 
-    public virtual async Task<TEntity> Create(TEntity entity)
+    public virtual async Task<TEntity> CreateAsync(TEntity entity)
     {
         try
         {
@@ -28,7 +28,7 @@ public abstract class Repository<TEntity> where TEntity : class
         return null!;
     }
 
-    public virtual async Task<TEntity> GetOne(Expression<Func<TEntity, bool>> predicate)
+    public virtual async Task<TEntity> GetOneAsync(Expression<Func<TEntity, bool>> predicate)
     {
         try
         {
@@ -44,7 +44,7 @@ public abstract class Repository<TEntity> where TEntity : class
         }
     }
 
-    public virtual async Task<IEnumerable<TEntity>> GetAll()
+    public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
     {
         try
         {
@@ -54,7 +54,7 @@ public abstract class Repository<TEntity> where TEntity : class
         return Enumerable.Empty<TEntity>();
     }
 
-    public virtual async Task<bool> Delete(Expression<Func<TEntity, bool>> predicate)
+    public virtual async Task<bool> DeleteAsync(Expression<Func<TEntity, bool>> predicate)
     {
         try
         {
@@ -66,12 +66,13 @@ public abstract class Repository<TEntity> where TEntity : class
 
                 return true;
             }
+            return false;
         }
         catch (Exception ex) { Debug.WriteLine($"ERROR : {ex.Message}"); }
         return false;
     }
 
-    public virtual async Task<TEntity> Update(TEntity entity)
+    public virtual async Task<TEntity> UpdateAsync(TEntity entity)
     {
         try
         {
