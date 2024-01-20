@@ -15,10 +15,10 @@ public class LoginService
         Console.Write("------------------------------------------------------\n");
         do
         {
-            Console.WriteLine("Username: ");
+            Console.Write("Username: ");
             username = Console.ReadLine()!;
 
-            Console.WriteLine("Password");
+            Console.Write("Password");
             password = Console.ReadLine()!;
             if (IsValidLogin(username, password))
             {
@@ -47,7 +47,6 @@ public class LoginService
 
     private static bool IsValidLogin(string username, string password)
     {
-
         return username == "Hans@domain.com" && password == "Bytmig123";
     }
 }
