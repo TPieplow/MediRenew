@@ -21,11 +21,8 @@ public class CodeFirstDbContext(DbContextOptions<CodeFirstDbContext> options) : 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
 
-        modelBuilder.Entity<DepartmentEntity>()
-            .HasOne(d => d.Hospital)
-            .WithMany(h => h.Departments)
-            .HasForeignKey(d => d.HospitalId)
-            .OnDelete(DeleteBehavior.Restrict); ;
+        modelBuilder.Entity<AppointmentEntity>().HasKey(
+            nameof(AppointmentEntity.PatientId), nameof(AppointmentEntity.DoctorId));
 
         modelBuilder.Entity<DepartmentEntity>()
             .HasOne(d => d.Hospital)
@@ -48,7 +45,6 @@ public class CodeFirstDbContext(DbContextOptions<CodeFirstDbContext> options) : 
         modelBuilder.Entity<DepartmentEntity>()
             .HasIndex(d => d.DepartmentName)
             .IsUnique();
-
 
         DataSeederHospital.HospitalSeeder(modelBuilder);
 
