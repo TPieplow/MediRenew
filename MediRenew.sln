@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediRenew.ConsoleApp", "MediRenew.ConsoleApp\MediRenew.ConsoleApp.csproj", "{8E886C12-4242-4DEC-A396-E622F19FF7E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Business\Business.csproj", "{065BDFEB-BF13-445F-9ABB-F16EB2830449}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business", "Business\Business.csproj", "{065BDFEB-BF13-445F-9ABB-F16EB2830449}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

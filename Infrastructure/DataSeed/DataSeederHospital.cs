@@ -97,7 +97,7 @@ namespace Infrastructure.DataSeed
             modelBuilder.Entity<StaffEntity>().HasData(
                 new StaffEntity()
                 {
-                    Id =1,
+                    Id = 1,
                     FirstName = "SexyNurse1",
                     LastName = "test",
                     RoleName = "Nurse",
