@@ -1,15 +1,16 @@
 ﻿using Infrastructure.Contexts;
+using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Linq.Expressions;
 
 namespace Infrastructure.Repositories;
 
-public abstract class Repository<TEntity> where TEntity : class
+public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
 {
     private readonly CodeFirstDbContext _context;
 
-    protected Repository(CodeFirstDbContext context)
+    protected BaseRepository(CodeFirstDbContext context)
     {
         _context = context;
     }

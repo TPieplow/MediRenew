@@ -6,11 +6,9 @@ public class LoginService
     public bool Login()
     {
         Console.Clear();
-        string username, password;
+
         int loginAttempts = 0;
         const int maxAttempts = 3;
-
-        Console.Clear();
 
         AnsiConsole.Write(new FigletText("MediRenew").Centered().Color(Color.Yellow));
 
@@ -39,11 +37,15 @@ public class LoginService
                 .AddColumn(new TableColumn("Login").Centered())
                 .Centered());
 
-            AnsiConsole.Write(new Rule("\n[yellow]Username:[/]").LeftJustified());
-            username = Console.ReadLine()!;
+            var username = AnsiConsole.Prompt(
+            new TextPrompt<string>("[yellow]Username:[/] ")
+            .PromptStyle(Color.Yellow));
 
-            AnsiConsole.Write(new Rule("\n[yellow]Password:[/]").LeftJustified());
-            password = Console.ReadLine()!;
+            var password = AnsiConsole.Prompt(
+            new TextPrompt<string>("[yellow]Password:[/] ")
+            .PromptStyle(Color.Yellow)
+                .Secret());
+
             if (IsValidLogin(username, password))
             {
                 Console.Clear();
@@ -72,6 +74,6 @@ public class LoginService
 
     private static bool IsValidLogin(string username, string password)
     {
-        return username == "Hans@domain.com" && password == "Bytmig123!";
+        return username == "1" && password == "1";
     }
 }

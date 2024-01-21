@@ -65,4 +65,18 @@ public class PatientHandler
             Console.WriteLine($"ERROR: {ex.Message}");
         }
     }
+
+    public async Task ViewAllPatiens()
+    {
+        IEnumerable<PatientDTO> patients = await _patientService.GetAllPatients();
+
+        if (patients is not null)
+        {
+            foreach (PatientDTO patient in patients)
+            {
+                Console.WriteLine(patient.FirstName + " " + patient.LastName);
+            }
+            Console.ReadKey();
+        }
+    }
 }

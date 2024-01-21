@@ -1,12 +1,13 @@
 ﻿using Infrastructure.Contexts;
 using Infrastructure.HospitalEntities;
+using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Linq.Expressions;
 
 namespace Infrastructure.Repositories;
 
-public class PatientRepository : Repository<PatientEntity>
+public class PatientRepository : BaseRepository<PatientEntity>, IPatientRepository
 {
     private readonly CodeFirstDbContext _context;
     public PatientRepository(CodeFirstDbContext context) : base(context)
@@ -67,6 +68,4 @@ public class PatientRepository : Repository<PatientEntity>
     {
         return base.UpdateAsync(entity);
     }
-
-
 }

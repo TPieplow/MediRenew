@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace Infrastructure.Repositories;
 
-public class DepartmentRepository : Repository<DepartmentEntity>
+public class DepartmentRepository : BaseRepository<DepartmentEntity>
 {
     private readonly CodeFirstDbContext _context;
     public DepartmentRepository(CodeFirstDbContext context) : base(context)
