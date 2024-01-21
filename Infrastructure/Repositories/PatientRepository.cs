@@ -29,7 +29,7 @@ public class PatientRepository : BaseRepository<PatientEntity>, IPatientReposito
                 .Where(predicate)
                 .FirstOrDefaultAsync();
 
-            if (patient != null)
+            if (patient is not null)
             {
                 return patient;
             }

@@ -76,15 +76,6 @@ public class PatientService(PatientRepository patientRepository)
 
         foreach (var patient in result)
         {
-            var pharmacies = patient.Prescriptions
-                .Select(prescription => prescription.Pharmacy)
-                .Select(pharmacy => new PharmacyDTO
-                {
-                    Id = pharmacy.Id,
-                    MedicationName = pharmacy.MedicationName,
-                    
-                }).ToList();
-
             patients.Add(new PatientDTO
             {
                 FirstName = patient.FirstName,
@@ -97,17 +88,20 @@ public class PatientService(PatientRepository patientRepository)
                 Prescriptions = patient.Prescriptions
                     .Select(prescription => new PrescriptionDTO
                     {
-                        Id = prescription.Id,
+                        Id = patient.Id,
                         Date = prescription.Date,
                         Cost = prescription.Cost,
                         Dosage = prescription.Dosage,
                         PharmacyId = prescription.PharmacyId,
-                        DoctorId = prescription.DoctorId
+                        DoctorId = prescription.DoctorId,
+                        Pharmacy = new PharmacyDTO
+                        {
+                            Id = prescription.Pharmacy.Id,
+                            MedicationName = prescription.Pharmacy.MedicationName
+                        }
                     }).ToList(),
-                Pharmacies = pharmacies
             });
         }
-
         return patients;
     }
 }

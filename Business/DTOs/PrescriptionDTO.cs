@@ -9,5 +9,7 @@ public class PrescriptionDTO
     public int PatientId { get; set; }
     public int DoctorId { get; set; }
     public int PharmacyId { get; set; }
+
+    public PharmacyDTO Pharmacy { get; set; } = null!;
 }
 

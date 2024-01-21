@@ -1,5 +1,7 @@
 ﻿using Business.DTOs;
 using Business.Services;
+using Spectre.Console;
+using System.Runtime.ExceptionServices;
 
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp;
@@ -17,47 +19,41 @@ public class PatientHandler
     {
         try
         {
+            Console.Clear();
+            var newPatient = new PatientDTO();
+
             Console.WriteLine("Enter first name: ");
-            string firstName = Console.ReadLine()!;
+            newPatient.FirstName = Console.ReadLine()?.Trim()!;
 
             Console.WriteLine("Enter last name: ");
-            string lastName = Console.ReadLine()!;
+            newPatient.LastName = Console.ReadLine()?.Trim()!;
 
             Console.WriteLine("Enter email: ");
-            string email = Console.ReadLine()!;
+            newPatient.Email = Console.ReadLine()?.Trim()!;
 
             Console.WriteLine("Enter phone number: ");
-            string phoneNumber = Console.ReadLine()!;
+            newPatient.PhoneNumber = Console.ReadLine()?.Trim()!;
 
             Console.WriteLine("Enter address: ");
-            string address = Console.ReadLine()!;
+            newPatient.Address = Console.ReadLine()?.Trim()!;
 
             Console.WriteLine("Enter postal code: ");
-            string postalCode = Console.ReadLine()!;
+            newPatient.PostalCode = Console.ReadLine()?.Trim()!;
 
             Console.WriteLine("Enter city: ");
-            string city = Console.ReadLine()!;
-
-            var newPatient = new PatientDTO
-            {
-                FirstName = firstName,
-                LastName = lastName,
-                Email = email,
-                PhoneNumber = phoneNumber,
-                Address = address,
-                PostalCode = postalCode,
-                City = city,
-            };
+            newPatient.City = Console.ReadLine()?.Trim()!;
 
             bool successAdded = await _patientService.AddPatientAsync(newPatient);
 
             if (successAdded)
             {
                 Console.WriteLine("Patient added successfully!");
+                Console.ReadKey();
             }
             else
             {
                 Console.WriteLine("Failed to add patient. Email already exists");
+                Console.ReadKey();
             }
         }
         catch (Exception ex)
@@ -68,15 +64,50 @@ public class PatientHandler
 
     public async Task ViewAllPatiens()
     {
-        IEnumerable<PatientDTO> patients = await _patientService.GetAllPatients();
-
-        if (patients is not null)
+        try
         {
-            foreach (PatientDTO patient in patients)
+            Console.Clear();
+            IEnumerable<PatientDTO> patients = await _patientService.GetAllPatients();
+
+            if (patients is not null)
             {
-                Console.WriteLine(patient.FirstName + " " + patient.LastName);
+                var table = new Table();
+
+                table.AddColumn("[yellow]First name[/]");
+                table.AddColumn("[yellow]Last name[/]");
+                table.AddColumn("[yellow]Address[/]");
+                table.AddColumn("[yellow]City[/]");
+                table.AddColumn("[yellow]Postal Code[/]");
+                table.AddColumn("[yellow]Phone number[/]");
+                table.AddColumn("[yellow]Email[/]");
+                table.AddColumn("[yellow]Latest Dosage[/]");
+                table.AddColumn("[yellow]Latest Medication[/]");
+
+                foreach (PatientDTO patient in patients)
+                {
+                    var latestPrescription = patient.Prescriptions.OrderByDescending(p => p.Date).FirstOrDefault();
+                    string latestDosage = latestPrescription?.Dosage ?? "N/A";
+                    string latestMedication = latestPrescription?.Pharmacy?.MedicationName ?? "N/A";
+
+                    table.AddRow(
+                        patient.FirstName,
+                        patient.LastName,
+                        patient.Address,
+                        patient.City,
+                        patient.PostalCode,
+                        patient.PhoneNumber,
+                        patient.Email,
+                        latestDosage,
+                        latestMedication
+                    );
+                }
+
+                AnsiConsole.Write(table);
+                Console.ReadKey();
             }
-            Console.ReadKey();
         }
+        catch (Exception ex) { Console.WriteLine(ex.Message); }
     }
+
+
 }

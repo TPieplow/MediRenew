@@ -10,7 +10,6 @@ public class PatientDTO
     public string PhoneNumber { get; set; } = null!;
     public string Email { get; set; } = null!;
     public ICollection<PrescriptionDTO> Prescriptions { get; set; } = new List<PrescriptionDTO>();
-    public ICollection<PharmacyDTO> Pharmacies { get; set; } = new List<PharmacyDTO>();
 }
 
 
