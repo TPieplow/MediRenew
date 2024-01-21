@@ -5,10 +5,8 @@ using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Contexts;
 
-public class CodeFirstDbContext(DbContextOptions<CodeFirstDbContext> options, LoggerFactory loggerFactory) : DbContext(options)
+public class CodeFirstDbContext(DbContextOptions<CodeFirstDbContext> options) : DbContext(options)
 {
-
-    private readonly LoggerFactory? _loggerFactory;
     public virtual DbSet<HospitalEntity> Hospitals { get; set; }
     public virtual DbSet<DepartmentEntity> Departments { get; set; }
     public virtual DbSet<DoctorEntity> Doctors { get; set; }
@@ -20,15 +18,6 @@ public class CodeFirstDbContext(DbContextOptions<CodeFirstDbContext> options, Lo
     public virtual DbSet<PrescriptionEntity> Prescriptions { get; set; }
     public virtual DbSet<InvoiceEntity> Invoices { get; set; }
 
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder
-            .LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Command.Name }, LogLevel.Information)
-            .EnableSensitiveDataLogging();
-
-        base.OnConfiguring(optionsBuilder);
-    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -23,7 +23,13 @@ class Program
             services.AddScoped<PatientService>();
             services.AddScoped<PatientHandler>();
             services.AddScoped<LoginService>();
-            services.AddScoped<LoggerFactory>();
+        });
+
+        builder.ConfigureLogging(logging =>
+        {
+            logging.ClearProviders(); // Tar bort befintliga loggare
+            logging.SetMinimumLevel(LogLevel.Error); //Den här delen låter oss ange nivån för loggning
+            logging.AddConsole(); // Denna del lägger till konsolloggningsleverantören
         });
 
         Console.Clear();
