@@ -1,6 +1,7 @@
 ﻿using Infrastructure.DataSeed;
 using Infrastructure.HospitalEntities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Contexts;
 
@@ -47,6 +48,7 @@ public class CodeFirstDbContext(DbContextOptions<CodeFirstDbContext> options) : 
             .IsUnique();
 
         DataSeederHospital.HospitalSeeder(modelBuilder);
-
     }
+
+
 }

@@ -4,7 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infrastructure.HospitalEntities;
 
-[Index(nameof(DepartmentName), IsUnique = true)]
+
+    [Index(nameof(DepartmentName), IsUnique = true)]
 public class DepartmentEntity
 {
     [Key]
@@ -22,4 +23,5 @@ public class DepartmentEntity
     public ICollection<DoctorEntity> Doctors = new List<DoctorEntity>();
 
     public ICollection<StaffEntity> Staff = new List<StaffEntity>();
+
 }

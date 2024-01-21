@@ -25,6 +25,6 @@ public class HospitalEntity
     [Column(TypeName = "varchar(7)")]
     public string HospitalPostalCode { get; set; } = null!;
 
-
     public ICollection<DepartmentEntity> Departments = new List<DepartmentEntity>();
+
 }

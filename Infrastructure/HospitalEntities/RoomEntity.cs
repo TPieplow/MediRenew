@@ -19,5 +19,6 @@ namespace Infrastructure.HospitalEntities
 
         [ForeignKey(nameof(StaffEntity))]
         public int? StaffId { get; set; }
+
     }
 }

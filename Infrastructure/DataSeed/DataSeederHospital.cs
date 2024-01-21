@@ -73,7 +73,6 @@ namespace Infrastructure.DataSeed
                     LastName = "Mattin-Lassei",
                     PhoneNumber = "1234567890",
                     DepartmentId = 1,
-
                 },
                 new DoctorEntity()
                 {
@@ -98,7 +97,7 @@ namespace Infrastructure.DataSeed
             modelBuilder.Entity<StaffEntity>().HasData(
                 new StaffEntity()
                 {
-                    Id =1,
+                    Id = 1,
                     FirstName = "SexyNurse1",
                     LastName = "test",
                     RoleName = "Nurse",
@@ -170,19 +169,16 @@ namespace Infrastructure.DataSeed
                 {
                     Id = 1,
                     MedicationName = "Ibuprofen",
-
                 },
                 new PharmacyEntity()
                 {
                     Id = 2,
                     MedicationName = "Paracetamol",
-
                 },
                 new PharmacyEntity()
                 {
                     Id = 3,
                     MedicationName = "Beta-adrenergic blockers",
-
                 });
         }
 
