@@ -4,6 +4,7 @@ using Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(CodeFirstDbContext))]
-    partial class CodeFirstDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240120101909_InitialMigrationWithSeed")]
+    partial class InitialMigrationWithSeed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,21 +53,21 @@ namespace Infrastructure.Migrations
                             PatientId = 1,
                             DoctorId = 1,
                             Comments = "Headfraction",
-                            Date = new DateTime(2024, 1, 20, 11, 25, 57, 223, DateTimeKind.Local).AddTicks(693)
+                            Date = new DateTime(2024, 1, 20, 11, 19, 9, 16, DateTimeKind.Local).AddTicks(3225)
                         },
                         new
                         {
                             PatientId = 2,
                             DoctorId = 2,
                             Comments = "Pungbråck",
-                            Date = new DateTime(2024, 1, 20, 11, 25, 57, 223, DateTimeKind.Local).AddTicks(749)
+                            Date = new DateTime(2024, 1, 20, 11, 19, 9, 16, DateTimeKind.Local).AddTicks(3287)
                         },
                         new
                         {
                             PatientId = 3,
                             DoctorId = 3,
                             Comments = "Headfraction",
-                            Date = new DateTime(2024, 1, 20, 11, 25, 57, 223, DateTimeKind.Local).AddTicks(751)
+                            Date = new DateTime(2024, 1, 20, 11, 19, 9, 16, DateTimeKind.Local).AddTicks(3289)
                         });
                 });
 
@@ -419,7 +422,7 @@ namespace Infrastructure.Migrations
                         {
                             Id = 1,
                             Cost = 10.0m,
-                            Date = new DateTime(2024, 1, 20, 11, 25, 57, 223, DateTimeKind.Local).AddTicks(806),
+                            Date = new DateTime(2024, 1, 20, 11, 19, 9, 16, DateTimeKind.Local).AddTicks(3388),
                             DoctorId = 1,
                             Dosage = "Every 4 hour",
                             PatientId = 1,
@@ -429,7 +432,7 @@ namespace Infrastructure.Migrations
                         {
                             Id = 2,
                             Cost = 5.0m,
-                            Date = new DateTime(2024, 1, 20, 11, 25, 57, 223, DateTimeKind.Local).AddTicks(819),
+                            Date = new DateTime(2024, 1, 20, 11, 19, 9, 16, DateTimeKind.Local).AddTicks(3396),
                             DoctorId = 2,
                             Dosage = "Every 4 hour",
                             PatientId = 2,
@@ -439,7 +442,7 @@ namespace Infrastructure.Migrations
                         {
                             Id = 3,
                             Cost = 50.0m,
-                            Date = new DateTime(2024, 1, 20, 11, 25, 57, 223, DateTimeKind.Local).AddTicks(821),
+                            Date = new DateTime(2024, 1, 20, 11, 19, 9, 16, DateTimeKind.Local).AddTicks(3398),
                             DoctorId = 3,
                             Dosage = "Twice a day, morning and before bed",
                             PatientId = 3,

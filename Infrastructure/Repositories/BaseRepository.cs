@@ -1,20 +1,21 @@
 ﻿using Infrastructure.Contexts;
+using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Linq.Expressions;
 
 namespace Infrastructure.Repositories;
 
-public abstract class Repository<TEntity> where TEntity : class
+public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
 {
     private readonly CodeFirstDbContext _context;
 
-    protected Repository(CodeFirstDbContext context)
+    protected BaseRepository(CodeFirstDbContext context)
     {
         _context = context;
     }
 
-    public virtual async Task<TEntity> Create(TEntity entity)
+    public virtual async Task<TEntity> CreateAsync(TEntity entity)
     {
         try
         {
@@ -28,7 +29,23 @@ public abstract class Repository<TEntity> where TEntity : class
         return null!;
     }
 
-    public virtual async Task<IEnumerable<TEntity>> GetAll()
+    public virtual async Task<TEntity> GetOneAsync(Expression<Func<TEntity, bool>> predicate)
+    {
+        try
+        {
+            var entity = await _context.Set<TEntity>()
+                .FirstOrDefaultAsync(predicate);
+
+            return entity ?? throw new Exception("Entity not found");
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"ERROR: {ex.Message}");
+            return null;
+        }
+    }
+
+    public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
     {
         try
         {
@@ -38,7 +55,7 @@ public abstract class Repository<TEntity> where TEntity : class
         return Enumerable.Empty<TEntity>();
     }
 
-    public virtual async Task<bool> Delete(Expression<Func<TEntity, bool>> predicate)
+    public virtual async Task<bool> DeleteAsync(Expression<Func<TEntity, bool>> predicate)
     {
         try
         {
@@ -50,12 +67,13 @@ public abstract class Repository<TEntity> where TEntity : class
 
                 return true;
             }
+            return false;
         }
         catch (Exception ex) { Debug.WriteLine($"ERROR : {ex.Message}"); }
         return false;
     }
 
-    public virtual async Task<TEntity> Update(TEntity entity)
+    public virtual async Task<TEntity> UpdateAsync(TEntity entity)
     {
         try
         {
@@ -67,4 +85,16 @@ public abstract class Repository<TEntity> where TEntity : class
         return null!;
     }
 
+    public virtual bool Exists(Expression<Func<TEntity, bool>> predicate)
+    {
+        try
+        {
+            return _context.Set<TEntity>().Any(predicate);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"ERROR: {ex.Message}");
+            return false;
+        }
+    }
 }

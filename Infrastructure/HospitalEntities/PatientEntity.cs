@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infrastructure.HospitalEntities;
 
+
+[Index(nameof(Email), IsUnique = true)]
 public class PatientEntity
 {
     [Key]
@@ -32,13 +34,13 @@ public class PatientEntity
     [Required]
     [Column(TypeName = "nvarchar(20)")]
     public string PhoneNumber { get; set; } = null!;
+
     [Required]
     [Column(TypeName = "nvarchar(255)")]
     public string Email { get; set; } = null!;
 
     [ForeignKey(nameof(PharmacyEntity))]
     public int? PharmacyId { get; set; }
-    
 
-    //Prescription? 
+    public ICollection<PrescriptionEntity> Prescriptions { get; set; } = new List<PrescriptionEntity>();
 }
