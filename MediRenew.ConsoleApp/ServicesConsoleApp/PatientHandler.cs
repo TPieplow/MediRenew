@@ -80,15 +80,9 @@ public class PatientHandler
                 table.AddColumn("[yellow]Postal Code[/]");
                 table.AddColumn("[yellow]Phone number[/]");
                 table.AddColumn("[yellow]Email[/]");
-                table.AddColumn("[yellow]Latest Dosage[/]");
-                table.AddColumn("[yellow]Latest Medication[/]");
 
                 foreach (PatientDTO patient in patients)
                 {
-                    var latestPrescription = patient.Prescriptions.OrderByDescending(p => p.Date).FirstOrDefault();
-                    string latestDosage = latestPrescription?.Dosage ?? "N/A";
-                    string latestMedication = latestPrescription?.Pharmacy?.MedicationName ?? "N/A";
-
                     table.AddRow(
                         patient.FirstName,
                         patient.LastName,
@@ -96,9 +90,7 @@ public class PatientHandler
                         patient.City,
                         patient.PostalCode,
                         patient.PhoneNumber,
-                        patient.Email,
-                        latestDosage,
-                        latestMedication
+                        patient.Email
                     );
                 }
 

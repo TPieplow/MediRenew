@@ -63,7 +63,6 @@ public class PatientService(PatientRepository patientRepository)
         }
         catch (Exception ex)
         {
-
             Console.WriteLine($"ERROR: {ex.Message}");
             return null!; ;
         }
@@ -84,22 +83,7 @@ public class PatientService(PatientRepository patientRepository)
                 PhoneNumber = patient.PhoneNumber,
                 Address = patient.Address,
                 PostalCode = patient.PostalCode,
-                City = patient.City,
-                Prescriptions = patient.Prescriptions
-                    .Select(prescription => new PrescriptionDTO
-                    {
-                        Id = patient.Id,
-                        Date = prescription.Date,
-                        Cost = prescription.Cost,
-                        Dosage = prescription.Dosage,
-                        PharmacyId = prescription.PharmacyId,
-                        DoctorId = prescription.DoctorId,
-                        Pharmacy = new PharmacyDTO
-                        {
-                            Id = prescription.Pharmacy.Id,
-                            MedicationName = prescription.Pharmacy.MedicationName
-                        }
-                    }).ToList(),
+                City = patient.City    
             });
         }
         return patients;
