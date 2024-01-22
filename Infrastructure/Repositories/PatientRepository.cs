@@ -36,13 +36,13 @@ public class PatientRepository : BaseRepository<PatientEntity>, IPatientReposito
             else
             {
                 Debug.WriteLine("Patient not found");
-                return null;
+                return null!;
             }
         }
         catch (Exception ex)
         {
             Debug.WriteLine($"ERROR: {ex.Message}");
-            return null;
+            return null!;
         }
     }
 
