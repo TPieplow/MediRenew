@@ -42,10 +42,6 @@ public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where T
         catch (Exception ex)
         {
             Debug.WriteLine($"ERROR: {ex.Message}");
-<<<<<<< HEAD
-            return null!;
-=======
->>>>>>> 500876b4e8b170ce50d4b1772cb87fc92e97ccd3
         }
         return null!;
     }
