@@ -2,6 +2,7 @@
 using Business.Services;
 using Spectre.Console;
 using System.Runtime.ExceptionServices;
+using System.Xml.XPath;
 
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp;
@@ -62,6 +63,46 @@ public class PatientHandler
         }
     }
 
+    public async Task ViewOnePatientWithId()
+    {
+        try
+        {
+            Console.Clear();
+            Console.WriteLine("Enter Id");
+            PatientDTO patient = null!;
+
+            if (int.TryParse(Console.ReadLine()!, out int id))
+            {
+                patient = await _patientService.GetOnePatient(id);
+
+                if (patient != null)
+                {
+                    Console.WriteLine($"Patient Details for {patient.FirstName} {patient.LastName}:");
+                    Console.WriteLine($"Address: {patient.Address}");
+                    Console.WriteLine($"City: {patient.City}");
+                    Console.WriteLine($"Postal Code: {patient.PostalCode}");
+                    Console.WriteLine($"Phone Number: {patient.PhoneNumber}");
+                    Console.WriteLine($"Email: {patient.Email}");
+                    Console.ReadKey();
+                }
+                else
+                {
+                    Console.WriteLine("Patient not found");
+                    Console.ReadKey();
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid input");
+                Console.ReadKey();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"ERROR: {ex.Message}");
+        }
+    }
+
     public async Task ViewAllPatiens()
     {
         try
@@ -100,6 +141,4 @@ public class PatientHandler
         }
         catch (Exception ex) { Console.WriteLine(ex.Message); }
     }
-
-
 }

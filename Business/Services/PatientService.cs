@@ -43,28 +43,36 @@ public class PatientService(PatientRepository patientRepository)
         return false;
     }
 
-    public async Task<PatientEntity> GetOnePatient(int patientId)
+    public async Task<PatientDTO> GetOnePatient(int patientId)
     {
         try
         {
-            if (_patientRepository.Exists(x => x.Id == patientId))
+            var patientEntity = await _patientRepository.GetOneAsync(x => x.Id == patientId);
+
+            if (patientEntity != null)
             {
-                var patient = await _patientRepository.GetOneAsync(x => x.Id == patientId);
-                if (patient is not null)
+                var patientDTO = new PatientDTO
                 {
-                    return patient;
-                }
-                else
-                {
-                    return null!;
-                }
+                    FirstName = patientEntity.FirstName,
+                    LastName = patientEntity.LastName,
+                    Address = patientEntity.Address,
+                    City = patientEntity.City,
+                    PostalCode = patientEntity.PostalCode,
+                    PhoneNumber = patientEntity.PhoneNumber,
+                    Email = patientEntity.Email
+                };
+
+                return patientDTO;
             }
-            return null!;
+            else
+            {
+                return null!;
+            }
         }
         catch (Exception ex)
         {
             Console.WriteLine($"ERROR: {ex.Message}");
-            return null!; ;
+            return null!;
         }
     }
 
@@ -83,7 +91,7 @@ public class PatientService(PatientRepository patientRepository)
                 PhoneNumber = patient.PhoneNumber,
                 Address = patient.Address,
                 PostalCode = patient.PostalCode,
-                City = patient.City    
+                City = patient.City
             });
         }
         return patients;
