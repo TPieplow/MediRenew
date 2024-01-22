@@ -2,6 +2,7 @@
 using Business.Services;
 using Spectre.Console;
 using System.Runtime.ExceptionServices;
+using System.Xml.XPath;
 
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp;
@@ -76,6 +77,7 @@ public class PatientHandler
 
                 if (patient != null)
                 {
+<<<<<<< HEAD
 
                     var table = new Table();
 
@@ -105,6 +107,14 @@ public class PatientHandler
                     );
 
                     AnsiConsole.Write(table);
+=======
+                    Console.WriteLine($"Patient Details for {patient.FirstName} {patient.LastName}:");
+                    Console.WriteLine($"Address: {patient.Address}");
+                    Console.WriteLine($"City: {patient.City}");
+                    Console.WriteLine($"Postal Code: {patient.PostalCode}");
+                    Console.WriteLine($"Phone Number: {patient.PhoneNumber}");
+                    Console.WriteLine($"Email: {patient.Email}");
+>>>>>>> 500876b4e8b170ce50d4b1772cb87fc92e97ccd3
                     Console.ReadKey();
                 }
                 else
@@ -144,12 +154,18 @@ public class PatientHandler
                 table.AddColumn("[yellow]Postal Code[/]");
                 table.AddColumn("[yellow]Phone number[/]");
                 table.AddColumn("[yellow]Email[/]");
+<<<<<<< HEAD
 
 
 
                 foreach (PatientDTO patient in patients)
                 {
 
+=======
+
+                foreach (PatientDTO patient in patients)
+                {
+>>>>>>> 500876b4e8b170ce50d4b1772cb87fc92e97ccd3
                     table.AddRow(
                         patient.Id.ToString(),
                         patient.FirstName,
@@ -168,6 +184,4 @@ public class PatientHandler
         }
         catch (Exception ex) { Console.WriteLine(ex.Message); }
     }
-
-
 }

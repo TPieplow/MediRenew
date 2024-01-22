@@ -49,6 +49,7 @@ public class PatientService(PatientRepository patientRepository, PrescriptionRep
         try
         {
             var patientEntity = await _patientRepository.GetOneAsync(x => x.Id == patientId);
+<<<<<<< HEAD
             var patientDTO = new PatientDTO();
             var prescriptions = (await _prescriptionRepository.GetAllAsync()).ToList();
 
@@ -108,6 +109,28 @@ public class PatientService(PatientRepository patientRepository, PrescriptionRep
             };
 
             return patientDTO;
+=======
+
+            if (patientEntity != null)
+            {
+                var patientDTO = new PatientDTO
+                {
+                    FirstName = patientEntity.FirstName,
+                    LastName = patientEntity.LastName,
+                    Address = patientEntity.Address,
+                    City = patientEntity.City,
+                    PostalCode = patientEntity.PostalCode,
+                    PhoneNumber = patientEntity.PhoneNumber,
+                    Email = patientEntity.Email
+                };
+
+                return patientDTO;
+            }
+            else
+            {
+                return null!;
+            }
+>>>>>>> 500876b4e8b170ce50d4b1772cb87fc92e97ccd3
         }
         catch (Exception ex)
         {
@@ -122,6 +145,7 @@ public class PatientService(PatientRepository patientRepository, PrescriptionRep
 
         return result.Select(x => new PatientDTO
         {
+<<<<<<< HEAD
             Id = x.Id,
             FirstName = x.FirstName,
             LastName = x.LastName,
@@ -132,5 +156,19 @@ public class PatientService(PatientRepository patientRepository, PrescriptionRep
             City = x.City
 
         });
+=======
+            patients.Add(new PatientDTO
+            {
+                FirstName = patient.FirstName,
+                LastName = patient.LastName,
+                Email = patient.Email,
+                PhoneNumber = patient.PhoneNumber,
+                Address = patient.Address,
+                PostalCode = patient.PostalCode,
+                City = patient.City
+            });
+        }
+        return patients;
+>>>>>>> 500876b4e8b170ce50d4b1772cb87fc92e97ccd3
     }
 }
