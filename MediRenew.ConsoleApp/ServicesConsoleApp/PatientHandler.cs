@@ -2,6 +2,7 @@
 using Business.Services;
 using Spectre.Console;
 using System.Runtime.ExceptionServices;
+using System.Xml.XPath;
 
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp;
@@ -62,6 +63,46 @@ public class PatientHandler
         }
     }
 
+    public async Task ViewOnePatientWithId()
+    {
+        try
+        {
+            Console.Clear();
+            Console.WriteLine("Enter Id");
+            PatientDTO patient = null!;
+
+            if (int.TryParse(Console.ReadLine()!, out int id))
+            {
+                patient = await _patientService.GetOnePatient(id);
+
+                if (patient != null)
+                {
+                    Console.WriteLine($"Patient Details for {patient.FirstName} {patient.LastName}:");
+                    Console.WriteLine($"Address: {patient.Address}");
+                    Console.WriteLine($"City: {patient.City}");
+                    Console.WriteLine($"Postal Code: {patient.PostalCode}");
+                    Console.WriteLine($"Phone Number: {patient.PhoneNumber}");
+                    Console.WriteLine($"Email: {patient.Email}");
+                    Console.ReadKey();
+                }
+                else
+                {
+                    Console.WriteLine("Patient not found");
+                    Console.ReadKey();
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid input");
+                Console.ReadKey();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"ERROR: {ex.Message}");
+        }
+    }
+
     public async Task ViewAllPatiens()
     {
         try
@@ -80,15 +121,9 @@ public class PatientHandler
                 table.AddColumn("[yellow]Postal Code[/]");
                 table.AddColumn("[yellow]Phone number[/]");
                 table.AddColumn("[yellow]Email[/]");
-                table.AddColumn("[yellow]Latest Dosage[/]");
-                table.AddColumn("[yellow]Latest Medication[/]");
 
                 foreach (PatientDTO patient in patients)
                 {
-                    var latestPrescription = patient.Prescriptions.OrderByDescending(p => p.Date).FirstOrDefault();
-                    string latestDosage = latestPrescription?.Dosage ?? "N/A";
-                    string latestMedication = latestPrescription?.Pharmacy?.MedicationName ?? "N/A";
-
                     table.AddRow(
                         patient.FirstName,
                         patient.LastName,
@@ -96,9 +131,7 @@ public class PatientHandler
                         patient.City,
                         patient.PostalCode,
                         patient.PhoneNumber,
-                        patient.Email,
-                        latestDosage,
-                        latestMedication
+                        patient.Email
                     );
                 }
 
@@ -108,6 +141,4 @@ public class PatientHandler
         }
         catch (Exception ex) { Console.WriteLine(ex.Message); }
     }
-
-
 }

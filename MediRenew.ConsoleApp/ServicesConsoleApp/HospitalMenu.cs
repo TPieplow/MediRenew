@@ -37,6 +37,7 @@ public class HospitalMenu(PatientHandler patient)
                     break;
 
                 case "2":
+                    await _patient.ViewOnePatientWithId();
                     break;
 
                 case "3":

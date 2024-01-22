@@ -24,10 +24,7 @@ public class PatientRepository : BaseRepository<PatientEntity>, IPatientReposito
     {
         try
         {
-            var patient = await _context.Patients
-                .Include(patient => patient.Prescriptions)
-                .Where(predicate)
-                .FirstOrDefaultAsync();
+            var patient = await _context.Patients.FirstOrDefaultAsync(predicate);
 
             if (patient is not null)
             {
@@ -36,13 +33,13 @@ public class PatientRepository : BaseRepository<PatientEntity>, IPatientReposito
             else
             {
                 Debug.WriteLine("Patient not found");
-                return null;
+                return null!;
             }
         }
         catch (Exception ex)
         {
             Debug.WriteLine($"ERROR: {ex.Message}");
-            return null;
+            return null!;
         }
     }
 
