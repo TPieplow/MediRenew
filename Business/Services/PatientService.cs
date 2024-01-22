@@ -1,14 +1,15 @@
 ﻿using Business.DTOs;
 using Infrastructure.HospitalEntities;
 using Infrastructure.Repositories;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Business.Services;
 
-public class PatientService(PatientRepository patientRepository)
+public class PatientService(PatientRepository patientRepository, PrescriptionRepository prescriptionRepository)
 {
     private readonly PatientRepository _patientRepository = patientRepository;
+    private readonly PrescriptionRepository _prescriptionRepository = prescriptionRepository;
 
     public async Task<bool> AddPatientAsync(PatientDTO newPatient)
     {
@@ -43,65 +44,93 @@ public class PatientService(PatientRepository patientRepository)
         return false;
     }
 
-    public async Task<PatientEntity> GetOnePatient(int patientId)
+    public async Task<PatientDTO> GetOnePatient(int patientId)
     {
         try
         {
-            if (_patientRepository.Exists(x => x.Id == patientId))
+            var patientEntity = await _patientRepository.GetOneAsync(x => x.Id == patientId);
+            var patientDTO = new PatientDTO();
+            var prescriptions = (await _prescriptionRepository.GetAllAsync()).ToList();
+
+
+            if (patientEntity == null)
             {
-                var patient = await _patientRepository.GetOneAsync(x => x.Id == patientId);
-                if (patient is not null)
-                {
-                    return patient;
-                }
-                else
-                {
-                    return null!;
-                }
+                return null!;
             }
-            return null!;
+
+            if (prescriptions.Any(x => patientEntity.Id == x.PatientId))
+            {
+                return new PatientDTO
+                {
+                    Id = patientEntity.Id,
+                    FirstName = patientEntity.FirstName,
+                    LastName = patientEntity.LastName,
+                    Address = patientEntity.Address,
+                    City = patientEntity.City,
+                    PostalCode = patientEntity.PostalCode,
+                    PhoneNumber = patientEntity.PhoneNumber,
+                    Email = patientEntity.Email,
+                    Dosage = prescriptions.FirstOrDefault(x => x.PatientId == patientEntity.Id)!.Dosage,
+                    MedicationName = prescriptions.FirstOrDefault(x => x.PatientId == patientEntity.Id)!.Pharmacy.MedicationName
+                };
+            }
+            //foreach (var p in prescriptions)
+            //{
+            //    if (p.PatientId == patientEntity.Id)
+            //    {
+            //        patientDTO = new PatientDTO
+            //        {
+            //            Id = patientEntity.Id,
+            //            FirstName = patientEntity.FirstName,
+            //            LastName = patientEntity.LastName,
+            //            Address = patientEntity.Address,
+            //            City = patientEntity.City,
+            //            PostalCode = patientEntity.PostalCode,
+            //            PhoneNumber = patientEntity.PhoneNumber,
+            //            Email = patientEntity.Email,
+            //            Dosage = p.Dosage,
+            //            MedicationName = p.Pharmacy.MedicationName
+            //        };
+            //        return patientDTO;
+            //    }
+            //}
+
+            patientDTO = new PatientDTO
+            {
+                Id = patientEntity.Id,
+                FirstName = patientEntity.FirstName,
+                LastName = patientEntity.LastName,
+                Address = patientEntity.Address,
+                City = patientEntity.City,
+                PostalCode = patientEntity.PostalCode,
+                PhoneNumber = patientEntity.PhoneNumber,
+                Email = patientEntity.Email
+            };
+
+            return patientDTO;
         }
         catch (Exception ex)
         {
-
             Console.WriteLine($"ERROR: {ex.Message}");
-            return null!; ;
+            return null!;
         }
     }
 
     public async Task<IEnumerable<PatientDTO>> GetAllPatients()
     {
-        var patients = new List<PatientDTO>();
-        var result = await _patientRepository.GetAllAsync();
+        var result = (await _patientRepository.GetAllAsync()).ToList();
 
-        foreach (var patient in result)
+        return result.Select(x => new PatientDTO
         {
-            patients.Add(new PatientDTO
-            {
-                FirstName = patient.FirstName,
-                LastName = patient.LastName,
-                Email = patient.Email,
-                PhoneNumber = patient.PhoneNumber,
-                Address = patient.Address,
-                PostalCode = patient.PostalCode,
-                City = patient.City,
-                Prescriptions = patient.Prescriptions
-                    .Select(prescription => new PrescriptionDTO
-                    {
-                        Id = patient.Id,
-                        Date = prescription.Date,
-                        Cost = prescription.Cost,
-                        Dosage = prescription.Dosage,
-                        PharmacyId = prescription.PharmacyId,
-                        DoctorId = prescription.DoctorId,
-                        Pharmacy = new PharmacyDTO
-                        {
-                            Id = prescription.Pharmacy.Id,
-                            MedicationName = prescription.Pharmacy.MedicationName
-                        }
-                    }).ToList(),
-            });
-        }
-        return patients;
+            Id = x.Id,
+            FirstName = x.FirstName,
+            LastName = x.LastName,
+            Email = x.Email,
+            PhoneNumber = x.PhoneNumber,
+            Address = x.Address,
+            PostalCode = x.PostalCode,
+            City = x.City
+
+        });
     }
 }

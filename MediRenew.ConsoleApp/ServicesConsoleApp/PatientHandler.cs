@@ -62,6 +62,69 @@ public class PatientHandler
         }
     }
 
+    public async Task ViewOnePatientWithId()
+    {
+        try
+        {
+            Console.Clear();
+            Console.WriteLine("Enter Id");
+            PatientDTO patient = null!;
+
+            if (int.TryParse(Console.ReadLine()!, out int id))
+            {
+                patient = await _patientService.GetOnePatient(id);
+
+                if (patient != null)
+                {
+
+                    var table = new Table();
+
+                    table.AddColumn("[yellow]ID[/]");
+                    table.AddColumn("[yellow]First name[/]");
+                    table.AddColumn("[yellow]Last name[/]");
+                    table.AddColumn("[yellow]Address[/]");
+                    table.AddColumn("[yellow]City[/]");
+                    table.AddColumn("[yellow]Postal Code[/]");
+                    table.AddColumn("[yellow]Phone number[/]");
+                    table.AddColumn("[yellow]Email[/]");
+                    table.AddColumn("[yellow]Dosage[/]");
+                    table.AddColumn("[yellow]Medication-type[/]");
+
+
+                    table.AddRow(
+                        patient.Id.ToString(),
+                        patient.FirstName,
+                        patient.LastName,
+                        patient.Address,
+                        patient.City,
+                        patient.PostalCode,
+                        patient.PhoneNumber,
+                        patient.Email,
+                        patient.Dosage ??= "N/A",
+                        patient.MedicationName ??= "N/A"
+                    );
+
+                    AnsiConsole.Write(table);
+                    Console.ReadKey();
+                }
+                else
+                {
+                    Console.WriteLine("Patient not found");
+                    Console.ReadKey();
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid input");
+                Console.ReadKey();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"ERROR: {ex.Message}");
+        }
+    }
+
     public async Task ViewAllPatiens()
     {
         try
@@ -73,6 +136,7 @@ public class PatientHandler
             {
                 var table = new Table();
 
+                table.AddColumn("[yellow]Patient-ID[/]");
                 table.AddColumn("[yellow]First name[/]");
                 table.AddColumn("[yellow]Last name[/]");
                 table.AddColumn("[yellow]Address[/]");
@@ -80,25 +144,21 @@ public class PatientHandler
                 table.AddColumn("[yellow]Postal Code[/]");
                 table.AddColumn("[yellow]Phone number[/]");
                 table.AddColumn("[yellow]Email[/]");
-                table.AddColumn("[yellow]Latest Dosage[/]");
-                table.AddColumn("[yellow]Latest Medication[/]");
+
+
 
                 foreach (PatientDTO patient in patients)
                 {
-                    var latestPrescription = patient.Prescriptions.OrderByDescending(p => p.Date).FirstOrDefault();
-                    string latestDosage = latestPrescription?.Dosage ?? "N/A";
-                    string latestMedication = latestPrescription?.Pharmacy?.MedicationName ?? "N/A";
 
                     table.AddRow(
+                        patient.Id.ToString(),
                         patient.FirstName,
                         patient.LastName,
                         patient.Address,
                         patient.City,
                         patient.PostalCode,
                         patient.PhoneNumber,
-                        patient.Email,
-                        latestDosage,
-                        latestMedication
+                        patient.Email
                     );
                 }
 
