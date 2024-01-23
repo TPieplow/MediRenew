@@ -10,6 +10,7 @@ public class PatientService(PatientRepository patientRepository)
 {
     private readonly PatientRepository _patientRepository = patientRepository;
 
+
     public async Task<bool> AddPatientAsync(PatientDTO newPatient)
     {
         try
@@ -61,7 +62,6 @@ public class PatientService(PatientRepository patientRepository)
                     PhoneNumber = patientEntity.PhoneNumber,
                     Email = patientEntity.Email
                 };
-
                 return patientDTO;
             }
             else

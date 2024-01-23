@@ -47,12 +47,6 @@ namespace Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Patients", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Patients_Pharmacies_PharmacyId",
-                        column: x => x.PharmacyId,
-                        principalTable: "Pharmacies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -316,9 +310,9 @@ namespace Infrastructure.Migrations
                 columns: new[] { "DoctorId", "PatientId", "Comments", "Date" },
                 values: new object[,]
                 {
-                    { 1, 1, "Headfraction", new DateTime(2024, 1, 20, 11, 19, 9, 16, DateTimeKind.Local).AddTicks(3225) },
-                    { 2, 2, "Pungbråck", new DateTime(2024, 1, 20, 11, 19, 9, 16, DateTimeKind.Local).AddTicks(3287) },
-                    { 3, 3, "Headfraction", new DateTime(2024, 1, 20, 11, 19, 9, 16, DateTimeKind.Local).AddTicks(3289) }
+                    { 1, 1, "Headfraction", new DateTime(2024, 1, 22, 16, 31, 12, 610, DateTimeKind.Local).AddTicks(9110) },
+                    { 2, 2, "Pungbråck", new DateTime(2024, 1, 22, 16, 31, 12, 610, DateTimeKind.Local).AddTicks(9161) },
+                    { 3, 3, "Headfraction", new DateTime(2024, 1, 22, 16, 31, 12, 610, DateTimeKind.Local).AddTicks(9163) }
                 });
 
             migrationBuilder.InsertData(
@@ -326,9 +320,9 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "Cost", "Date", "DoctorId", "Dosage", "PatientId", "PharmacyId" },
                 values: new object[,]
                 {
-                    { 1, 10.0m, new DateTime(2024, 1, 20, 11, 19, 9, 16, DateTimeKind.Local).AddTicks(3388), 1, "Every 4 hour", 1, 1 },
-                    { 2, 5.0m, new DateTime(2024, 1, 20, 11, 19, 9, 16, DateTimeKind.Local).AddTicks(3396), 2, "Every 4 hour", 2, 2 },
-                    { 3, 50.0m, new DateTime(2024, 1, 20, 11, 19, 9, 16, DateTimeKind.Local).AddTicks(3398), 3, "Twice a day, morning and before bed", 3, 3 }
+                    { 1, 10.0m, new DateTime(2024, 1, 22, 16, 31, 12, 610, DateTimeKind.Local).AddTicks(9218), 1, "Every 4 hour", 1, 1 },
+                    { 2, 5.0m, new DateTime(2024, 1, 22, 16, 31, 12, 610, DateTimeKind.Local).AddTicks(9224), 2, "Every 4 hour", 2, 2 },
+                    { 3, 50.0m, new DateTime(2024, 1, 22, 16, 31, 12, 610, DateTimeKind.Local).AddTicks(9226), 3, "Twice a day, morning and before bed", 3, 3 }
                 });
 
             migrationBuilder.CreateIndex(

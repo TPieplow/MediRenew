@@ -50,21 +50,21 @@ namespace Infrastructure.Migrations
                             PatientId = 1,
                             DoctorId = 1,
                             Comments = "Headfraction",
-                            Date = new DateTime(2024, 1, 20, 11, 25, 57, 223, DateTimeKind.Local).AddTicks(693)
+                            Date = new DateTime(2024, 1, 22, 16, 31, 12, 610, DateTimeKind.Local).AddTicks(9110)
                         },
                         new
                         {
                             PatientId = 2,
                             DoctorId = 2,
                             Comments = "Pungbråck",
-                            Date = new DateTime(2024, 1, 20, 11, 25, 57, 223, DateTimeKind.Local).AddTicks(749)
+                            Date = new DateTime(2024, 1, 22, 16, 31, 12, 610, DateTimeKind.Local).AddTicks(9161)
                         },
                         new
                         {
                             PatientId = 3,
                             DoctorId = 3,
                             Comments = "Headfraction",
-                            Date = new DateTime(2024, 1, 20, 11, 25, 57, 223, DateTimeKind.Local).AddTicks(751)
+                            Date = new DateTime(2024, 1, 22, 16, 31, 12, 610, DateTimeKind.Local).AddTicks(9163)
                         });
                 });
 
@@ -419,7 +419,7 @@ namespace Infrastructure.Migrations
                         {
                             Id = 1,
                             Cost = 10.0m,
-                            Date = new DateTime(2024, 1, 20, 11, 25, 57, 223, DateTimeKind.Local).AddTicks(806),
+                            Date = new DateTime(2024, 1, 22, 16, 31, 12, 610, DateTimeKind.Local).AddTicks(9218),
                             DoctorId = 1,
                             Dosage = "Every 4 hour",
                             PatientId = 1,
@@ -429,7 +429,7 @@ namespace Infrastructure.Migrations
                         {
                             Id = 2,
                             Cost = 5.0m,
-                            Date = new DateTime(2024, 1, 20, 11, 25, 57, 223, DateTimeKind.Local).AddTicks(819),
+                            Date = new DateTime(2024, 1, 22, 16, 31, 12, 610, DateTimeKind.Local).AddTicks(9224),
                             DoctorId = 2,
                             Dosage = "Every 4 hour",
                             PatientId = 2,
@@ -439,7 +439,7 @@ namespace Infrastructure.Migrations
                         {
                             Id = 3,
                             Cost = 50.0m,
-                            Date = new DateTime(2024, 1, 20, 11, 25, 57, 223, DateTimeKind.Local).AddTicks(821),
+                            Date = new DateTime(2024, 1, 22, 16, 31, 12, 610, DateTimeKind.Local).AddTicks(9226),
                             DoctorId = 3,
                             Dosage = "Twice a day, morning and before bed",
                             PatientId = 3,
