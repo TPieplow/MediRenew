@@ -1,7 +1,6 @@
 ﻿using Infrastructure.DataSeed;
 using Infrastructure.HospitalEntities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Contexts;
 
