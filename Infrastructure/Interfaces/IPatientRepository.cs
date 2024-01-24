@@ -8,6 +8,6 @@ namespace Infrastructure.Interfaces
         Task<IEnumerable<PatientEntity>> GetAllAsync();
         PatientEntity GetByIdIncludePrescription(int id);
         Task<PatientEntity> GetOneAsync(Expression<Func<PatientEntity, bool>> predicate);
-        Task<PatientEntity> UpdateAsync(PatientEntity entity);
+        //Task<PatientEntity> UpdateAsync(PatientEntity entity);
     }
 }

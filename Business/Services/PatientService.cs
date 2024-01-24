@@ -109,6 +109,12 @@ public class PatientService(PatientRepository patientRepository, PrescriptionRep
     {
         try
         {
+            var existingEmail = await _patientRepository.GetOneAsync(x => x.Email == updatedPatient.Email);
+            if (existingEmail is not null)
+            {
+                return Result.Failure;
+            }
+
             var existingPatient = await _patientRepository.GetOneAsync(x => x.Id == updatedPatient.Id);
             if (existingPatient is not null)
             {
@@ -127,7 +133,6 @@ public class PatientService(PatientRepository patientRepository, PrescriptionRep
         }
         catch (Exception ex)
         { Console.WriteLine($"ERROR: {ex.Message}"); return Result.Failure; }
-
     }
 
     public async Task<Result> RemovePatientService(int patientId)

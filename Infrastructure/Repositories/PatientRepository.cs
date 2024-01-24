@@ -61,8 +61,8 @@ public class PatientRepository : BaseRepository<PatientEntity>, IPatientReposito
     //    return false;
     //}
 
-    public override Task<PatientEntity> UpdateAsync(PatientEntity entity)
-    {
-        return base.UpdateAsync(entity);
-    }
+    //public override Task<PatientEntity> UpdateAsync(PatientEntity entity)
+    //{
+    //    return base.UpdateAsync(entity);
+    //}
 }

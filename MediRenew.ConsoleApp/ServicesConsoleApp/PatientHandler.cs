@@ -3,6 +3,7 @@ using Business.Services;
 using MediRenew.ConsoleApp.Utils;
 using Spectre.Console;
 using static MediRenew.ConsoleApp.Utils.ResultEnums;
+using Infrastructure.Utils;
 
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp;
@@ -20,45 +21,47 @@ public class PatientHandler
     {
         try
         {
+
             Console.Clear();
             var newPatient = new PatientDTO();
+            Console.WriteLine("Enter cancel to abort.");
 
-            Console.WriteLine("Enter first name: ");
-            newPatient.FirstName = Console.ReadLine()?.Trim()!;
+            newPatient.FirstName = Cancel.AddOrAbort("Enter first name: ");
+            if (newPatient.FirstName == null) return;
 
-            Console.WriteLine("Enter last name: ");
-            newPatient.LastName = Console.ReadLine()?.Trim()!;
+            newPatient.LastName = Cancel.AddOrAbort("Enter last name: ");
+            if (newPatient.LastName == null) return;
 
-            Console.WriteLine("Enter email: ");
-            newPatient.Email = Console.ReadLine()?.Trim()!;
+            newPatient.Email = Cancel.AddOrAbort("Enter email: ");
+            if (newPatient.Email == null) return;
 
-            Console.WriteLine("Enter phone number: ");
-            newPatient.PhoneNumber = Console.ReadLine()?.Trim()!;
+            newPatient.PhoneNumber = Cancel.AddOrAbort("Enter phone number:");
+            if ( newPatient.PhoneNumber == null) return;
 
-            Console.WriteLine("Enter address: ");
-            newPatient.Address = Console.ReadLine()?.Trim()!;
+            newPatient.Address = Cancel.AddOrAbort("Enter address: ");
+            if (newPatient.Address == null) return;
 
-            Console.WriteLine("Enter postal code: ");
-            newPatient.PostalCode = Console.ReadLine()?.Trim()!;
+            newPatient.PostalCode = Cancel.AddOrAbort("Enter postal code:");
+            if (newPatient.PostalCode == null) return;
 
-            Console.WriteLine("Enter city: ");
-            newPatient.City = Console.ReadLine()?.Trim()!;
+            newPatient.City = Cancel.AddOrAbort("Enter city");
+            if (newPatient.City == null) return;
 
             var result = await _patientService.AddPatientAsync(newPatient);
 
             switch (result)
             {
                 case Result.Success:
-                    ReturnMessage<PatientDTO>(CrudOperation.Create, result);
+                    ReturnMessage<PatientDTO>(CrudOperation.Create, result, "");
                     break;
                 case Result.Failure:
-                    ReturnMessage<PatientDTO>(CrudOperation.Create, result);
+                    ReturnMessage<PatientDTO>(CrudOperation.Create, result, "Email already exists.");
                     break;
                 case Result.NotFound:
-                    ReturnMessage<PatientDTO>(CrudOperation.Create, result);
+                    ReturnMessage<PatientDTO>(CrudOperation.Create, result, "");
                     break;
                 default:
-                    ReturnMessage<PatientDTO>(CrudOperation.Create, result);
+                    ReturnMessage<PatientDTO>(CrudOperation.Create, result, "");
                     break;
             }
         }
@@ -189,14 +192,28 @@ public class PatientHandler
                     patientToUpdate.PhoneNumber = Console.ReadLine()!;
                     Console.Write("City: ");
                     patientToUpdate.City = Console.ReadLine()!;
-                    Console.Write("Postal Code");
+                    Console.Write("Postal Code: ");
                     patientToUpdate.PostalCode = Console.ReadLine()!;
                     Console.Write("E-mail: ");
                     patientToUpdate.Email = Console.ReadLine()!;
 
                     var result = await _patientService.UpdatePatientAsync(patientToUpdate);
 
-                    ReturnMessage<PatientDTO>(CrudOperation.Update, result);
+                    switch (result)
+                    {
+                        case Result.Success:
+                            ReturnMessage<PatientDTO>(CrudOperation.Update, result, "Patient successfully updated.");
+                            break;
+                        case Result.NotFound:
+                            ReturnMessage<PatientDTO>(CrudOperation.Update, result, "Patient not found.");
+                            break;
+                        case Result.Failure:
+                            ReturnMessage<PatientDTO>(CrudOperation.Update, result, "Email already exists.");
+                            break;
+                        default:
+                            ReturnMessage<PatientDTO>(CrudOperation.Update, result, "Unexpected error from update operation.");
+                            break;
+                    }
                 }
             }
         }
@@ -218,13 +235,13 @@ public class PatientHandler
                 switch (result)
                 {
                     case Result.Success:
-                        ReturnMessage<PatientDTO>(CrudOperation.Delete, result);
+                        ReturnMessage<PatientDTO>(CrudOperation.Delete, result, "");
                         break;
                     case Result.Failure:
-                        ReturnMessage<PatientDTO>(CrudOperation.Delete, result);
+                        ReturnMessage<PatientDTO>(CrudOperation.Delete, result, "");
                         break;
                     case Result.NotFound:
-                        ReturnMessage<PatientDTO>(CrudOperation.Delete, result);
+                        ReturnMessage<PatientDTO>(CrudOperation.Delete, result, "");
                         break;
                 }
             }
