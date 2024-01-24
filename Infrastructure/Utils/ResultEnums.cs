@@ -1,4 +1,4 @@
-﻿
+﻿ 
 namespace MediRenew.ConsoleApp.Utils;
 
 public static class ResultEnums

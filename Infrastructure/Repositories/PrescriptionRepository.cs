@@ -17,22 +17,20 @@ public class PrescriptionRepository : BaseRepository<PrescriptionEntity>
         var prescriptions = await _context.Prescriptions
             .Include(x => x.Pharmacy)
             .Include(x => x.Patient)
+            .Include(x => x.Doctor)
             .ToListAsync();
         return prescriptions;
     }
-<<<<<<< HEAD
-}
-=======
 
     public async Task<IEnumerable<PrescriptionEntity>> GetAllForPatient(int id)
     {
         var prescriptions = await _context.Prescriptions
             .Include(x => x.Pharmacy)
             .Include(x => x.Patient)
+            .Include(x => x.Doctor)
             .Where(x => x.PatientId == id)
             .ToListAsync();
 
         return prescriptions;
     }
 }
->>>>>>> 1af591fab77db7569f3edabb131e97ea71d13d78

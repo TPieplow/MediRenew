@@ -14,12 +14,7 @@ public class PatientService(PatientRepository patientRepository, PrescriptionRep
     private readonly PatientRepository _patientRepository = patientRepository;
     private readonly PrescriptionRepository _prescriptionRepository = prescriptionRepository;
 
-<<<<<<< HEAD
-
-    public async Task<bool> AddPatientAsync(PatientDTO newPatient)
-=======
     public async Task<Result> AddPatientAsync(PatientDTO newPatient)
->>>>>>> teds_branch
     {
         try
         {
@@ -61,34 +56,8 @@ public class PatientService(PatientRepository patientRepository, PrescriptionRep
                 return null!;
             }
 
-<<<<<<< HEAD
-            if (prescriptions.Any(x => patientEntity.Id == x.PatientId))
-            {
-                return new PatientDTO
-                {
-                    Id = patientEntity.Id,
-                    FirstName = patientEntity.FirstName,
-                    LastName = patientEntity.LastName,
-                    Address = patientEntity.Address,
-                    City = patientEntity.City,
-                    PostalCode = patientEntity.PostalCode,
-                    PhoneNumber = patientEntity.PhoneNumber,
-                    Email = patientEntity.Email,
-                    Dosage = prescriptions.FirstOrDefault(x => x.PatientId == patientEntity.Id)!.Dosage,
-                    MedicationName = prescriptions.FirstOrDefault(x => x.PatientId == patientEntity.Id)!.Pharmacy.MedicationName
-                };
-<<<<<<< HEAD
-                return patientDTO;
-            }
-            else
-=======
-            }
 
-            patientDTO = new PatientDTO
->>>>>>> 1af591fab77db7569f3edabb131e97ea71d13d78
-=======
             var patientDTO = new PatientDTO
->>>>>>> teds_branch
             {
                 Id = patientEntity.Id,
                 FirstName = patientEntity.FirstName,
@@ -167,7 +136,7 @@ public class PatientService(PatientRepository patientRepository, PrescriptionRep
         { Console.WriteLine($"ERROR: {ex.Message}"); return Result.Failure; }
     }
 
-    public async Task<Result> RemovePatientService(int patientId)
+    public async Task<Result> RemovePatientAsync(int patientId)
     {
         try
         {

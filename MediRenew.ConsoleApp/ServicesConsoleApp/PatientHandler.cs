@@ -135,7 +135,7 @@ public class PatientHandler
         try
         {
             Console.Clear();
-            IEnumerable<PatientDTO> patients = await _patientService.GetAllPatients();
+            var patients = await _patientService.GetAllPatients();
 
             if (patients is not null)
             {
@@ -231,7 +231,7 @@ public class PatientHandler
             Console.WriteLine("Enter Id of the patient you want to remove: ");
             if (int.TryParse(Console.ReadLine(), out var patientId))
             {
-                var result = await _patientService.RemovePatientService(patientId);
+                var result = await _patientService.RemovePatientAsync(patientId);
                 switch (result)
                 {
                     case Result.Success:
