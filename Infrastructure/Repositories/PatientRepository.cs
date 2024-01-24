@@ -49,17 +49,17 @@ public class PatientRepository : BaseRepository<PatientEntity>, IPatientReposito
             .FirstOrDefault(x => x.Id == id)!;
     }
 
-    public bool RemovePatient(int id)
-    {
-        var patient = _context.Patients.Find(id);
-        if (patient is { })
-        {
-            _context.Patients.Remove(patient);
-            return true;
-        }
+    //public bool RemovePatient(int id)
+    //{
+    //    var patient = _context.Patients.Find(id);
+    //    if (patient is { })
+    //    {
+    //        _context.Patients.Remove(patient);
+    //        return true;
+    //    }
 
-        return false;
-    }
+    //    return false;
+    //}
 
     public override Task<PatientEntity> UpdateAsync(PatientEntity entity)
     {

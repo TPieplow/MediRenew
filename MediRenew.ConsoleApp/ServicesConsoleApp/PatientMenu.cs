@@ -44,9 +44,11 @@
                         break;
 
                     case "4":
+                        await _patient.UpdatePatientById();
                         break;
 
                     case "5":
+                        await _patient.DeletePatientById();
                         break;
 
                     case "0":
