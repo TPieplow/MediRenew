@@ -1,11 +1,8 @@
 ﻿using Business.DTOs;
 using Infrastructure.HospitalEntities;
-using Infrastructure.Interfaces;
 using Infrastructure.Repositories;
-using MediRenew.ConsoleApp.Utils;
 using System.Diagnostics;
-
-using static MediRenew.ConsoleApp.Utils.ResultEnums;
+using static Infrastructure.Utils.ResultEnums;
 
 namespace Business.Services;
 
@@ -135,7 +132,7 @@ public class PatientService(PatientRepository patientRepository, PrescriptionRep
         { Console.WriteLine($"ERROR: {ex.Message}"); return Result.Failure; }
     }
 
-    public async Task<Result> RemovePatientService(int patientId)
+    public async Task<Result> RemovePatientAsync(int patientId)
     {
         try
         {

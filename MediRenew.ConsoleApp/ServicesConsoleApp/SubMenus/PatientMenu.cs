@@ -1,9 +1,11 @@
-﻿namespace MediRenew.ConsoleApp.ServicesConsoleApp
+﻿using MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
+
+namespace MediRenew.ConsoleApp.ServicesConsoleApp.SubMenus
 {
     public class PatientMenu(PatientHandler patient)
     {
         private readonly PatientHandler _patient = patient;
-        
+
         public async Task PatientMenuAsync()
         {
             bool running = true;
@@ -40,7 +42,7 @@
                         break;
 
                     case "3":
-                        await _patient.ViewAllPatiens();
+                        await _patient.ViewAllPatients();
                         break;
 
                     case "4":

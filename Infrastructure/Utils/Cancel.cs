@@ -9,10 +9,10 @@ public class Cancel
         Console.WriteLine(prompt);
         string input = Console.ReadLine()?.Trim()!;
 
-        if (input.Equals("cancel", StringComparison.CurrentCultureIgnoreCase))
+        if (input.Equals("cancel", StringComparison.CurrentCultureIgnoreCase) || String.IsNullOrWhiteSpace(input))
         {
             DisplayMessage.Message("Operation aborted");
-            return null;
+            return null!;
         }
         return input;
     }

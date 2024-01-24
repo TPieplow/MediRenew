@@ -1,10 +1,12 @@
-﻿using Microsoft.Identity.Client;
+﻿using MediRenew.ConsoleApp.ServicesConsoleApp.SubMenus;
+using Microsoft.Identity.Client;
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp;
 
-public class HospitalMenu(PatientMenu patientMenu)
+public class HospitalMenu(PatientMenu patientMenu, StaffMenu staffMenu)
 {
     public readonly PatientMenu _patientMenu = patientMenu;
+    public readonly StaffMenu _staffMenu = staffMenu;
 
     public async Task MenuAsync()
     {
@@ -41,6 +43,7 @@ public class HospitalMenu(PatientMenu patientMenu)
                     break;
 
                 case "3":
+                    await _staffMenu.PatientMenuAsync();
                     break;
 
                 case "4":

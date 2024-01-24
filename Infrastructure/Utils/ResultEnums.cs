@@ -1,5 +1,6 @@
-﻿
-namespace MediRenew.ConsoleApp.Utils;
+﻿using MediRenew.ConsoleApp.Utils;
+
+namespace Infrastructure.Utils;
 
 public static class ResultEnums
 {
