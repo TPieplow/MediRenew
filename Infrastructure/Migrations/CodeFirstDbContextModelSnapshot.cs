@@ -50,21 +50,33 @@ namespace Infrastructure.Migrations
                             PatientId = 1,
                             DoctorId = 1,
                             Comments = "Headfraction",
+<<<<<<< HEAD
                             Date = new DateTime(2024, 1, 22, 16, 31, 12, 610, DateTimeKind.Local).AddTicks(9110)
+=======
+                            Date = new DateTime(2024, 1, 22, 16, 27, 58, 151, DateTimeKind.Local).AddTicks(9197)
+>>>>>>> 1af591fab77db7569f3edabb131e97ea71d13d78
                         },
                         new
                         {
                             PatientId = 2,
                             DoctorId = 2,
                             Comments = "Pungbråck",
+<<<<<<< HEAD
                             Date = new DateTime(2024, 1, 22, 16, 31, 12, 610, DateTimeKind.Local).AddTicks(9161)
+=======
+                            Date = new DateTime(2024, 1, 22, 16, 27, 58, 151, DateTimeKind.Local).AddTicks(9234)
+>>>>>>> 1af591fab77db7569f3edabb131e97ea71d13d78
                         },
                         new
                         {
                             PatientId = 3,
                             DoctorId = 3,
                             Comments = "Headfraction",
+<<<<<<< HEAD
                             Date = new DateTime(2024, 1, 22, 16, 31, 12, 610, DateTimeKind.Local).AddTicks(9163)
+=======
+                            Date = new DateTime(2024, 1, 22, 16, 27, 58, 151, DateTimeKind.Local).AddTicks(9237)
+>>>>>>> 1af591fab77db7569f3edabb131e97ea71d13d78
                         });
                 });
 
@@ -419,7 +431,11 @@ namespace Infrastructure.Migrations
                         {
                             Id = 1,
                             Cost = 10.0m,
+<<<<<<< HEAD
                             Date = new DateTime(2024, 1, 22, 16, 31, 12, 610, DateTimeKind.Local).AddTicks(9218),
+=======
+                            Date = new DateTime(2024, 1, 22, 16, 27, 58, 151, DateTimeKind.Local).AddTicks(9272),
+>>>>>>> 1af591fab77db7569f3edabb131e97ea71d13d78
                             DoctorId = 1,
                             Dosage = "Every 4 hour",
                             PatientId = 1,
@@ -429,7 +445,11 @@ namespace Infrastructure.Migrations
                         {
                             Id = 2,
                             Cost = 5.0m,
+<<<<<<< HEAD
                             Date = new DateTime(2024, 1, 22, 16, 31, 12, 610, DateTimeKind.Local).AddTicks(9224),
+=======
+                            Date = new DateTime(2024, 1, 22, 16, 27, 58, 151, DateTimeKind.Local).AddTicks(9277),
+>>>>>>> 1af591fab77db7569f3edabb131e97ea71d13d78
                             DoctorId = 2,
                             Dosage = "Every 4 hour",
                             PatientId = 2,
@@ -439,7 +459,11 @@ namespace Infrastructure.Migrations
                         {
                             Id = 3,
                             Cost = 50.0m,
+<<<<<<< HEAD
                             Date = new DateTime(2024, 1, 22, 16, 31, 12, 610, DateTimeKind.Local).AddTicks(9226),
+=======
+                            Date = new DateTime(2024, 1, 22, 16, 27, 58, 151, DateTimeKind.Local).AddTicks(9280),
+>>>>>>> 1af591fab77db7569f3edabb131e97ea71d13d78
                             DoctorId = 3,
                             Dosage = "Twice a day, morning and before bed",
                             PatientId = 3,

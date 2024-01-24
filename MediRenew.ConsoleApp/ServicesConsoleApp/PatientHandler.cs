@@ -77,12 +77,35 @@ public class PatientHandler
 
                 if (patient != null)
                 {
-                    Console.WriteLine($"Patient Details for {patient.FirstName} {patient.LastName}:");
-                    Console.WriteLine($"Address: {patient.Address}");
-                    Console.WriteLine($"City: {patient.City}");
-                    Console.WriteLine($"Postal Code: {patient.PostalCode}");
-                    Console.WriteLine($"Phone Number: {patient.PhoneNumber}");
-                    Console.WriteLine($"Email: {patient.Email}");
+
+                    var table = new Table();
+
+                    table.AddColumn("[yellow]ID[/]");
+                    table.AddColumn("[yellow]First name[/]");
+                    table.AddColumn("[yellow]Last name[/]");
+                    table.AddColumn("[yellow]Address[/]");
+                    table.AddColumn("[yellow]City[/]");
+                    table.AddColumn("[yellow]Postal Code[/]");
+                    table.AddColumn("[yellow]Phone number[/]");
+                    table.AddColumn("[yellow]Email[/]");
+                    table.AddColumn("[yellow]Dosage[/]");
+                    table.AddColumn("[yellow]Medication-type[/]");
+
+
+                    table.AddRow(
+                        patient.Id.ToString(),
+                        patient.FirstName,
+                        patient.LastName,
+                        patient.Address,
+                        patient.City,
+                        patient.PostalCode,
+                        patient.PhoneNumber,
+                        patient.Email,
+                        patient.Dosage ??= "N/A",
+                        patient.MedicationName ??= "N/A"
+                    );
+
+                    AnsiConsole.Write(table);
                     Console.ReadKey();
                 }
                 else
@@ -114,6 +137,7 @@ public class PatientHandler
             {
                 var table = new Table();
 
+                table.AddColumn("[yellow]Patient-ID[/]");
                 table.AddColumn("[yellow]First name[/]");
                 table.AddColumn("[yellow]Last name[/]");
                 table.AddColumn("[yellow]Address[/]");
@@ -122,9 +146,12 @@ public class PatientHandler
                 table.AddColumn("[yellow]Phone number[/]");
                 table.AddColumn("[yellow]Email[/]");
 
+
                 foreach (PatientDTO patient in patients)
                 {
+
                     table.AddRow(
+                        patient.Id.ToString(),
                         patient.FirstName,
                         patient.LastName,
                         patient.Address,
