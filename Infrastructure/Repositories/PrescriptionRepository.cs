@@ -14,11 +14,11 @@ public class PrescriptionRepository : BaseRepository<PrescriptionEntity>
 
     public override async Task<IEnumerable<PrescriptionEntity>> GetAllAsync()
     {
-        var foo = await _context.Prescriptions
+        var prescriptions = await _context.Prescriptions
             .Include(x => x.Pharmacy)
             .Include(x => x.Patient)
             .ToListAsync();
-        return foo;
+        return prescriptions;
     }
 <<<<<<< HEAD
 }
@@ -26,13 +26,13 @@ public class PrescriptionRepository : BaseRepository<PrescriptionEntity>
 
     public async Task<IEnumerable<PrescriptionEntity>> GetAllForPatient(int id)
     {
-        var foo = await _context.Prescriptions
+        var prescriptions = await _context.Prescriptions
             .Include(x => x.Pharmacy)
             .Include(x => x.Patient)
             .Where(x => x.PatientId == id)
             .ToListAsync();
 
-        return foo;
+        return prescriptions;
     }
 }
 >>>>>>> 1af591fab77db7569f3edabb131e97ea71d13d78
