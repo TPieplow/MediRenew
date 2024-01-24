@@ -2,6 +2,7 @@
 using Business.Services;
 using Spectre.Console;
 using System.Runtime.ExceptionServices;
+using System.Xml.XPath;
 
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp;
@@ -146,7 +147,6 @@ public class PatientHandler
                 table.AddColumn("[yellow]Email[/]");
 
 
-
                 foreach (PatientDTO patient in patients)
                 {
 
@@ -168,6 +168,4 @@ public class PatientHandler
         }
         catch (Exception ex) { Console.WriteLine(ex.Message); }
     }
-
-
 }

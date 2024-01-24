@@ -74,26 +74,6 @@ public class PatientService(PatientRepository patientRepository, PrescriptionRep
                     MedicationName = prescriptions.FirstOrDefault(x => x.PatientId == patientEntity.Id)!.Pharmacy.MedicationName
                 };
             }
-            //foreach (var p in prescriptions)
-            //{
-            //    if (p.PatientId == patientEntity.Id)
-            //    {
-            //        patientDTO = new PatientDTO
-            //        {
-            //            Id = patientEntity.Id,
-            //            FirstName = patientEntity.FirstName,
-            //            LastName = patientEntity.LastName,
-            //            Address = patientEntity.Address,
-            //            City = patientEntity.City,
-            //            PostalCode = patientEntity.PostalCode,
-            //            PhoneNumber = patientEntity.PhoneNumber,
-            //            Email = patientEntity.Email,
-            //            Dosage = p.Dosage,
-            //            MedicationName = p.Pharmacy.MedicationName
-            //        };
-            //        return patientDTO;
-            //    }
-            //}
 
             patientDTO = new PatientDTO
             {
