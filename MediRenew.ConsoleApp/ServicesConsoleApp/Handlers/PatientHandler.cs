@@ -78,11 +78,11 @@ public class PatientHandler
             Console.WriteLine("Enter Id");
             PatientDTO patient = null!;
 
-            if (int.TryParse(Console.ReadLine()!, out int id))
+            if (int.TryParse(Console.ReadLine()!, out int Id))
             {
-                patient = await _patientService.GetOnePatient(id);
+                patient = await _patientService.GetOnePatient(Id);
 
-                if (patient != null)
+                if (patient is not null)
                 {
                     var table = new Table();
 

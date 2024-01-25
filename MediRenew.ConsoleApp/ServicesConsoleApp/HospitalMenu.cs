@@ -1,4 +1,5 @@
-﻿using MediRenew.ConsoleApp.ServicesConsoleApp.SubMenus;
+﻿using MediRenew.ConsoleApp.Login;
+using MediRenew.ConsoleApp.ServicesConsoleApp.SubMenus;
 using Microsoft.Identity.Client;
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp;
@@ -13,7 +14,7 @@ public class HospitalMenu(PatientMenu patientMenu, StaffMenu staffMenu)
         while (true)
         {
             Console.Clear();
-            Console.WriteLine("Welcome to MediRenew, a Hospital Database Handler! ");
+            Header.StaticHeader();
 
             string[] menu =
             {

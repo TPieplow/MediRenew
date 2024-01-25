@@ -55,7 +55,7 @@ public class StaffService(StaffRepository staffRepository)
                 return null!;
             }
 
-            var staffDTO = new StaffDTO()
+            var staffDTO = new StaffDTO
             {
                 Id = staffEntity.Id,
                 FirstName = staffEntity.FirstName,
@@ -67,17 +67,18 @@ public class StaffService(StaffRepository staffRepository)
 
             return staffDTO;
         }
-        catch (Exception ex) { Debug.WriteLine($"ERROR : {ex.Message} "); } return null!;
+        catch (Exception ex) { Debug.WriteLine($"ERROR : {ex.Message} "); }
+        return null!;
     }
 
-    public async Task<IEnumerable<StaffDTO>>GetAllStaff()
+    public async Task<IEnumerable<StaffDTO>> GetAllStaff()
     {
         try
         {
             var staffEntity = (await _staffRepository.GetAllStaffMembersIncludeDepartAsync()).ToList();
             return staffEntity.Select(x => new StaffDTO()
             {
-                Id=x.Id,
+                Id = x.Id,
                 FirstName = x.FirstName,
                 LastName = x.LastName,
                 RoleName = x.RoleName,
@@ -87,5 +88,50 @@ public class StaffService(StaffRepository staffRepository)
         }
         catch (Exception ex) { Debug.WriteLine($"ERROR : {ex.Message} "); }
         return null!;
+    }
+
+    public async Task<Result> UpdateStaffAsync(StaffDTO staff)
+    {
+        try
+        {
+            var existingNumber = await _staffRepository.GetOneAsync(x => x.PhoneNumber == staff.PhoneNumber);
+            if (existingNumber is not null)
+            {
+                return Result.Failure;
+            }
+
+            var staffToUpdate = await _staffRepository.GetOneAsync(x => x.Id == staff.Id);
+            if (staffToUpdate is not null)
+            {
+                staffToUpdate.FirstName = staff.FirstName;
+                staffToUpdate.LastName = staff.LastName;
+                staffToUpdate.PhoneNumber = staff.PhoneNumber;
+                staffToUpdate.RoleName = staff.RoleName;
+                staffToUpdate.Department.Id = staff.Department.Id;
+
+                await _staffRepository.UpdateAsync(staffToUpdate);
+                return Result.Success;
+            }
+        }
+        catch (Exception ex) { Debug.WriteLine($"ERROR : {ex.Message} "); }
+        return Result.Failure;
+    }
+
+    public async Task<Result> DeleteStaffMember(int patientId)
+    {
+        try
+        {
+            var staffToDelete = await _staffRepository.DeleteAsync(x => x.Id == patientId);
+
+            if (staffToDelete)
+            {
+                return Result.Success;
+            }
+            else { return Result.Failure; }
+
+
+        }
+        catch (Exception ex) { Debug.WriteLine($"ERROR : {ex.Message} "); }
+        return Result.Failure;
     }
 }

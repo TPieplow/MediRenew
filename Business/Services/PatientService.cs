@@ -48,7 +48,7 @@ public class PatientService(PatientRepository patientRepository, PrescriptionRep
         {
             var patientEntity = await _patientRepository.GetOneAsync(x => x.Id == patientId);
 
-            if (patientEntity == null)
+            if (patientEntity is null)
             {
                 return null!;
             }
