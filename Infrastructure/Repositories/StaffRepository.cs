@@ -21,6 +21,18 @@ public class StaffRepository : BaseRepository<StaffEntity>
         return base.DeleteAsync(predicate);
     }
 
+    public async Task<IEnumerable<StaffEntity>> GetAllStaffMembersIncludeDepartAsync()
+    {
+        try
+        {
+            return await _context.Set<StaffEntity>()
+                .Include(x => x.Department)
+                .ToListAsync();
+        }
+        catch (Exception ex) { Debug.WriteLine($"ERROR : {ex.Message}"); }
+        return Enumerable.Empty<StaffEntity>();
+    }
+
     public async Task<DepartmentEntity?> GetDepartmentByIdAsync(int id)
     {
         try

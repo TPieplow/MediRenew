@@ -84,6 +84,10 @@ public class PatientService(PatientRepository patientRepository, PrescriptionRep
         {
             var result = (await _patientRepository.GetAllAsync()).ToList();
 
+            if (result.Count == 0)
+            {
+                return new List<PatientDTO>();
+            }
             return result.Select(x => new PatientDTO
             {
                 Id = x.Id,

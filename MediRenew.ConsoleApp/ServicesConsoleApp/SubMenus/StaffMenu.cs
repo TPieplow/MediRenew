@@ -49,7 +49,7 @@ public class StaffMenu
                     break;
 
                 case "3":
-
+                    await _staffHandler.ViewAllStaff();
                     break;
 
                 case "4":

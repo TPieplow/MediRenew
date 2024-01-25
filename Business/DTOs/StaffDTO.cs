@@ -10,6 +10,7 @@ public class StaffDTO
     public string RoleName { get; set; } = null!;
     public string PhoneNumber { get; set; } = null!;
     public int DepartmentId { get; set; }
+    public string DepartmentName { get; set; } = null!;
     public DepartmentEntity Department { get; set; } = null!;
 }
 

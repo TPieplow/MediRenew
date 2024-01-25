@@ -2,6 +2,9 @@
 using Business.Services;
 using Infrastructure.Utils;
 using static Infrastructure.Utils.ResultEnums;
+using Spectre.Console;
+using Table = Spectre.Console.Table;
+using MediRenew.ConsoleApp.Utils;
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
 
@@ -51,5 +54,43 @@ public class StaffHandler(StaffService staffService)
                 ReturnMessage<StaffDTO>(CrudOperation.Create, result, "");
                 break;
         }
+    }
+
+    public async Task ViewAllStaff()
+    {
+        try
+        {
+            IEnumerable<StaffDTO> staffMembers = await _staffService.GetAllStaff();
+
+            if (staffMembers is not null)
+            {
+                var table = new Table();
+
+                table.AddColumn("ID");
+                table.AddColumn("First Name");
+                table.AddColumn("Last Name");
+                table.AddColumn("Role ");
+                table.AddColumn("Phone Number");
+                table.AddColumn("Department ID");
+
+                foreach (StaffDTO staff in staffMembers)
+                {
+
+                    table.AddRow(
+                        staff.Id.ToString(),
+                        staff.FirstName,
+                        staff.LastName,
+                        staff.RoleName,
+                        staff.PhoneNumber,
+                        staff.DepartmentName
+                        );
+                }
+
+                AnsiConsole.Write(table);
+                DisplayMessage.Message("");
+            }
+        }
+        catch (Exception ex) { Console.WriteLine(ex.Message); }
+
     }
 }
