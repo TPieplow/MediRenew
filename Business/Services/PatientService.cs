@@ -1,11 +1,8 @@
 ﻿using Business.DTOs;
 using Infrastructure.HospitalEntities;
-using Infrastructure.Interfaces;
 using Infrastructure.Repositories;
-using MediRenew.ConsoleApp.Utils;
 using System.Diagnostics;
-
-using static MediRenew.ConsoleApp.Utils.ResultEnums;
+using static Infrastructure.Utils.ResultEnums;
 
 namespace Business.Services;
 
@@ -14,12 +11,8 @@ public class PatientService(PatientRepository patientRepository, PrescriptionRep
     private readonly PatientRepository _patientRepository = patientRepository;
     private readonly PrescriptionRepository _prescriptionRepository = prescriptionRepository;
 
-<<<<<<< HEAD
 
-    public async Task<bool> AddPatientAsync(PatientDTO newPatient)
-=======
     public async Task<Result> AddPatientAsync(PatientDTO newPatient)
->>>>>>> teds_branch
     {
         try
         {
@@ -56,39 +49,13 @@ public class PatientService(PatientRepository patientRepository, PrescriptionRep
         {
             var patientEntity = await _patientRepository.GetOneAsync(x => x.Id == patientId);
 
-            if (patientEntity == null)
+            if (patientEntity is null)
             {
                 return null!;
             }
 
-<<<<<<< HEAD
-            if (prescriptions.Any(x => patientEntity.Id == x.PatientId))
-            {
-                return new PatientDTO
-                {
-                    Id = patientEntity.Id,
-                    FirstName = patientEntity.FirstName,
-                    LastName = patientEntity.LastName,
-                    Address = patientEntity.Address,
-                    City = patientEntity.City,
-                    PostalCode = patientEntity.PostalCode,
-                    PhoneNumber = patientEntity.PhoneNumber,
-                    Email = patientEntity.Email,
-                    Dosage = prescriptions.FirstOrDefault(x => x.PatientId == patientEntity.Id)!.Dosage,
-                    MedicationName = prescriptions.FirstOrDefault(x => x.PatientId == patientEntity.Id)!.Pharmacy.MedicationName
-                };
-<<<<<<< HEAD
-                return patientDTO;
-            }
-            else
-=======
-            }
-
-            patientDTO = new PatientDTO
->>>>>>> 1af591fab77db7569f3edabb131e97ea71d13d78
-=======
             var patientDTO = new PatientDTO
->>>>>>> teds_branch
+
             {
                 Id = patientEntity.Id,
                 FirstName = patientEntity.FirstName,
@@ -119,6 +86,10 @@ public class PatientService(PatientRepository patientRepository, PrescriptionRep
         {
             var result = (await _patientRepository.GetAllAsync()).ToList();
 
+            if (result.Count == 0)
+            {
+                return new List<PatientDTO>();
+            }
             return result.Select(x => new PatientDTO
             {
                 Id = x.Id,
@@ -167,7 +138,7 @@ public class PatientService(PatientRepository patientRepository, PrescriptionRep
         { Console.WriteLine($"ERROR: {ex.Message}"); return Result.Failure; }
     }
 
-    public async Task<Result> RemovePatientService(int patientId)
+    public async Task<Result> RemovePatientAsync(int patientId)
     {
         try
         {

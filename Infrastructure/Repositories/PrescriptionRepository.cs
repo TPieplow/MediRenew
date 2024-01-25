@@ -20,9 +20,7 @@ public class PrescriptionRepository : BaseRepository<PrescriptionEntity>
             .ToListAsync();
         return prescriptions;
     }
-<<<<<<< HEAD
-}
-=======
+
 
     public async Task<IEnumerable<PrescriptionEntity>> GetAllForPatient(int id)
     {
@@ -35,4 +33,4 @@ public class PrescriptionRepository : BaseRepository<PrescriptionEntity>
         return prescriptions;
     }
 }
->>>>>>> 1af591fab77db7569f3edabb131e97ea71d13d78
+

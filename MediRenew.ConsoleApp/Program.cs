@@ -3,6 +3,8 @@ using Infrastructure.Contexts;
 using Infrastructure.Repositories;
 using MediRenew.ConsoleApp.Login;
 using MediRenew.ConsoleApp.ServicesConsoleApp;
+using MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
+using MediRenew.ConsoleApp.ServicesConsoleApp.SubMenus;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,15 +26,16 @@ class Program
                 services.AddScoped<PatientService>();
                 services.AddScoped<PatientHandler>();
                 services.AddScoped<LoginService>();
-<<<<<<< HEAD
-            })
-            // Stoppar loggningen av SQL-querys när användaren hämtar från db.
-=======
                 services.AddScoped<HospitalMenu>();
                 services.AddScoped<PrescriptionRepository>();
                 services.AddScoped<PatientMenu>();
+                services.AddScoped<StaffMenu>();
+                services.AddScoped<StaffHandler>();
+                services.AddScoped<StaffService>();
+                services.AddScoped<StaffRepository>();
+                services.AddScoped<DepartmentRepository>();
             })
->>>>>>> 1af591fab77db7569f3edabb131e97ea71d13d78
+
             .ConfigureLogging(logging =>
             {
                 logging.ClearProviders();
@@ -40,10 +43,7 @@ class Program
                 logging.AddConsole();
             });
 
-<<<<<<< HEAD
-        // Skapar ett nytt scope och kallar på LoginService
-=======
->>>>>>> 1af591fab77db7569f3edabb131e97ea71d13d78
+
         using var host = builder.Build();
         using var scope = host.Services.CreateScope();
         var serviceProvider = scope.ServiceProvider;
@@ -54,7 +54,9 @@ class Program
 
         if (loginService.Login()) 
         {
-            var hospitalMenu = new HospitalMenu(serviceProvider.GetRequiredService<PatientMenu>());
+            var hospitalMenu = new HospitalMenu(
+                serviceProvider.GetRequiredService<PatientMenu>(),
+                serviceProvider.GetRequiredService<StaffMenu>());
             await hospitalMenu.MenuAsync();
         }
         else
