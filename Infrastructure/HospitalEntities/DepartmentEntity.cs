@@ -4,8 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infrastructure.HospitalEntities;
 
-
-    [Index(nameof(DepartmentName), IsUnique = true)]
+[Index(nameof(DepartmentName), IsUnique = true)]
 public class DepartmentEntity
 {
     [Key]
