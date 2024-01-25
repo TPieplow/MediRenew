@@ -14,14 +14,13 @@ public class StaffMenu
         _staffHandler = staffHandler;
     }
 
-    public async Task PatientMenuAsync()
+    public async Task StaffMenuAsync()
     {
         bool running = true;
         while (running)
         {
             Console.Clear();
             Header.StaticHeader();
-            Console.WriteLine("What would you like to do? ");
 
             string[] menu =
             [
