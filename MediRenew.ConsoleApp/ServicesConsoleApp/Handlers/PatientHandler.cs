@@ -134,7 +134,7 @@ public class PatientHandler
         try
         {
             Console.Clear();
-            IEnumerable<PatientDTO> patients = await _patientService.GetAllPatients();
+            var patients = await _patientService.GetAllPatients();
 
             if (patients is not null)
             {

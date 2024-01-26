@@ -17,6 +17,7 @@ public class PrescriptionRepository : BaseRepository<PrescriptionEntity>
         var prescriptions = await _context.Prescriptions
             .Include(x => x.Pharmacy)
             .Include(x => x.Patient)
+            .Include(x => x.Doctor)
             .ToListAsync();
         return prescriptions;
     }
@@ -26,9 +27,11 @@ public class PrescriptionRepository : BaseRepository<PrescriptionEntity>
         var prescriptions = await _context.Prescriptions
             .Include(x => x.Pharmacy)
             .Include(x => x.Patient)
+            .Include(x => x.Doctor)
             .Where(x => x.PatientId == id)
             .ToListAsync();
 
         return prescriptions;
     }
 }
+
