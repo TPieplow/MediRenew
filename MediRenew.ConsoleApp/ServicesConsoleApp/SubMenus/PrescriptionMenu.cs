@@ -1,6 +1,7 @@
 ﻿using Business.Services;
+using MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
 
-namespace MediRenew.ConsoleApp.ServicesConsoleApp;
+namespace MediRenew.ConsoleApp.ServicesConsoleApp.SubMenus;
 
 public class PrescriptionMenu(PrescriptionHandler prescriptionHandler)
 {

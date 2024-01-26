@@ -1,12 +1,11 @@
 ﻿using Business.DTOs;
 using Business.Services;
 using Infrastructure.Utils;
-using MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
 using MediRenew.ConsoleApp.Utils;
 using Spectre.Console;
 using static Infrastructure.Utils.ResultEnums;
 
-namespace MediRenew.ConsoleApp.ServicesConsoleApp;
+namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
 
 public class PrescriptionHandler(PrescriptionService prescriptionService, PatientHandler patientHandler)
 {
