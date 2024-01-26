@@ -11,7 +11,6 @@ public class PatientService(PatientRepository patientRepository, PrescriptionRep
     private readonly PatientRepository _patientRepository = patientRepository;
     private readonly PrescriptionRepository _prescriptionRepository = prescriptionRepository;
 
-
     public async Task<Result> AddPatientAsync(PatientDTO newPatient)
     {
         try
@@ -55,7 +54,6 @@ public class PatientService(PatientRepository patientRepository, PrescriptionRep
             }
 
             var patientDTO = new PatientDTO
-
             {
                 Id = patientEntity.Id,
                 FirstName = patientEntity.FirstName,

@@ -22,17 +22,32 @@ class Program
             .ConfigureServices((context, services) =>
             {
                 services.AddDbContext<CodeFirstDbContext>(x => x.UseSqlServer(@"Data Source=localhost;Initial Catalog=HospitalDb;Integrated Security=True;Trust Server Certificate=True"));
+                services.AddScoped<LoginService>();
+                services.AddScoped<HospitalMenu>();
+
                 services.AddScoped<PatientRepository>();
                 services.AddScoped<PatientService>();
                 services.AddScoped<PatientHandler>();
-                services.AddScoped<LoginService>();
-                services.AddScoped<HospitalMenu>();
-                services.AddScoped<PrescriptionRepository>();
                 services.AddScoped<PatientMenu>();
+
+                services.AddScoped<PrescriptionRepository>();
+                services.AddScoped<PrescriptionMenu>();
+                services.AddScoped<PrescriptionHandler>();
+                services.AddScoped<PrescriptionService>();
+
+                services.AddScoped<DoctorRepository>();
+                services.AddScoped<DoctorService>();
+                services.AddScoped<DoctorHandler>();
+                services.AddScoped<DoctorMenu>();
+
+                services.AddScoped<AppointmentRepository>();
+                services.AddScoped<AppointmentService>();
+
                 services.AddScoped<StaffMenu>();
                 services.AddScoped<StaffHandler>();
                 services.AddScoped<StaffService>();
                 services.AddScoped<StaffRepository>();
+
                 services.AddScoped<DepartmentRepository>();
             })
 
@@ -56,6 +71,8 @@ class Program
         {
             var hospitalMenu = new HospitalMenu(
                 serviceProvider.GetRequiredService<PatientMenu>(),
+                serviceProvider.GetRequiredService<PrescriptionMenu>(),
+                serviceProvider.GetRequiredService<DoctorMenu>(),
                 serviceProvider.GetRequiredService<StaffMenu>());
             await hospitalMenu.MenuAsync();
         }
