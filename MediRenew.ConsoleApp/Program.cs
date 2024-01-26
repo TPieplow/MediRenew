@@ -1,5 +1,4 @@
-﻿
-using Business.Services;
+﻿using Business.Services;
 using Infrastructure.Contexts;
 using Infrastructure.Repositories;
 using MediRenew.ConsoleApp.Login;
@@ -21,13 +20,26 @@ class Program
             .ConfigureServices((context, services) =>
             {
                 services.AddDbContext<CodeFirstDbContext>(x => x.UseSqlServer(@"Data Source=localhost;Initial Catalog=HospitalDb;Integrated Security=True;Trust Server Certificate=True"));
+                services.AddScoped<LoginService>();
+                services.AddScoped<HospitalMenu>();
+
                 services.AddScoped<PatientRepository>();
                 services.AddScoped<PatientService>();
                 services.AddScoped<PatientHandler>();
-                services.AddScoped<LoginService>();
-                services.AddScoped<HospitalMenu>();
-                services.AddScoped<PrescriptionRepository>();
                 services.AddScoped<PatientMenu>();
+
+                services.AddScoped<PrescriptionRepository>();
+                services.AddScoped<PrescriptionMenu>();
+                services.AddScoped<PrescriptionHandler>();
+                services.AddScoped<PrescriptionService>();
+
+                services.AddScoped<DoctorRepository>();
+                services.AddScoped<DoctorService>();
+                services.AddScoped<DoctorHandler>();
+                services.AddScoped<DoctorMenu>();
+
+                services.AddScoped<AppointmentRepository>();
+                services.AddScoped<AppointmentService>();
             })
             .ConfigureLogging(logging =>
             {
@@ -35,6 +47,7 @@ class Program
                 logging.SetMinimumLevel(LogLevel.Error);
                 logging.AddConsole();
             });
+
 
         using var host = builder.Build();
         using var scope = host.Services.CreateScope();
@@ -46,7 +59,10 @@ class Program
 
         if (loginService.Login()) 
         {
-            var hospitalMenu = new HospitalMenu(serviceProvider.GetRequiredService<PatientMenu>());
+            var hospitalMenu = new HospitalMenu(
+                serviceProvider.GetRequiredService<PatientMenu>(), 
+                serviceProvider.GetRequiredService<PrescriptionMenu>(),
+                serviceProvider.GetRequiredService<DoctorMenu>());
             await hospitalMenu.MenuAsync();
         }
         else
@@ -55,3 +71,4 @@ class Program
         }
     }
 }
+

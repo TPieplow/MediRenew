@@ -1,8 +1,9 @@
 ﻿using Business.DTOs;
 using Business.Services;
+using MediRenew.ConsoleApp.Utils;
 using Spectre.Console;
-using System.Runtime.ExceptionServices;
-using System.Xml.XPath;
+using static MediRenew.ConsoleApp.Utils.ResultEnums;
+using Infrastructure.Utils;
 
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp;
@@ -20,41 +21,48 @@ public class PatientHandler
     {
         try
         {
+
             Console.Clear();
             var newPatient = new PatientDTO();
+            Console.WriteLine("Enter cancel to abort.");
 
-            Console.WriteLine("Enter first name: ");
-            newPatient.FirstName = Console.ReadLine()?.Trim()!;
+            newPatient.FirstName = Cancel.AddOrAbort("Enter first name: ");
+            if (newPatient.FirstName == null) return;
 
-            Console.WriteLine("Enter last name: ");
-            newPatient.LastName = Console.ReadLine()?.Trim()!;
+            newPatient.LastName = Cancel.AddOrAbort("Enter last name: ");
+            if (newPatient.LastName == null) return;
 
-            Console.WriteLine("Enter email: ");
-            newPatient.Email = Console.ReadLine()?.Trim()!;
+            newPatient.Email = Cancel.AddOrAbort("Enter email: ");
+            if (newPatient.Email == null) return;
 
-            Console.WriteLine("Enter phone number: ");
-            newPatient.PhoneNumber = Console.ReadLine()?.Trim()!;
+            newPatient.PhoneNumber = Cancel.AddOrAbort("Enter phone number:");
+            if ( newPatient.PhoneNumber == null) return;
 
-            Console.WriteLine("Enter address: ");
-            newPatient.Address = Console.ReadLine()?.Trim()!;
+            newPatient.Address = Cancel.AddOrAbort("Enter address: ");
+            if (newPatient.Address == null) return;
 
-            Console.WriteLine("Enter postal code: ");
-            newPatient.PostalCode = Console.ReadLine()?.Trim()!;
+            newPatient.PostalCode = Cancel.AddOrAbort("Enter postal code:");
+            if (newPatient.PostalCode == null) return;
 
-            Console.WriteLine("Enter city: ");
-            newPatient.City = Console.ReadLine()?.Trim()!;
+            newPatient.City = Cancel.AddOrAbort("Enter city");
+            if (newPatient.City == null) return;
 
-            bool successAdded = await _patientService.AddPatientAsync(newPatient);
+            var result = await _patientService.AddPatientAsync(newPatient);
 
-            if (successAdded)
+            switch (result)
             {
-                Console.WriteLine("Patient added successfully!");
-                Console.ReadKey();
-            }
-            else
-            {
-                Console.WriteLine("Failed to add patient. Email already exists");
-                Console.ReadKey();
+                case Result.Success:
+                    ReturnMessage<PatientDTO>(CrudOperation.Create, result, "");
+                    break;
+                case Result.Failure:
+                    ReturnMessage<PatientDTO>(CrudOperation.Create, result, "Email already exists.");
+                    break;
+                case Result.NotFound:
+                    ReturnMessage<PatientDTO>(CrudOperation.Create, result, "");
+                    break;
+                default:
+                    ReturnMessage<PatientDTO>(CrudOperation.Create, result, "");
+                    break;
             }
         }
         catch (Exception ex)
@@ -77,7 +85,6 @@ public class PatientHandler
 
                 if (patient != null)
                 {
-
                     var table = new Table();
 
                     table.AddColumn("[yellow]ID[/]");
@@ -90,7 +97,6 @@ public class PatientHandler
                     table.AddColumn("[yellow]Email[/]");
                     table.AddColumn("[yellow]Dosage[/]");
                     table.AddColumn("[yellow]Medication-type[/]");
-
 
                     table.AddRow(
                         patient.Id.ToString(),
@@ -110,14 +116,12 @@ public class PatientHandler
                 }
                 else
                 {
-                    Console.WriteLine("Patient not found");
-                    Console.ReadKey();
+                    DisplayMessage.Message("Patient not found.");
                 }
             }
             else
             {
-                Console.WriteLine("Invalid input");
-                Console.ReadKey();
+                DisplayMessage.Message("Invalid input.");
             }
         }
         catch (Exception ex)
@@ -131,7 +135,7 @@ public class PatientHandler
         try
         {
             Console.Clear();
-            IEnumerable<PatientDTO> patients = await _patientService.GetAllPatients();
+            var patients = await _patientService.GetAllPatients();
 
             if (patients is not null)
             {
@@ -146,10 +150,8 @@ public class PatientHandler
                 table.AddColumn("[yellow]Phone number[/]");
                 table.AddColumn("[yellow]Email[/]");
 
-
                 foreach (PatientDTO patient in patients)
                 {
-
                     table.AddRow(
                         patient.Id.ToString(),
                         patient.FirstName,
@@ -161,11 +163,93 @@ public class PatientHandler
                         patient.Email
                     );
                 }
-
                 AnsiConsole.Write(table);
-                Console.ReadKey();
+                DisplayMessage.Message("");
             }
         }
         catch (Exception ex) { Console.WriteLine(ex.Message); }
+    }
+
+    public async Task UpdatePatientById()
+    {
+        try
+        {
+            Console.Clear();
+            Console.WriteLine("Enter Id of the patient you want to update: ");
+            if (int.TryParse(Console.ReadLine(), out int patientId))
+            {
+                var patientToUpdate = await _patientService.GetOnePatient(patientId);
+
+                if (patientToUpdate is not null)
+                {
+                    Console.Write("First Name:");
+                    patientToUpdate.FirstName = Console.ReadLine()!;
+                    Console.Write("Last Name:");
+                    patientToUpdate.LastName = Console.ReadLine()!;
+                    Console.Write("Address: ");
+                    patientToUpdate.Address = Console.ReadLine()!;
+                    Console.Write("Phone Number: ");
+                    patientToUpdate.PhoneNumber = Console.ReadLine()!;
+                    Console.Write("City: ");
+                    patientToUpdate.City = Console.ReadLine()!;
+                    Console.Write("Postal Code: ");
+                    patientToUpdate.PostalCode = Console.ReadLine()!;
+                    Console.Write("E-mail: ");
+                    patientToUpdate.Email = Console.ReadLine()!;
+
+                    var result = await _patientService.UpdatePatientAsync(patientToUpdate);
+
+                    switch (result)
+                    {
+                        case Result.Success:
+                            ReturnMessage<PatientDTO>(CrudOperation.Update, result, "Patient successfully updated.");
+                            break;
+                        case Result.NotFound:
+                            ReturnMessage<PatientDTO>(CrudOperation.Update, result, "Patient not found.");
+                            break;
+                        case Result.Failure:
+                            ReturnMessage<PatientDTO>(CrudOperation.Update, result, "Email already exists.");
+                            break;
+                        default:
+                            ReturnMessage<PatientDTO>(CrudOperation.Update, result, "Unexpected error from update operation.");
+                            break;
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($" ERROR: {ex.Message}");
+        }
+    }
+
+    public async Task<int?> DeletePatientById()
+    {
+        try
+        {
+            Console.Clear();
+            Console.WriteLine("Enter Id of the patient you want to remove: ");
+            if (int.TryParse(Console.ReadLine(), out var patientId))
+            {
+                var result = await _patientService.RemovePatientAsync(patientId);
+                switch (result)
+                {
+                    case Result.Success:
+                        ReturnMessage<PatientDTO>(CrudOperation.Delete, result, "");
+                        break;
+                    case Result.Failure:
+                        ReturnMessage<PatientDTO>(CrudOperation.Delete, result, "");
+                        break;
+                    case Result.NotFound:
+                        ReturnMessage<PatientDTO>(CrudOperation.Delete, result, "");
+                        break;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            DisplayMessage.Message($" ERROR: {ex.Message}");
+        }
+        return null;
     }
 }

@@ -28,7 +28,6 @@ public class PrescriptionEntity
     [ForeignKey(nameof(DoctorEntity))]
     public int DoctorId {  get; set; }
 
-
     [Required]
     [ForeignKey(nameof(PharmacyEntity))]
     public int PharmacyId { get; set; }

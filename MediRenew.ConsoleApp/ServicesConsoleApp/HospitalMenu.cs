@@ -2,9 +2,12 @@
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp;
 
-public class HospitalMenu(PatientMenu patientMenu)
+public class HospitalMenu(PatientMenu patientMenu, PrescriptionMenu prescriptionMenu, DoctorMenu doctorMenu)
 {
+
     public readonly PatientMenu _patientMenu = patientMenu;
+    public readonly PrescriptionMenu _prescriptionMenu = prescriptionMenu;
+    public readonly DoctorMenu _doctorMenu = doctorMenu;
 
     public async Task MenuAsync()
     {
@@ -20,6 +23,7 @@ public class HospitalMenu(PatientMenu patientMenu)
                 "3. Staff",
                 "4. Pharmacy-list",
                 "5. Prescriptions",
+                "6. Appointments",
                 "0. Exit application"
             };
 
@@ -37,7 +41,7 @@ public class HospitalMenu(PatientMenu patientMenu)
                     break;
 
                 case "2":
-                    await _patientMenu.PatientMenuAsync();
+                    await _doctorMenu.DoctorMenuAsync();
                     break;
 
                 case "3":
@@ -47,6 +51,9 @@ public class HospitalMenu(PatientMenu patientMenu)
                     break;
 
                 case "5":
+                    await _prescriptionMenu.PrescriptionMenuAsync();
+                    break;
+                case "6":
                     break;
 
                 case "0":
