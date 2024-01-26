@@ -5,7 +5,7 @@ using MediRenew.ConsoleApp.Utils;
 using Spectre.Console;
 using static Infrastructure.Utils.ResultEnums;
 
-namespace MediRenew.ConsoleApp.ServicesConsoleApp
+namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers
 {
     public class DoctorHandler
     {
