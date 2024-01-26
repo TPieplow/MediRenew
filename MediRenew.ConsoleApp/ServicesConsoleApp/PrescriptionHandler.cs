@@ -1,9 +1,10 @@
 ﻿using Business.DTOs;
 using Business.Services;
 using Infrastructure.Utils;
+using MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
 using MediRenew.ConsoleApp.Utils;
 using Spectre.Console;
-using static MediRenew.ConsoleApp.Utils.ResultEnums;
+using static Infrastructure.Utils.ResultEnums;
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp;
 
@@ -25,7 +26,7 @@ public class PrescriptionHandler(PrescriptionService prescriptionService, Patien
             newPrescription.DoctorId = Convert.ToInt32(Cancel.AddOrAbort("Enter your DoctorId: "));
             if (newPrescription.DoctorId == 0) return;
 
-            await _patientHandler.ViewAllPatiens();
+            await _patientHandler.ViewAllPatients();
             newPrescription.PatientId = Convert.ToInt32(Cancel.AddOrAbort("Enter the patients Id: "));
             if (newPrescription.PatientId == 0) return;
 

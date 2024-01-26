@@ -1,23 +1,26 @@
-﻿using Microsoft.Identity.Client;
+﻿using MediRenew.ConsoleApp.Login;
+using MediRenew.ConsoleApp.ServicesConsoleApp.SubMenus;
+
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp;
 
-public class HospitalMenu(PatientMenu patientMenu, PrescriptionMenu prescriptionMenu, DoctorMenu doctorMenu)
+public class HospitalMenu(PatientMenu patientMenu, PrescriptionMenu prescriptionMenu, DoctorMenu doctorMenu, StaffMenu staffMenu)
 {
-
     public readonly PatientMenu _patientMenu = patientMenu;
     public readonly PrescriptionMenu _prescriptionMenu = prescriptionMenu;
     public readonly DoctorMenu _doctorMenu = doctorMenu;
+    public readonly StaffMenu _staffMenu = staffMenu;
 
     public async Task MenuAsync()
     {
         while (true)
         {
             Console.Clear();
-            Console.WriteLine("Welcome to MediRenew, a Hospital Database Handler! ");
+            Header.StaticHeader();
 
             string[] menu =
             {
+
                 "1. Patients",
                 "2. Doctors",
                 "3. Staff",
@@ -45,9 +48,11 @@ public class HospitalMenu(PatientMenu patientMenu, PrescriptionMenu prescription
                     break;
 
                 case "3":
+                    await _staffMenu.StaffMenuAsync();
                     break;
 
                 case "4":
+
                     break;
 
                 case "5":

@@ -12,15 +12,6 @@ public class DepartmentRepository : BaseRepository<DepartmentEntity>
         _context = context;
     }
 
-    public override Task<DepartmentEntity> CreateAsync(DepartmentEntity entity)
-    {
-        return base.CreateAsync(entity);
-    }
-    public override Task<bool> DeleteAsync(Expression<Func<DepartmentEntity, bool>> predicate)
-    {
-        return base.DeleteAsync(predicate);
-    }
-
     public override Task<IEnumerable<DepartmentEntity>> GetAllAsync()
     {
         return base.GetAllAsync();

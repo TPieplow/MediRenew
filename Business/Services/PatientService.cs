@@ -1,11 +1,8 @@
 ﻿using Business.DTOs;
 using Infrastructure.HospitalEntities;
-using Infrastructure.Interfaces;
 using Infrastructure.Repositories;
-using MediRenew.ConsoleApp.Utils;
 using System.Diagnostics;
-
-using static MediRenew.ConsoleApp.Utils.ResultEnums;
+using static Infrastructure.Utils.ResultEnums;
 
 namespace Business.Services;
 
@@ -51,11 +48,10 @@ public class PatientService(PatientRepository patientRepository, PrescriptionRep
         {
             var patientEntity = await _patientRepository.GetOneAsync(x => x.Id == patientId);
 
-            if (patientEntity == null)
+            if (patientEntity is null)
             {
                 return null!;
             }
-
 
             var patientDTO = new PatientDTO
             {
@@ -88,6 +84,10 @@ public class PatientService(PatientRepository patientRepository, PrescriptionRep
         {
             var result = (await _patientRepository.GetAllAsync()).ToList();
 
+            if (result.Count == 0)
+            {
+                return new List<PatientDTO>();
+            }
             return result.Select(x => new PatientDTO
             {
                 Id = x.Id,
