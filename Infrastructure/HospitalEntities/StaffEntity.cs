@@ -30,6 +30,4 @@ public class StaffEntity
     public int DepartmentId { get; set; }
 
     public virtual DepartmentEntity Department { get; set; } = null!;
-
-
 }

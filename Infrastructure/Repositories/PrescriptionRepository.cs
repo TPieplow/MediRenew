@@ -34,3 +34,4 @@ public class PrescriptionRepository : BaseRepository<PrescriptionEntity>
         return prescriptions;
     }
 }
+

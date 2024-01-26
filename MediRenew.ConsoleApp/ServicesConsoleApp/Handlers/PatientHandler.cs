@@ -2,11 +2,11 @@
 using Business.Services;
 using MediRenew.ConsoleApp.Utils;
 using Spectre.Console;
-using static MediRenew.ConsoleApp.Utils.ResultEnums;
 using Infrastructure.Utils;
+using static Infrastructure.Utils.ResultEnums;
 
 
-namespace MediRenew.ConsoleApp.ServicesConsoleApp;
+namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
 
 public class PatientHandler
 {
@@ -21,7 +21,6 @@ public class PatientHandler
     {
         try
         {
-
             Console.Clear();
             var newPatient = new PatientDTO();
             Console.WriteLine("Enter cancel to abort.");
@@ -36,7 +35,7 @@ public class PatientHandler
             if (newPatient.Email == null) return;
 
             newPatient.PhoneNumber = Cancel.AddOrAbort("Enter phone number:");
-            if ( newPatient.PhoneNumber == null) return;
+            if (newPatient.PhoneNumber == null) return;
 
             newPatient.Address = Cancel.AddOrAbort("Enter address: ");
             if (newPatient.Address == null) return;
@@ -79,11 +78,11 @@ public class PatientHandler
             Console.WriteLine("Enter Id");
             PatientDTO patient = null!;
 
-            if (int.TryParse(Console.ReadLine()!, out int id))
+            if (int.TryParse(Console.ReadLine()!, out int Id))
             {
-                patient = await _patientService.GetOnePatient(id);
+                patient = await _patientService.GetOnePatient(Id);
 
-                if (patient != null)
+                if (patient is not null)
                 {
                     var table = new Table();
 
@@ -130,7 +129,7 @@ public class PatientHandler
         }
     }
 
-    public async Task ViewAllPatiens()
+    public async Task ViewAllPatients()
     {
         try
         {

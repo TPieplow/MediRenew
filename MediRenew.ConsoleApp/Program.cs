@@ -3,6 +3,8 @@ using Infrastructure.Contexts;
 using Infrastructure.Repositories;
 using MediRenew.ConsoleApp.Login;
 using MediRenew.ConsoleApp.ServicesConsoleApp;
+using MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
+using MediRenew.ConsoleApp.ServicesConsoleApp.SubMenus;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -40,7 +42,15 @@ class Program
 
                 services.AddScoped<AppointmentRepository>();
                 services.AddScoped<AppointmentService>();
+
+                services.AddScoped<StaffMenu>();
+                services.AddScoped<StaffHandler>();
+                services.AddScoped<StaffService>();
+                services.AddScoped<StaffRepository>();
+
+                services.AddScoped<DepartmentRepository>();
             })
+
             .ConfigureLogging(logging =>
             {
                 logging.ClearProviders();
@@ -60,9 +70,10 @@ class Program
         if (loginService.Login()) 
         {
             var hospitalMenu = new HospitalMenu(
-                serviceProvider.GetRequiredService<PatientMenu>(), 
+                serviceProvider.GetRequiredService<PatientMenu>(),
                 serviceProvider.GetRequiredService<PrescriptionMenu>(),
-                serviceProvider.GetRequiredService<DoctorMenu>());
+                serviceProvider.GetRequiredService<DoctorMenu>(),
+                serviceProvider.GetRequiredService<StaffMenu>());
             await hospitalMenu.MenuAsync();
         }
         else

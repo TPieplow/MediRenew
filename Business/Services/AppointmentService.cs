@@ -2,7 +2,7 @@
 using Infrastructure.HospitalEntities;
 using Infrastructure.Repositories;
 using System.Diagnostics;
-using static MediRenew.ConsoleApp.Utils.ResultEnums;
+using static Infrastructure.Utils.ResultEnums;
 
 namespace Business.Services;
 

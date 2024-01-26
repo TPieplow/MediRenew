@@ -3,7 +3,7 @@ using Business.Services;
 using Infrastructure.Utils;
 using MediRenew.ConsoleApp.Utils;
 using Spectre.Console;
-using static MediRenew.ConsoleApp.Utils.ResultEnums;
+using static Infrastructure.Utils.ResultEnums;
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp
 {

@@ -1,7 +1,7 @@
 ﻿using Business.DTOs;
 using Infrastructure.HospitalEntities;
 using System.Diagnostics;
-using static MediRenew.ConsoleApp.Utils.ResultEnums;
+using static Infrastructure.Utils.ResultEnums;
 
 namespace Business.Services;
 
