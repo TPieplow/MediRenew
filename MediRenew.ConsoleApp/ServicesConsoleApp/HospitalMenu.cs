@@ -23,6 +23,7 @@ public class HospitalMenu(PatientMenu patientMenu, PrescriptionMenu prescription
                 "3. Staff",
                 "4. Pharmacy-list",
                 "5. Prescriptions",
+                "6. Appointments",
                 "0. Exit application"
             };
 
@@ -51,6 +52,8 @@ public class HospitalMenu(PatientMenu patientMenu, PrescriptionMenu prescription
 
                 case "5":
                     await _prescriptionMenu.PrescriptionMenuAsync();
+                    break;
+                case "6":
                     break;
 
                 case "0":

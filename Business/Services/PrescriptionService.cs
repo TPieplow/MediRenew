@@ -31,8 +31,9 @@ public class PrescriptionService(PrescriptionRepository prescriptionRepository)
             };
             var result = await _prescriptionRepository.CreateAsync(newPrescriptionEntity);
             if (result is not null)
+            {
                 return Result.Success;
-
+            }
         }
         catch (Exception ex)
         {
@@ -75,7 +76,6 @@ public class PrescriptionService(PrescriptionRepository prescriptionRepository)
         catch (Exception ex)
         { Console.WriteLine($"ERROR: {ex.Message}"); }
         return null!;
-
     }
 
     public async Task<Result> RemovePrescriptionAsync(int prescriptionId)

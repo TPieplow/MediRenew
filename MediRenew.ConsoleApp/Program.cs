@@ -37,6 +37,9 @@ class Program
                 services.AddScoped<DoctorService>();
                 services.AddScoped<DoctorHandler>();
                 services.AddScoped<DoctorMenu>();
+
+                services.AddScoped<AppointmentRepository>();
+                services.AddScoped<AppointmentService>();
             })
             .ConfigureLogging(logging =>
             {
