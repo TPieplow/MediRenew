@@ -7,13 +7,9 @@ using System.Linq.Expressions;
 
 namespace Infrastructure.Repositories;
 
-public class PatientRepository : BaseRepository<PatientEntity>, IPatientRepository
+public class PatientRepository(CodeFirstDbContext context) : BaseRepository<PatientEntity>(context), IPatientRepository
 {
-    private readonly CodeFirstDbContext _context;
-    public PatientRepository(CodeFirstDbContext context) : base(context)
-    {
-        _context = context;
-    }
+    private readonly CodeFirstDbContext _context = context;
 
     public override async Task<IEnumerable<PatientEntity>> GetAllAsync()
     {

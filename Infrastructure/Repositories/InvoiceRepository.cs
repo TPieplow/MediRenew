@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace Infrastructure.Repositories
 {
-    public class InvoiceRepository(CodeFirstDbContext context) : BaseRepository<InvoiceRepository>(context)
+    public class InvoiceRepository(CodeFirstDbContext context) : BaseRepository<InvoiceEntity>(context)
     {
         private readonly CodeFirstDbContext _context = context;
 
@@ -23,12 +23,7 @@ namespace Infrastructure.Repositories
             }
             catch (Exception ex) { Debug.WriteLine($"ERRROR: {ex.Message}"); }
             return null!;
-
         }
 
-        public override Task<InvoiceRepository> GetOneAsync(Expression<Func<InvoiceRepository, bool>> predicate)
-        {
-            return base.GetOneAsync(predicate);
-        }
     }
 }

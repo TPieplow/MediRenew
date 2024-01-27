@@ -21,8 +21,8 @@ class Program
             .ConfigureServices((context, services) =>
             {
                 services.AddDbContext<CodeFirstDbContext>(x => x.UseSqlServer(@"Data Source=localhost;Initial Catalog=HospitalDb;Integrated Security=True;Trust Server Certificate=True"));
-                services.AddScoped<LoginService>();
                 services.AddScoped<HospitalMenu>();
+                services.AddScoped<LoginService>();
 
                 services.AddScoped<PatientRepository>();
                 services.AddScoped<PatientService>();
@@ -55,6 +55,7 @@ class Program
                 services.AddScoped<InvoiceRepository>();
             })
 
+            // Stoppar loggning i consolen, visar enbart error nu. 
             .ConfigureLogging(logging =>
             {
                 logging.ClearProviders();
@@ -62,7 +63,7 @@ class Program
                 logging.AddConsole();
             });
 
-
+        // Mainbuilder, som håller inloggning och de DI som behövs.
         using var host = builder.Build();
         using var scope = host.Services.CreateScope();
         var serviceProvider = scope.ServiceProvider;

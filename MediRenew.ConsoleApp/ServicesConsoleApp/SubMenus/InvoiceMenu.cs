@@ -34,7 +34,7 @@ public class InvoiceMenu(InvoiceHandler invoiceHandler)
             switch (choice)
             {
                 case "1":
-                    
+                    await _invoiceHandler.AddInvoiceUI();
                     break;
 
                 case "2":

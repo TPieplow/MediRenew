@@ -1,13 +1,41 @@
 ﻿using Business.DTOs;
 using Business.Services;
+using Infrastructure.Utils;
 using MediRenew.ConsoleApp.Utils;
 using Spectre.Console;
+using static Infrastructure.Utils.ResultEnums;
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
 
 public class InvoiceHandler(InvoiceService invoiceService)
 {
     private readonly InvoiceService _invoiceService = invoiceService;
+
+
+    public async Task AddInvoiceUI()
+    {
+        Console.Clear();
+
+        var newInvoice = new InvoiceDTO();
+
+        TryConvert.SetPropertyWithConversion(id => newInvoice.PatientId = id, "Enter patient-ID");
+
+        newInvoice.Description = Cancel.AddOrAbort("Enter Description: ");
+        if (newInvoice.Description == null) return;
+
+        TryConvert.SetPropertyWithConversion(cost => newInvoice.Cost = cost, "Enter cost: ");
+        TryConvert.SetPropertyWithConversion(totalCost => newInvoice.TotalCost = totalCost, "Enter total cost");
+
+        newInvoice.PatientName = Cancel.AddOrAbort("Enter patients name (First name and last name): ");
+        if(newInvoice.PatientName == null) return;
+
+        TryConvert.SetPropertyWithConversion(medId => newInvoice.PharmacyId = medId, "Enter med ID");
+
+        var result = await _invoiceService.AddInvoiceAsync(newInvoice);
+        ReturnMessage<InvoiceDTO>(CrudOperation.Create, result, $"New invoice created for {newInvoice.PatientName}");
+        Console.ReadKey();
+    }
+
 
     public async Task ViewAllInvoices()
     {
