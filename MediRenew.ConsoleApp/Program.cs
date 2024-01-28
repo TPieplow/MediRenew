@@ -1,7 +1,9 @@
 ﻿using Business.Services;
 using Infrastructure.Contexts;
+using Infrastructure.Data;
 using Infrastructure.Repositories;
 using MediRenew.ConsoleApp.Login;
+using MediRenew.ConsoleApp.ServicesConsoleApp;
 using MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
 using MediRenew.ConsoleApp.ServicesConsoleApp.SubMenus;
 using Microsoft.EntityFrameworkCore;
@@ -20,9 +22,16 @@ class Program
         var builder = Host.CreateDefaultBuilder()
             .ConfigureServices((context, services) =>
             {
-                services.AddDbContext<CodeFirstDbContext>(x => x.UseSqlServer(@"Data Source=localhost;Initial Catalog=HospitalDb;Integrated Security=True;Trust Server Certificate=True"));
+                services.AddDbContext<CodeFirstDbContext>(
+                    x => x.UseSqlServer(@"Data Source=localhost;Initial Catalog=HospitalDb;Integrated Security=True;Trust Server Certificate=True"));
+
+                services.AddDbContext<DatabaseFirstDbContext>(
+                    x => x.UseSqlServer(@"Data Source=localhost;Initial Catalog=HospitalDb;Integrated Security=True;Trust Server Certificate=True"));
+
                 services.AddScoped<HospitalMenu>();
+
                 services.AddScoped<LoginService>();
+                services.AddScoped<DatabaseManager>();
 
                 services.AddScoped<PatientRepository>();
                 services.AddScoped<PatientService>();
@@ -30,9 +39,9 @@ class Program
                 services.AddScoped<PatientMenu>();
 
                 services.AddScoped<PrescriptionRepository>();
-                services.AddScoped<PrescriptionMenu>();
-                services.AddScoped<PrescriptionHandler>();
                 services.AddScoped<PrescriptionService>();
+                services.AddScoped<PrescriptionHandler>();
+                services.AddScoped<PrescriptionMenu>();
 
                 services.AddScoped<DoctorRepository>();
                 services.AddScoped<DoctorService>();
@@ -42,17 +51,23 @@ class Program
                 services.AddScoped<AppointmentRepository>();
                 services.AddScoped<AppointmentService>();
 
-                services.AddScoped<StaffMenu>();
-                services.AddScoped<StaffHandler>();
-                services.AddScoped<StaffService>();
                 services.AddScoped<StaffRepository>();
+                services.AddScoped<StaffService>();
+                services.AddScoped<StaffHandler>();
+                services.AddScoped<StaffMenu>();
 
                 services.AddScoped<DepartmentRepository>();
 
-                services.AddScoped<InvoiceHandler>();
-                services.AddScoped<InvoiceService>();
-                services.AddScoped<InvoiceMenu>();
                 services.AddScoped<InvoiceRepository>();
+                services.AddScoped<InvoiceService>();
+                services.AddScoped<InvoiceHandler>();
+                services.AddScoped<InvoiceMenu>();
+
+                services.AddScoped<PharmacyRepository>();
+                services.AddScoped<PharmacyService>();
+                services.AddScoped<PharmacyHandler>();
+                services.AddScoped<PharmacyMenu>();
+
             })
 
             // Stoppar loggning i consolen, visar enbart error nu. 
@@ -79,7 +94,8 @@ class Program
                 serviceProvider.GetRequiredService<PrescriptionMenu>(),
                 serviceProvider.GetRequiredService<DoctorMenu>(),
                 serviceProvider.GetRequiredService<StaffMenu>(),
-                serviceProvider.GetRequiredService<InvoiceMenu>());
+                serviceProvider.GetRequiredService<InvoiceMenu>(),
+                serviceProvider.GetRequiredService<PharmacyMenu>());
             await hospitalMenu.MenuAsync();
         }
         else

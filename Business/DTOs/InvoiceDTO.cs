@@ -14,5 +14,6 @@ namespace Business.DTOs
         public string MedicationName { get; set; } = null!;
         public virtual PatientEntity Patient { get; set; } = null!;
         public virtual PharmacyEntity Pharmacy { get; set; } = null!;
+        public ICollection<PharmacyDTO> Pharmacies { get; set; } = new List<PharmacyDTO>();
     }
 }

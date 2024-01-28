@@ -48,7 +48,6 @@ public class PatientHandler
 
             var result = await _patientService.AddPatientAsync(newPatient);
             ReturnMessage<PatientDTO>(CrudOperation.Create, result, "Email already exists");
-            
         }
         catch (Exception ex)
         {
