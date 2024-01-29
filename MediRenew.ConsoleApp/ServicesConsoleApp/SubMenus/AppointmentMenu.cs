@@ -44,6 +44,7 @@ public class AppointmentMenu(AppointmentHandler appointmentHandler)
                     break;
 
                 case "2":
+                    await _appointmentHandler.ViewOneWithPatId();
                     break;
 
                 case "3":
@@ -51,6 +52,7 @@ public class AppointmentMenu(AppointmentHandler appointmentHandler)
                     break;
 
                 case "4":
+                    await _appointmentHandler.UpdateAppointmentById();
                     break;
 
                 case "5":

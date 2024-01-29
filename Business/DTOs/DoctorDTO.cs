@@ -1,4 +1,6 @@
-﻿namespace Business.DTOs;
+﻿using Infrastructure.HospitalEntities;
+
+namespace Business.DTOs;
 
 public class DoctorDTO
 {
@@ -8,4 +10,5 @@ public class DoctorDTO
     public string PhoneNumber { get; set; } = null!;
     public string DepartmentName { get; set; } = null!;
     public int DepartmentId { get; set; }
+
 }

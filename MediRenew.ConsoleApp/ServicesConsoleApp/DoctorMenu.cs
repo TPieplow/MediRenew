@@ -36,7 +36,7 @@ public class DoctorMenu(DoctorHandler doctorHandler)
                     break;
 
                 case "2":
-                    await _doctorHandler.UpdateDoctorById();
+                    await _doctorHandler.ViewOneDoctorWithId();
                     break;
 
                 case "3":

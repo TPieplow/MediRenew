@@ -102,21 +102,11 @@ public class AppointmentService
 
         try
         {
-            if (!_appointmentRepository.Exists(x => x.PatientId == appointmentToUpdate.PatientId))
-            {
-                return Result.Failure;
-            }
 
             var existingAppointment = await _appointmentRepository.GetOneAsync(x => x.PatientId == appointmentToUpdate.PatientId);
 
             if (existingAppointment is not null)
             {
-                existingAppointment.DoctorId = appointmentToUpdate.DoctorId;
-                existingAppointment.PatientId = appointmentToUpdate.PatientId;
-                existingAppointment.Doctor.FirstName = appointmentToUpdate.Doctor.FirstName;
-                existingAppointment.Doctor.LastName = appointmentToUpdate.Doctor.LastName;
-                existingAppointment.Patient.FirstName = appointmentToUpdate.Patient.FirstName;
-                existingAppointment.Patient.LastName = appointmentToUpdate.Patient.LastName;
                 existingAppointment.Date = appointmentToUpdate.Date;
                 existingAppointment.Comments = appointmentToUpdate.Comments;
 
