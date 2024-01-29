@@ -27,9 +27,13 @@ class Program
                 services.AddDbContext<DatabaseFirstDbContext>(
                     x => x.UseSqlServer(@"Data Source=localhost;Initial Catalog=HospitalDb;Integrated Security=True;Trust Server Certificate=True"));
 
+                services.AddScoped<MainMenu>();
                 services.AddScoped<HospitalMenu>();
 
                 services.AddScoped<LoginService>();
+                services.AddScoped<AuthenticationService>();
+                services.AddScoped<AuthenticationRepository>();
+                services.AddScoped<RegistrationHandler>();
 
                 services.AddScoped<PatientRepository>();
                 services.AddScoped<PatientService>();
@@ -83,11 +87,11 @@ class Program
         using var scope = host.Services.CreateScope();
         var serviceProvider = scope.ServiceProvider;
 
-        var loginService = serviceProvider.GetRequiredService<LoginService>();
+        var mainMenu = serviceProvider.GetRequiredService<MainMenu>();
+        bool loginSuccess = await mainMenu.ShowMenuAsync();
 
-        Console.Clear();
 
-        if (loginService.Login()) 
+        if (loginSuccess)
         {
             var hospitalMenu = new HospitalMenu(
                 serviceProvider.GetRequiredService<PatientMenu>(),
@@ -103,6 +107,7 @@ class Program
         {
             Console.WriteLine("Login failed. Exiting application.");
         }
+        Console.Clear();
     }
 }
 

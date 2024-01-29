@@ -1,9 +1,12 @@
-﻿using Spectre.Console;
+﻿using Business.Services;
+using Spectre.Console;
 namespace MediRenew.ConsoleApp.Login;
 
-public class LoginService
+public class LoginService(AuthenticationService authenticationService)
 {
-    public bool Login()
+    private readonly AuthenticationService _authenticationService = authenticationService;
+
+    public async Task<bool> Login()
     {
         int loginAttempts = 0;
         const int maxAttempts = 3;
@@ -20,11 +23,10 @@ public class LoginService
 
         do
         {
-            AnsiConsole.Write(
-            new Table()
-                .BorderStyle(Color.HotPink)
-                .AddColumn(new TableColumn("Login").Centered())
-                .Centered());
+            var rule = new Rule("[Yellow]Log in[/]");
+            rule.Justification = Justify.Left;
+            rule.Style = Style.Parse("hotpink");
+            AnsiConsole.Write(rule);
 
             var username = AnsiConsole.Prompt(
             new TextPrompt<string>("[yellow]Username:[/] ")
@@ -35,7 +37,7 @@ public class LoginService
             .PromptStyle(Color.Yellow)
                 .Secret());
 
-            if (IsValidLogin(username, password))
+            if (await _authenticationService.ValidateUserAsync(username, password))
             {
                 Console.Clear();
                 AnsiConsole.Write(new Rule("\t[yellow]Logged in successfully![/]\n\n").LeftJustified());
@@ -51,17 +53,12 @@ public class LoginService
                 else
                 {
                     AnsiConsole.Write(new Rule("\tYou have entered wrong credentials more than 3 times. Please wait 10 minutes before trying again").LeftJustified());
-                    Thread.Sleep(10 * 60 * 1000);
+                    await Task.Delay(10 * 60 * 1000);
                     loginAttempts = 0;
                 }
             }
         } while (loginAttempts < maxAttempts);
         AnsiConsole.Write(new Rule("\tExiting application due to multiple failed login attempts").LeftJustified());
         return false;
-    }
-
-    private static bool IsValidLogin(string username, string password)
-    {
-        return username == "1" && password == "1";
     }
 }
