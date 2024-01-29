@@ -9,10 +9,12 @@ namespace Business.Services;
 public class DoctorService
 {
     private readonly DoctorRepository _doctorRepository;
+    private readonly DepartmentRepository _departmentRepository;
 
-    public DoctorService(DoctorRepository doctorRepository)
+    public DoctorService(DoctorRepository doctorRepository, DepartmentRepository departmentRepository)
     {
         _doctorRepository = doctorRepository;
+        _departmentRepository = departmentRepository;
     }
 
     public async Task<Result> AddDoctorAsync(DoctorDTO newDoctor)
@@ -47,6 +49,7 @@ public class DoctorService
         try
         {
             var doctorEntity = await _doctorRepository.GetOneAsync(x => x.Id == doctorId);
+            var department = await _departmentRepository.GetOneAsync(x => x.Id == doctorEntity.DepartmentId);
 
             if (doctorEntity == null)
             {
@@ -60,7 +63,7 @@ public class DoctorService
                 FirstName = doctorEntity.FirstName,
                 LastName = doctorEntity.LastName,
                 PhoneNumber = doctorEntity.PhoneNumber,
-                DepartmentName = doctorEntity.Department.DepartmentName
+                DepartmentName = department.DepartmentName
             };
 
             return doctorDTO;
