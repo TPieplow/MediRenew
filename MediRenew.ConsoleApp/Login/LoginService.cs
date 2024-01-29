@@ -55,7 +55,6 @@ public class LoginService
                     loginAttempts = 0;
                 }
             }
-
         } while (loginAttempts < maxAttempts);
         AnsiConsole.Write(new Rule("\tExiting application due to multiple failed login attempts").LeftJustified());
         return false;

@@ -2,7 +2,6 @@
 using Infrastructure.Contexts;
 using Infrastructure.Repositories;
 using MediRenew.ConsoleApp.Login;
-using MediRenew.ConsoleApp.ServicesConsoleApp;
 using MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
 using MediRenew.ConsoleApp.ServicesConsoleApp.SubMenus;
 using Microsoft.EntityFrameworkCore;
@@ -51,6 +50,11 @@ class Program
                 services.AddScoped<StaffRepository>();
 
                 services.AddScoped<DepartmentRepository>();
+
+                services.AddScoped<InvoiceHandler>();
+                services.AddScoped<InvoiceService>();
+                services.AddScoped<InvoiceMenu>();
+                services.AddScoped<InvoiceRepository>();
             })
 
             .ConfigureLogging(logging =>
@@ -76,6 +80,7 @@ class Program
                 serviceProvider.GetRequiredService<PrescriptionMenu>(),
                 serviceProvider.GetRequiredService<DoctorMenu>(),
                 serviceProvider.GetRequiredService<StaffMenu>(),
+                serviceProvider.GetRequiredService<InvoiceMenu>(),
                 serviceProvider.GetRequiredService<AppointmentMenu>());
             await hospitalMenu.MenuAsync();
         }

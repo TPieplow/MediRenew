@@ -1,4 +1,6 @@
-﻿namespace MediRenew.ConsoleApp.ServicesConsoleApp;
+﻿using MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
+
+namespace MediRenew.ConsoleApp.ServicesConsoleApp.SubMenus;
 
 public class DoctorMenu(DoctorHandler doctorHandler)
 {

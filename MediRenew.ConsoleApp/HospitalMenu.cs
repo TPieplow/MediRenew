@@ -3,14 +3,15 @@ using MediRenew.ConsoleApp.ServicesConsoleApp.SubMenus;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 
-namespace MediRenew.ConsoleApp.ServicesConsoleApp;
+namespace MediRenew.ConsoleApp;
 
-public class HospitalMenu(PatientMenu patientMenu, PrescriptionMenu prescriptionMenu, DoctorMenu doctorMenu, StaffMenu staffMenu, AppointmentMenu appointmentMenu)
+public class HospitalMenu(PatientMenu patientMenu, PrescriptionMenu prescriptionMenu, DoctorMenu doctorMenu, StaffMenu staffMenu, InvoiceMenu invoiceMenu, AppointmentMenu appointmentMenu)
 {
     public readonly PatientMenu _patientMenu = patientMenu;
     public readonly PrescriptionMenu _prescriptionMenu = prescriptionMenu;
     public readonly DoctorMenu _doctorMenu = doctorMenu;
     public readonly StaffMenu _staffMenu = staffMenu;
+    public readonly InvoiceMenu _invoiceMenu = invoiceMenu;
     private readonly AppointmentMenu _appointmentMenu = appointmentMenu;
 
     public async Task MenuAsync()
@@ -29,6 +30,7 @@ public class HospitalMenu(PatientMenu patientMenu, PrescriptionMenu prescription
                 "4. Pharmacy-list",
                 "5. Prescriptions",
                 "6. Appointments",
+                "7. Invoices",
                 "0. Exit application"
             };
 
@@ -60,8 +62,13 @@ public class HospitalMenu(PatientMenu patientMenu, PrescriptionMenu prescription
                 case "5":
                     await _prescriptionMenu.PrescriptionMenuAsync();
                     break;
+
                 case "6":
                     await _appointmentMenu.AppointmentMenuAsync();
+                    break;
+
+                case "7":
+                    await _invoiceMenu.InvoiceMenuAsync();
                     break;
 
                 case "0":
