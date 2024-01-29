@@ -1,0 +1,6 @@
+CREATE TABLE Authentications
+(
+	Id INT PRIMARY KEY IDENTITY(1,1),
+	Username NVARCHAR(50) NOT NULL,
+	PasswordHash NVARCHAR(100) NOT NULL
+);

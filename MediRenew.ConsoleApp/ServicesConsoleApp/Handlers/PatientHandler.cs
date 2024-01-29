@@ -47,22 +47,7 @@ public class PatientHandler
             if (newPatient.City == null) return;
 
             var result = await _patientService.AddPatientAsync(newPatient);
-
-            switch (result)
-            {
-                case Result.Success:
-                    ReturnMessage<PatientDTO>(CrudOperation.Create, result, "");
-                    break;
-                case Result.Failure:
-                    ReturnMessage<PatientDTO>(CrudOperation.Create, result, "Email already exists.");
-                    break;
-                case Result.NotFound:
-                    ReturnMessage<PatientDTO>(CrudOperation.Create, result, "");
-                    break;
-                default:
-                    ReturnMessage<PatientDTO>(CrudOperation.Create, result, "");
-                    break;
-            }
+            ReturnMessage<PatientDTO>(CrudOperation.Create, result, "Email already exists");
         }
         catch (Exception ex)
         {
@@ -197,22 +182,7 @@ public class PatientHandler
                     patientToUpdate.Email = Console.ReadLine()!;
 
                     var result = await _patientService.UpdatePatientAsync(patientToUpdate);
-
-                    switch (result)
-                    {
-                        case Result.Success:
-                            ReturnMessage<PatientDTO>(CrudOperation.Update, result, "Patient successfully updated.");
-                            break;
-                        case Result.NotFound:
-                            ReturnMessage<PatientDTO>(CrudOperation.Update, result, "Patient not found.");
-                            break;
-                        case Result.Failure:
-                            ReturnMessage<PatientDTO>(CrudOperation.Update, result, "Email already exists.");
-                            break;
-                        default:
-                            ReturnMessage<PatientDTO>(CrudOperation.Update, result, "Unexpected error from update operation.");
-                            break;
-                    }
+                    ReturnMessage<PatientDTO>(CrudOperation.Create, result, "Email already exists");
                 }
             }
         }
@@ -252,3 +222,5 @@ public class PatientHandler
         return null;
     }
 }
+
+//JAG GÅR UT MED HUNDARNA HASSAN! 
