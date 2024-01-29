@@ -1,23 +1,12 @@
-﻿using MediRenew.ConsoleApp.DatabaseFirstEntities;
+﻿
+using Infrastructure.DatabaseFirstEntities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Contexts;
 
-public partial class DatabaseFirstDbContext : DbContext
+public partial class DatabaseFirstDbContext(DbContextOptions<DatabaseFirstDbContext> options) : DbContext(options)
 {
-    public DatabaseFirstDbContext()
-    {
-    }
-
-    public DatabaseFirstDbContext(DbContextOptions<DatabaseFirstDbContext> options)
-        : base(options)
-    {
-    }
-
     public virtual DbSet<AuthenticationEntity> Authentications { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=HospitalDb;Integrated Security=True;Trust Server Certificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

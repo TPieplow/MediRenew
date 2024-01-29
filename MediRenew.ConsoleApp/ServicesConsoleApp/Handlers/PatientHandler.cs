@@ -222,3 +222,5 @@ public class PatientHandler
         return null;
     }
 }
+
+//JAG GÅR UT MED HUNDARNA HASSAN! 

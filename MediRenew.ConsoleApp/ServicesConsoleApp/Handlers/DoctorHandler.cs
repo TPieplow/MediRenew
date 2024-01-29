@@ -20,7 +20,6 @@ namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers
         {
             try
             {
-
                 Console.Clear();
                 var newDoctor = new DoctorDTO();
                 Console.WriteLine("Enter cancel to abort.");
