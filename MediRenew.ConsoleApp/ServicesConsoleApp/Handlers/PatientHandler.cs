@@ -47,22 +47,7 @@ public class PatientHandler
             if (newPatient.City == null) return;
 
             var result = await _patientService.AddPatientAsync(newPatient);
-
-            switch (result)
-            {
-                case Result.Success:
-                    ReturnMessage<PatientDTO>(CrudOperation.Create, result, "");
-                    break;
-                case Result.Failure:
-                    ReturnMessage<PatientDTO>(CrudOperation.Create, result, "Email already exists.");
-                    break;
-                case Result.NotFound:
-                    ReturnMessage<PatientDTO>(CrudOperation.Create, result, "");
-                    break;
-                default:
-                    ReturnMessage<PatientDTO>(CrudOperation.Create, result, "");
-                    break;
-            }
+            ReturnMessage<PatientDTO>(CrudOperation.Create, result, "");
         }
         catch (Exception ex)
         {
@@ -75,6 +60,7 @@ public class PatientHandler
         try
         {
             Console.Clear();
+            await ViewAllPatients();
             Console.WriteLine("Enter Id");
             PatientDTO patient = null!;
 
@@ -111,7 +97,7 @@ public class PatientHandler
                     );
 
                     AnsiConsole.Write(table);
-                    Console.ReadKey();
+                    DisplayMessage.Message("");
                 }
                 else
                 {
@@ -163,7 +149,6 @@ public class PatientHandler
                     );
                 }
                 AnsiConsole.Write(table);
-                DisplayMessage.Message("");
             }
         }
         catch (Exception ex) { Console.WriteLine(ex.Message); }
@@ -174,12 +159,17 @@ public class PatientHandler
         try
         {
             Console.Clear();
+            await ViewAllPatients();
             Console.WriteLine("Enter Id of the patient you want to update: ");
             if (int.TryParse(Console.ReadLine(), out int patientId))
             {
                 var patientToUpdate = await _patientService.GetOnePatient(patientId);
 
-                if (patientToUpdate is not null)
+                if (patientToUpdate is null)
+                {
+                    DisplayMessage.Message("Patient not found");
+                }
+                else
                 {
                     Console.Write("First Name:");
                     patientToUpdate.FirstName = Console.ReadLine()!;
@@ -197,22 +187,7 @@ public class PatientHandler
                     patientToUpdate.Email = Console.ReadLine()!;
 
                     var result = await _patientService.UpdatePatientAsync(patientToUpdate);
-
-                    switch (result)
-                    {
-                        case Result.Success:
-                            ReturnMessage<PatientDTO>(CrudOperation.Update, result, "Patient successfully updated.");
-                            break;
-                        case Result.NotFound:
-                            ReturnMessage<PatientDTO>(CrudOperation.Update, result, "Patient not found.");
-                            break;
-                        case Result.Failure:
-                            ReturnMessage<PatientDTO>(CrudOperation.Update, result, "Email already exists.");
-                            break;
-                        default:
-                            ReturnMessage<PatientDTO>(CrudOperation.Update, result, "Unexpected error from update operation.");
-                            break;
-                    }
+                    ReturnMessage<PatientDTO>(CrudOperation.Create, result, "");
                 }
             }
         }
@@ -227,22 +202,13 @@ public class PatientHandler
         try
         {
             Console.Clear();
+            await ViewAllPatients();
+            Console.WriteLine("WARNING! DELETING A PATIENT WILL REMOVE IT'S APPOINTMENTS"); //Röd text här
             Console.WriteLine("Enter Id of the patient you want to remove: ");
             if (int.TryParse(Console.ReadLine(), out var patientId))
             {
                 var result = await _patientService.RemovePatientAsync(patientId);
-                switch (result)
-                {
-                    case Result.Success:
-                        ReturnMessage<PatientDTO>(CrudOperation.Delete, result, "");
-                        break;
-                    case Result.Failure:
-                        ReturnMessage<PatientDTO>(CrudOperation.Delete, result, "");
-                        break;
-                    case Result.NotFound:
-                        ReturnMessage<PatientDTO>(CrudOperation.Delete, result, "");
-                        break;
-                }
+                ReturnMessage<PatientDTO>(CrudOperation.Delete, result, "");
             }
         }
         catch (Exception ex)
@@ -252,3 +218,5 @@ public class PatientHandler
         return null;
     }
 }
+
+//JAG GÅR UT MED HUNDARNA HASSAN! 

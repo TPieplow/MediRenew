@@ -7,8 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\**" />
     <Compile Remove="Repositiories\**" />
+    <EmbeddedResource Remove="Migrations\**" />
     <EmbeddedResource Remove="Repositiories\**" />
+    <None Remove="Migrations\**" />
     <None Remove="Repositiories\**" />
   </ItemGroup>
 
@@ -22,10 +25,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

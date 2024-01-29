@@ -7,13 +7,9 @@ using System.Linq.Expressions;
 
 namespace Infrastructure.Repositories;
 
-public class PatientRepository : BaseRepository<PatientEntity>, IPatientRepository
+public class PatientRepository(CodeFirstDbContext context) : BaseRepository<PatientEntity>(context), IPatientRepository
 {
-    private readonly CodeFirstDbContext _context;
-    public PatientRepository(CodeFirstDbContext context) : base(context)
-    {
-        _context = context;
-    }
+    private readonly CodeFirstDbContext _context = context;
 
     public override async Task<IEnumerable<PatientEntity>> GetAllAsync()
     {
@@ -48,21 +44,4 @@ public class PatientRepository : BaseRepository<PatientEntity>, IPatientReposito
         return _context.Patients.Include(x => x.Prescriptions)
             .FirstOrDefault(x => x.Id == id)!;
     }
-
-    //public bool RemovePatient(int id)
-    //{
-    //    var patient = _context.Patients.Find(id);
-    //    if (patient is { })
-    //    {
-    //        _context.Patients.Remove(patient);
-    //        return true;
-    //    }
-
-    //    return false;
-    //}
-
-    //public override Task<PatientEntity> UpdateAsync(PatientEntity entity)
-    //{
-    //    return base.UpdateAsync(entity);
-    //}
 }

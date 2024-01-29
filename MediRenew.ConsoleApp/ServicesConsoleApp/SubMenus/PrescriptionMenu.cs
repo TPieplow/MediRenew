@@ -1,5 +1,7 @@
 ﻿using Business.Services;
+using MediRenew.ConsoleApp.Login;
 using MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
+using MediRenew.ConsoleApp.Utils;
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp.SubMenus;
 
@@ -14,6 +16,7 @@ public class PrescriptionMenu(PrescriptionHandler prescriptionHandler)
         while (running)
         {
             Console.Clear();
+            Header.StaticHeader();
             Console.WriteLine("What would you like to do? ");
 
             string[] menu =
@@ -44,6 +47,7 @@ public class PrescriptionMenu(PrescriptionHandler prescriptionHandler)
 
                 case "3":
                     await _prescriptionHandler.ViewAllPrescriptions();
+                    DisplayMessage.Message("");
                     break;
 
                 case "4":

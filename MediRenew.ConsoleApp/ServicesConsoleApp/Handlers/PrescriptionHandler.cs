@@ -7,10 +7,12 @@ using static Infrastructure.Utils.ResultEnums;
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
 
-public class PrescriptionHandler(PrescriptionService prescriptionService, PatientHandler patientHandler)
+public class PrescriptionHandler(PrescriptionService prescriptionService, PatientHandler patientHandler, DoctorHandler doctorHandler, PharmacyHandler pharmacyHandler)
 {
     private readonly PrescriptionService _prescriptionService = prescriptionService;
     private readonly PatientHandler _patientHandler = patientHandler;
+    private readonly DoctorHandler _doctorHandler = doctorHandler;
+    private readonly PharmacyHandler _pharmacyHandler = pharmacyHandler;
 
     public async Task AddPrescription()
     {
@@ -22,6 +24,7 @@ public class PrescriptionHandler(PrescriptionService prescriptionService, Patien
 
             newPrescription.Date = DateTime.Now;
 
+            await _doctorHandler.ViewAllDoctors();
             newPrescription.DoctorId = Convert.ToInt32(Cancel.AddOrAbort("Enter your DoctorId: "));
             if (newPrescription.DoctorId == 0) return;
 
@@ -29,11 +32,15 @@ public class PrescriptionHandler(PrescriptionService prescriptionService, Patien
             newPrescription.PatientId = Convert.ToInt32(Cancel.AddOrAbort("Enter the patients Id: "));
             if (newPrescription.PatientId == 0) return;
 
+            await _pharmacyHandler.ViewAllPharmacies();
             newPrescription.PharmacyId = Convert.ToInt32(Cancel.AddOrAbort("Enter the medication Id (check medication-list for ID-No): "));
             if (newPrescription.PharmacyId == 0) return;
 
             newPrescription.Dosage = Cancel.AddOrAbort("Enter Dosage: ");
             if (newPrescription.Dosage == null) return;
+
+            newPrescription.Cost = Convert.ToDecimal(Cancel.AddOrAbort("Enter the cost: "));
+            if (newPrescription.Cost == 0) return;
 
             var result = await _prescriptionService.AddPrescriptionAsync(newPrescription);
 
@@ -96,7 +103,6 @@ public class PrescriptionHandler(PrescriptionService prescriptionService, Patien
                     );
                 }
                 AnsiConsole.Write(table);
-                DisplayMessage.Message("");
             }
         }
         catch (Exception ex) { Console.WriteLine(ex.Message); }
@@ -108,6 +114,7 @@ public class PrescriptionHandler(PrescriptionService prescriptionService, Patien
         try
         {
             Console.Clear();
+            await _patientHandler.ViewAllPatients();
             Console.Write("Enter the Id of the patient: ");
 
             if (int.TryParse(Console.ReadLine(), out int id))
@@ -129,7 +136,7 @@ public class PrescriptionHandler(PrescriptionService prescriptionService, Patien
                 }
                 else
                 {
-                    DisplayMessage.Message("Patient not found.");
+                    DisplayMessage.Message("Patient does not exist or has no active prescriptions.");
                 }
             }
             else
@@ -146,6 +153,7 @@ public class PrescriptionHandler(PrescriptionService prescriptionService, Patien
         try
         {
             Console.Clear();
+            await ViewAllPrescriptions();
             Console.WriteLine("Enter Id of the prescription you want to remove: ");
             if (int.TryParse(Console.ReadLine(), out var prescriptionId))
             {

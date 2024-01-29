@@ -4,13 +4,9 @@ using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 
-public class PrescriptionRepository : BaseRepository<PrescriptionEntity>
+public class PrescriptionRepository(CodeFirstDbContext context) : BaseRepository<PrescriptionEntity>(context)
 {
-    private readonly CodeFirstDbContext _context;
-    public PrescriptionRepository(CodeFirstDbContext context) : base(context)
-    {
-        _context = context;
-    }
+    private readonly CodeFirstDbContext _context = context;
 
     public override async Task<IEnumerable<PrescriptionEntity>> GetAllAsync()
     {
