@@ -60,6 +60,59 @@ namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers
             }
         }
 
+
+        public async Task ViewOneDoctorWithId()
+        {
+            try
+            {
+                Console.Clear();
+                Console.WriteLine("Enter Id");
+                DoctorDTO doctor = null!;
+
+                if (int.TryParse(Console.ReadLine()!, out int Id))
+                {
+                    doctor = await _doctorService.GetOneDoctorAsync(Id);
+
+                    if (doctor is not null)
+                    {
+                        var table = new Table();
+
+                        table.AddColumn("[yellow]ID[/]");
+                        table.AddColumn("[yellow]First name[/]");
+                        table.AddColumn("[yellow]Last name[/]");
+                        table.AddColumn("[yellow]Phone number[/]");
+                        table.AddColumn("[yellow]Department[/]");
+
+
+                        table.AddRow(
+                            doctor.Id.ToString(),
+                            doctor.FirstName,
+                            doctor.LastName,
+                            doctor.PhoneNumber,
+                            doctor.DepartmentName
+
+                        );
+
+                        AnsiConsole.Write(table);
+                        Console.ReadKey();
+                    }
+                    else
+                    {
+                        DisplayMessage.Message("Doctor not found.");
+                    }
+                }
+                else
+                {
+                    DisplayMessage.Message("Invalid input.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"ERROR: {ex.Message}");
+            }
+        }
+
+
         public async Task ViewAllDoctors()
         {
             try
@@ -99,7 +152,7 @@ namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers
             try
             {
                 Console.Clear();
-                Console.WriteLine("Enter Id of the patient you want to update: ");
+                Console.WriteLine("Enter Id of the doctor you want to update: ");
                 if (int.TryParse(Console.ReadLine(), out int doctorId))
                 {
                     var doctorToUpdate = await _doctorService.GetOneDoctorAsync(doctorId);
@@ -124,10 +177,10 @@ namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers
                         switch (result)
                         {
                             case Result.Success:
-                                ReturnMessage<DoctorDTO>(CrudOperation.Update, result, "Patient successfully updated.");
+                                ReturnMessage<DoctorDTO>(CrudOperation.Update, result, "Doctor successfully updated.");
                                 break;
                             case Result.NotFound:
-                                ReturnMessage<DoctorDTO>(CrudOperation.Update, result, "Patient not found.");
+                                ReturnMessage<DoctorDTO>(CrudOperation.Update, result, "Doctor not found.");
                                 break;
                             case Result.Failure:
                                 ReturnMessage<DoctorDTO>(CrudOperation.Update, result, "Email already exists.");
@@ -157,13 +210,13 @@ namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers
                     switch (result)
                     {
                         case Result.Success:
-                            ReturnMessage<PatientDTO>(CrudOperation.Delete, result, "");
+                            ReturnMessage<DoctorDTO>(CrudOperation.Delete, result, "");
                             break;
                         case Result.Failure:
-                            ReturnMessage<PatientDTO>(CrudOperation.Delete, result, "");
+                            ReturnMessage<DoctorDTO>(CrudOperation.Delete, result, "");
                             break;
                         case Result.NotFound:
-                            ReturnMessage<PatientDTO>(CrudOperation.Delete, result, "");
+                            ReturnMessage<DoctorDTO>(CrudOperation.Delete, result, "");
                             break;
                     }
                 }

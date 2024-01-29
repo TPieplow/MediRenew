@@ -1,14 +1,18 @@
-﻿using MediRenew.ConsoleApp.Login;
+﻿using Business.DTOs;
+using Infrastructure.Repositories;
+using MediRenew.ConsoleApp.Login;
 using MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp.SubMenus;
 
-public class DoctorMenu(DoctorHandler doctorHandler)
+public class AppointmentMenu(AppointmentHandler appointmentHandler)
 {
-    private readonly DoctorHandler _doctorHandler = doctorHandler;
+    private readonly AppointmentHandler _appointmentHandler = appointmentHandler;
 
-    public async Task DoctorMenuAsync()
+
+    public async Task AppointmentMenuAsync()
     {
+        await _appointmentHandler.RemoveAppointmentsAfterDateAsync();
         bool running = true;
         while (running)
         {
@@ -18,11 +22,11 @@ public class DoctorMenu(DoctorHandler doctorHandler)
 
             string[] menu =
             {
-                "1. Add a doctor",
-                "2. Search for one doctor",
-                "3. View all doctors",
-                "4. Update a doctor",
-                "5. Delete a doctor",
+                "1. Add Appointment",
+                "2. Find an appointment through Patient-ID",
+                "3. View all appointments",
+                "4. Update appointment",
+                "5. Delete appointment",
                 "0. Return to main menu"
             };
 
@@ -36,23 +40,25 @@ public class DoctorMenu(DoctorHandler doctorHandler)
             switch (choice)
             {
                 case "1":
-                    await _doctorHandler.AddDoctor();
+                    await _appointmentHandler.AddAppointment();
                     break;
 
                 case "2":
-                    await _doctorHandler.ViewOneDoctorWithId();
+                    await _appointmentHandler.ViewOneWithPatId();
                     break;
 
                 case "3":
-                    await _doctorHandler.ViewAllDoctors();
+                    await _appointmentHandler.GetAllAppointments();
                     break;
 
                 case "4":
-                    await _doctorHandler.UpdateDoctorById();
+                    await _appointmentHandler.UpdateAppointmentById();
                     break;
+
                 case "5":
-                    await _doctorHandler.DeleteDoctorById();
+                    await _appointmentHandler.DeleteAppointmentByPatientId();
                     break;
+
                 case "0":
                     running = false;
                     break;

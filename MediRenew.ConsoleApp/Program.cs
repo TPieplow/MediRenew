@@ -48,6 +48,8 @@ class Program
 
                 services.AddScoped<AppointmentRepository>();
                 services.AddScoped<AppointmentService>();
+                services.AddScoped<AppointmentHandler>();
+                services.AddScoped<AppointmentMenu>();
 
                 services.AddScoped<StaffRepository>();
                 services.AddScoped<StaffService>();
@@ -93,7 +95,8 @@ class Program
                 serviceProvider.GetRequiredService<DoctorMenu>(),
                 serviceProvider.GetRequiredService<StaffMenu>(),
                 serviceProvider.GetRequiredService<InvoiceMenu>(),
-                serviceProvider.GetRequiredService<PharmacyMenu>());
+                serviceProvider.GetRequiredService<PharmacyMenu>(),
+                serviceProvider.GetRequiredService<AppointmentMenu>());
             await hospitalMenu.MenuAsync();
         }
         else

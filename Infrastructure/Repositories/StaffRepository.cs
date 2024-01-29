@@ -6,14 +6,9 @@ using System.Linq.Expressions;
 
 namespace Infrastructure.Repositories;
 
-public class StaffRepository : BaseRepository<StaffEntity>
+public class StaffRepository(CodeFirstDbContext context) : BaseRepository<StaffEntity>(context)
 {
-    private readonly CodeFirstDbContext _context;
-
-    public StaffRepository(CodeFirstDbContext context) : base(context)
-    {
-        _context = context;
-    }
+    private readonly CodeFirstDbContext _context = context;
 
     public override Task<bool> DeleteAsync(Expression<Func<StaffEntity, bool>> predicate)
     {
