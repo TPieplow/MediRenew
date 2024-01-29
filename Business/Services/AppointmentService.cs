@@ -102,7 +102,6 @@ public class AppointmentService
 
         try
         {
-
             var existingAppointment = await _appointmentRepository.GetOneAsync(x => x.PatientId == appointmentToUpdate.PatientId);
 
             if (existingAppointment is not null)
