@@ -1,5 +1,6 @@
 ﻿using MediRenew.ConsoleApp.Login;
 using MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
+using MediRenew.ConsoleApp.Utils;
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp.SubMenus
 {
@@ -45,6 +46,7 @@ namespace MediRenew.ConsoleApp.ServicesConsoleApp.SubMenus
 
                     case "3":
                         await _patient.ViewAllPatients();
+                        DisplayMessage.Message("");
                         break;
 
                     case "4":

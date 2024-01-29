@@ -1,10 +1,6 @@
 ﻿using Infrastructure.Contexts;
 using Infrastructure.HospitalEntities;
 using Microsoft.EntityFrameworkCore;
-<<<<<<< HEAD
-
-=======
->>>>>>> 8cda0a89311821e70839b7bed64fc02add54b367
 
 namespace Infrastructure.Repositories
 {

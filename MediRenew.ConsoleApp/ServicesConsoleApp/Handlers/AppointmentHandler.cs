@@ -1,6 +1,5 @@
 ﻿using Business.DTOs;
 using Business.Services;
-using Infrastructure.Repositories;
 using Infrastructure.Utils;
 using MediRenew.ConsoleApp.Utils;
 using Spectre.Console;
@@ -8,9 +7,11 @@ using static Infrastructure.Utils.ResultEnums;
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
 
-public class AppointmentHandler(AppointmentService appointmentService)
+public class AppointmentHandler(AppointmentService appointmentService, PatientHandler patientHandler, DoctorHandler doctorHandler)
 {
     private readonly AppointmentService _appointmentService = appointmentService;
+    private readonly PatientHandler _patientHandler = patientHandler;
+    private readonly DoctorHandler _doctorHandler = doctorHandler;
 
     public async Task AddAppointment()
     {
@@ -22,9 +23,11 @@ public class AppointmentHandler(AppointmentService appointmentService)
             var newAppointment = new AppointmentDTO();
             Console.WriteLine("Enter cancel or empty field to abort.");
 
+            await _doctorHandler.ViewAllDoctors();
             newAppointment.DoctorId = Convert.ToInt32(Cancel.AddOrAbort("Enter ID for the doctor: "));
             if (newAppointment.DoctorId == 0) return;
 
+            await _patientHandler.ViewAllPatients();
             newAppointment.PatientId = Convert.ToInt32(Cancel.AddOrAbort("Enter ID for the patient: "));
             if (newAppointment.PatientId == 0) return;
 
@@ -41,21 +44,8 @@ public class AppointmentHandler(AppointmentService appointmentService)
                 existingDate = await _appointmentService.GetOneAppointment(newAppointment.PatientId);
             }
 
-            switch (result)
-            {
-                case Result.Success:
-                    ReturnMessage<AppointmentDTO>(CrudOperation.Create, result, "");
-                    break;
-                case Result.Failure:
-                    ReturnMessage<AppointmentDTO>(CrudOperation.Create, result, $"This patient already has an appointment: {existingDate.Date}");
-                    break;
-                case Result.NotFound:
-                    ReturnMessage<AppointmentDTO>(CrudOperation.Create, result, "");
-                    break;
-                default:
-                    ReturnMessage<AppointmentDTO>(CrudOperation.Create, result, "");
-                    break;
-            }
+            ReturnMessage<AppointmentDTO>(CrudOperation.Create, result, "");
+
         }
         catch (Exception ex)
         {
@@ -68,6 +58,7 @@ public class AppointmentHandler(AppointmentService appointmentService)
         try
         {
             Console.Clear();
+            await _patientHandler.ViewAllPatients();
             Console.WriteLine("Enter the patients ID");
             AppointmentDTO appointment = null!;
 
@@ -93,7 +84,7 @@ public class AppointmentHandler(AppointmentService appointmentService)
                     );
 
                     AnsiConsole.Write(table);
-                    Console.ReadKey();
+                    DisplayMessage.Message("");
                 }
                 else
                 {
@@ -141,7 +132,6 @@ public class AppointmentHandler(AppointmentService appointmentService)
                     );
                 }
                 AnsiConsole.Write(table);
-                DisplayMessage.Message("");
             }
         }
         catch (Exception ex) { Console.WriteLine(ex.Message); }
@@ -152,15 +142,15 @@ public class AppointmentHandler(AppointmentService appointmentService)
         try
         {
             Console.Clear();
-            Console.WriteLine("Enter Id of the appointment you want to update: ");
+            await GetAllAppointments();
+            Console.WriteLine("Enter the patitent-Id of the appointment you want to update: ");
             if (int.TryParse(Console.ReadLine(), out int patientId))
             {
                 var appointmentToUpdate = await _appointmentService.GetOneAppointment(patientId);
 
                 if (appointmentToUpdate is null)
                 {
-                    Console.WriteLine("Appointment not found");
-                    Console.ReadKey();
+                    DisplayMessage.Message("Appointment not found");
                 }
                 else
                 {
@@ -172,18 +162,7 @@ public class AppointmentHandler(AppointmentService appointmentService)
 
                     var result = await _appointmentService.UpdateAppointment(appointmentToUpdate);
 
-                    switch (result)
-                    {
-                        case Result.Success:
-                            ReturnMessage<AppointmentDTO>(CrudOperation.Update, result, "Appointment successfully updated.");
-                            break;
-                        case Result.Failure:
-                            ReturnMessage<AppointmentDTO>(CrudOperation.Update, result, "");
-                            break;
-                        default:
-                            ReturnMessage<AppointmentDTO>(CrudOperation.Update, result, "Unexpected error from update operation.");
-                            break;
-                    }
+                    ReturnMessage<AppointmentDTO>(CrudOperation.Update, result, "");
                 }
             }
         }
@@ -198,6 +177,7 @@ public class AppointmentHandler(AppointmentService appointmentService)
         try
         {
             Console.Clear();
+            await GetAllAppointments();
             Console.WriteLine("Enter Id of the patient which appointment you want to remove: ");
             if (int.TryParse(Console.ReadLine(), out var patientId))
             {

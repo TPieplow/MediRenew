@@ -49,7 +49,6 @@ public class DoctorService
         try
         {
             var doctorEntity = await _doctorRepository.GetOneAsync(x => x.Id == doctorId);
-            var department = await _departmentRepository.GetOneAsync(x => x.Id == doctorEntity.DepartmentId);
 
             if (doctorEntity == null)
             {
@@ -63,7 +62,7 @@ public class DoctorService
                 FirstName = doctorEntity.FirstName,
                 LastName = doctorEntity.LastName,
                 PhoneNumber = doctorEntity.PhoneNumber,
-                DepartmentName = department.DepartmentName
+                Department = doctorEntity.Department
             };
 
             return doctorDTO;

@@ -1,4 +1,6 @@
-﻿namespace Infrastructure.DatabaseFirstEntities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Infrastructure.DatabaseFirstEntities
 {
     public partial class AuthenticationEntity
     {
