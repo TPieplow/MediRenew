@@ -22,12 +22,12 @@ public class InvoiceEntity
     public decimal TotalCost { get; set; }
 
     [Required]
-    [ForeignKey(nameof(Patient))]
+    [ForeignKey(nameof(PatientEntity))]
     public int PatientId { get; set; }
     public virtual PatientEntity Patient { get; set; } = null!;
 
     [Required]
-    [ForeignKey(nameof(Pharmacy))]
+    [ForeignKey(nameof(PharmacyEntity))]
     public int PharmacyId { get; set; }
     public virtual PharmacyEntity Pharmacy { get; set; } = null!;
 }

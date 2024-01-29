@@ -34,11 +34,11 @@ public class InvoiceMenu(InvoiceHandler invoiceHandler)
             switch (choice)
             {
                 case "1":
-                    
+                    await _invoiceHandler.AddInvoiceUI();
                     break;
 
                 case "2":
-                    
+                    await _invoiceHandler.ViewOneInvoice();
                     break;
 
                 case "3":
@@ -46,11 +46,7 @@ public class InvoiceMenu(InvoiceHandler invoiceHandler)
                     break;
 
                 case "4":
-                    
-                    break;
-
-                case "5":
-                    
+                    await _invoiceHandler.DeleteInvoiceById();
                     break;
 
                 case "0":

@@ -1,7 +1,5 @@
-﻿using Business.Services;
-using MediRenew.ConsoleApp.Login;
+﻿using MediRenew.ConsoleApp.Login;
 using MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
-using Microsoft.IdentityModel.Tokens;
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp.SubMenus;
 

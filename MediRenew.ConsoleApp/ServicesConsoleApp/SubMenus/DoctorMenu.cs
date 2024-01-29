@@ -1,4 +1,5 @@
-﻿using MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
+﻿using MediRenew.ConsoleApp.Login;
+using MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp.SubMenus;
 
@@ -12,6 +13,7 @@ public class DoctorMenu(DoctorHandler doctorHandler)
         while (running)
         {
             Console.Clear();
+            Header.StaticHeader();
             Console.WriteLine("What would you like to do? ");
 
             string[] menu =
@@ -38,7 +40,7 @@ public class DoctorMenu(DoctorHandler doctorHandler)
                     break;
 
                 case "2":
-                    await _doctorHandler.UpdateDoctorById();
+                    await _doctorHandler.ViewOneDoctorWithId();
                     break;
 
                 case "3":
