@@ -205,13 +205,13 @@ public class AppointmentHandler(AppointmentService appointmentService)
                 switch (result)
                 {
                     case Result.Success:
-                        ReturnMessage<PatientDTO>(CrudOperation.Delete, result, "");
+                        ReturnMessage<AppointmentDTO>(CrudOperation.Delete, result, "");
                         break;
                     case Result.Failure:
-                        ReturnMessage<PatientDTO>(CrudOperation.Delete, result, "");
+                        ReturnMessage<AppointmentDTO>(CrudOperation.Delete, result, "");
                         break;
                     case Result.NotFound:
-                        ReturnMessage<PatientDTO>(CrudOperation.Delete, result, "");
+                        ReturnMessage<AppointmentDTO>(CrudOperation.Delete, result, "");
                         break;
                 }
             }
