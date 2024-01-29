@@ -1,5 +1,6 @@
 ﻿using MediRenew.ConsoleApp.Login;
 using MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
+using MediRenew.ConsoleApp.Utils;
 
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp.SubMenus;
@@ -34,6 +35,7 @@ public class PharmacyMenu(PharmacyHandler pharmacyHandler)
             {
                 case "1":
                     await _pharmacyHandler.ViewAllPharmacies();
+                    DisplayMessage.Message("");
                     break;
 
                 case "0":

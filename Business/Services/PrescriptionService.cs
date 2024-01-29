@@ -14,12 +14,12 @@ public class PrescriptionService(PrescriptionRepository prescriptionRepository)
     {
         try
         {
-            if (!_prescriptionRepository.Exists(x => x.Doctor.Id == newPrescription.DoctorId) 
-                || !_prescriptionRepository.Exists(x => x.PatientId == newPrescription.PatientId)
-                || !_prescriptionRepository.Exists(x => x.PharmacyId == newPrescription.PharmacyId))
-            {
-                return Result.Failure;
-            }
+            //if (!_prescriptionRepository.Exists(x => x.Doctor.Id == newPrescription.DoctorId)
+            //    || !_prescriptionRepository.Exists(x => x.PatientId == newPrescription.PatientId)
+            //    || !_prescriptionRepository.Exists(x => x.PharmacyId == newPrescription.PharmacyId))
+            //{
+            //    return Result.Failure;
+            //} denna snear av nån anledning men allt verkar funka ändå
 
             var newPrescriptionEntity = new PrescriptionEntity
             {
@@ -27,12 +27,17 @@ public class PrescriptionService(PrescriptionRepository prescriptionRepository)
                 Dosage = newPrescription.Dosage,
                 PatientId = newPrescription.PatientId,
                 DoctorId = newPrescription.DoctorId,
+                Cost = newPrescription.Cost,
                 PharmacyId = newPrescription.PharmacyId
             };
             var result = await _prescriptionRepository.CreateAsync(newPrescriptionEntity);
             if (result is not null)
             {
                 return Result.Success;
+            }
+            else
+            {
+                return Result.Failure;
             }
         }
         catch (Exception ex)

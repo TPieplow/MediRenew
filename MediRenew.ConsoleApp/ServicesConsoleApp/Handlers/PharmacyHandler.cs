@@ -32,7 +32,6 @@ public class PharmacyHandler(PharmacyService pharmacyService)
                 }
 
                 AnsiConsole.Write(table);
-                DisplayMessage.Message("");
             }
         }
         catch (Exception ex) { Console.WriteLine(ex.Message); }

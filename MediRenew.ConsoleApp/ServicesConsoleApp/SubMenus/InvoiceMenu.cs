@@ -1,5 +1,6 @@
 ﻿using MediRenew.ConsoleApp.Login;
 using MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
+using MediRenew.ConsoleApp.Utils;
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp.SubMenus;
 
@@ -19,7 +20,7 @@ public class InvoiceMenu(InvoiceHandler invoiceHandler)
             [
                 "1. Create Invoice",
                 "2. Find invoice through ID",
-                "3. View invoice",
+                "3. View invoices",
                 "4. Delete invoice",
                 "0. Return to main menu"
             ];
@@ -43,6 +44,7 @@ public class InvoiceMenu(InvoiceHandler invoiceHandler)
 
                 case "3":
                     await _invoiceHandler.ViewAllInvoices();
+                    DisplayMessage.Message("");
                     break;
 
                 case "4":
