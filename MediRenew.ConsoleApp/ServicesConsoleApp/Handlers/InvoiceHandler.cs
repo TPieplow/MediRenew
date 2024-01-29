@@ -7,9 +7,11 @@ using static Infrastructure.Utils.ResultEnums;
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
 
-public class InvoiceHandler(InvoiceService invoiceService)
+public class InvoiceHandler(InvoiceService invoiceService, PharmacyHandler pharmacyHandler, PatientHandler patientHandler)
 {
     private readonly InvoiceService _invoiceService = invoiceService;
+    private readonly PharmacyHandler _pharmacyHandler = pharmacyHandler;
+    private readonly PatientHandler _patientHandler = patientHandler;
 
     public async Task AddInvoiceUI()
     {
@@ -17,7 +19,11 @@ public class InvoiceHandler(InvoiceService invoiceService)
 
         var newInvoice = new InvoiceDTO();
 
+        await _patientHandler.ViewAllPatients();
         TryConvert.SetPropertyWithConversion(id => newInvoice.PatientId = id, "Enter patient-ID");
+
+        await _pharmacyHandler.ViewAllPharmacies();
+        TryConvert.SetPropertyWithConversion(medId => newInvoice.PharmacyId = medId, "Enter med ID");
 
         newInvoice.Description = Cancel.AddOrAbort("Enter Description: ");
         if (newInvoice.Description == null) return;
@@ -31,11 +37,8 @@ public class InvoiceHandler(InvoiceService invoiceService)
         //Console.WriteLine("Enter IDs separated by spaces (i.e: 1 2 3");
 
 
-        TryConvert.SetPropertyWithConversion(medId => newInvoice.PharmacyId = medId, "Enter med ID");
-
         var result = await _invoiceService.AddInvoiceAsync(newInvoice);
         ReturnMessage<InvoiceDTO>(CrudOperation.Create, result, $"New invoice created for {newInvoice.PatientId}");
-        Console.ReadKey();
     }
 
     public async Task ViewOneInvoice()
@@ -43,7 +46,8 @@ public class InvoiceHandler(InvoiceService invoiceService)
         try
         {
             Console.Clear();
-            Console.WriteLine("Enter Id of the patient you want to update: ");
+            await ViewAllInvoices();
+            Console.WriteLine("Enter Id of the invoice you want to see: ");
             var newInvoice = new InvoiceDTO();
 
             if (int.TryParse(Console.ReadLine(), out int invoiceId))
@@ -74,11 +78,11 @@ public class InvoiceHandler(InvoiceService invoiceService)
                             );
 
                     AnsiConsole.Write(table);
-                    Console.ReadKey();
+                    DisplayMessage.Message("");
                 }
                 else
                 {
-                    DisplayMessage.Message("Funkar inte!!!!!");
+                    DisplayMessage.Message("Invoice not found");
                 }
             }
         }
@@ -120,7 +124,6 @@ public class InvoiceHandler(InvoiceService invoiceService)
                     );
                 }
                 AnsiConsole.Write(table);
-                DisplayMessage.Message("");
             }
         }
         catch (Exception ex) { Console.WriteLine(ex.Message); }
@@ -131,6 +134,7 @@ public class InvoiceHandler(InvoiceService invoiceService)
         try
         {
             Console.Clear();
+            await ViewAllInvoices();
             Console.WriteLine("Enter Id of the invoice you want to remove: ");
             if (int.TryParse(Console.ReadLine(), out var invoiceId))
             {

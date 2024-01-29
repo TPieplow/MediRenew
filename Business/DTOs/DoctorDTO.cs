@@ -11,4 +11,6 @@ public class DoctorDTO
     public string DepartmentName { get; set; } = null!;
     public int DepartmentId { get; set; }
 
+    public virtual DepartmentEntity Department { get; set; } = null!;
+
 }

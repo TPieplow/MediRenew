@@ -38,21 +38,7 @@ namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers
 
                 var result = await _doctorService.AddDoctorAsync(newDoctor);
 
-                switch (result)
-                {
-                    case Result.Success:
-                        ReturnMessage<DoctorDTO>(CrudOperation.Create, result, "");
-                        break;
-                    case Result.Failure:
-                        ReturnMessage<DoctorDTO>(CrudOperation.Create, result, "A doctor with this phone number already exists.");
-                        break;
-                    case Result.NotFound:
-                        ReturnMessage<DoctorDTO>(CrudOperation.Create, result, "");
-                        break;
-                    default:
-                        ReturnMessage<DoctorDTO>(CrudOperation.Create, result, "");
-                        break;
-                }
+                ReturnMessage<DoctorDTO>(CrudOperation.Create, result, "");
             }
             catch (Exception ex)
             {
@@ -60,12 +46,12 @@ namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers
             }
         }
 
-
         public async Task ViewOneDoctorWithId()
         {
             try
             {
                 Console.Clear();
+                await ViewAllDoctors();
                 Console.WriteLine("Enter Id");
                 DoctorDTO doctor = null!;
 
@@ -89,12 +75,12 @@ namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers
                             doctor.FirstName,
                             doctor.LastName,
                             doctor.PhoneNumber,
-                            doctor.DepartmentName
+                            doctor.Department.DepartmentName
 
                         );
 
                         AnsiConsole.Write(table);
-                        Console.ReadKey();
+                        DisplayMessage.Message("");
                     }
                     else
                     {
@@ -141,7 +127,6 @@ namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers
                         );
                     }
                     AnsiConsole.Write(table);
-                    DisplayMessage.Message("");
                 }
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }
@@ -152,12 +137,17 @@ namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers
             try
             {
                 Console.Clear();
+                await ViewAllDoctors();
                 Console.WriteLine("Enter Id of the doctor you want to update: ");
                 if (int.TryParse(Console.ReadLine(), out int doctorId))
                 {
                     var doctorToUpdate = await _doctorService.GetOneDoctorAsync(doctorId);
 
-                    if (doctorToUpdate is not null)
+                    if (doctorToUpdate is null)
+                    {
+                        DisplayMessage.Message("Doctor not found");
+                    }
+                    else
                     {
                         Console.Write("First Name:");
                         doctorToUpdate.FirstName = Console.ReadLine()!;
@@ -171,24 +161,8 @@ namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers
                         Console.Write("Department-ID: ");
                         doctorToUpdate.DepartmentId = Convert.ToInt32(Console.ReadLine());
 
-
                         var result = await _doctorService.UpdateDoctorAsync(doctorToUpdate);
-
-                        switch (result)
-                        {
-                            case Result.Success:
-                                ReturnMessage<DoctorDTO>(CrudOperation.Update, result, "Doctor successfully updated.");
-                                break;
-                            case Result.NotFound:
-                                ReturnMessage<DoctorDTO>(CrudOperation.Update, result, "Doctor not found.");
-                                break;
-                            case Result.Failure:
-                                ReturnMessage<DoctorDTO>(CrudOperation.Update, result, "Email already exists.");
-                                break;
-                            default:
-                                ReturnMessage<DoctorDTO>(CrudOperation.Update, result, "Unexpected error from update operation.");
-                                break;
-                        }
+                        ReturnMessage<DoctorDTO>(CrudOperation.Update, result, "");
                     }
                 }
             }
@@ -203,22 +177,14 @@ namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers
             try
             {
                 Console.Clear();
-                Console.WriteLine("Enter Id of the patient you want to remove: ");
+                await ViewAllDoctors();
+                Console.WriteLine("WARNING! DELETING A DOCTOR WILL REMOVE IT'S APPOINTMENTS"); //Röd text här
+                Console.WriteLine("Enter Id of the doctor you want to remove: ");
                 if (int.TryParse(Console.ReadLine(), out var doctorId))
                 {
                     var result = await _doctorService.RemoveDoctorAsync(doctorId);
-                    switch (result)
-                    {
-                        case Result.Success:
-                            ReturnMessage<DoctorDTO>(CrudOperation.Delete, result, "");
-                            break;
-                        case Result.Failure:
-                            ReturnMessage<DoctorDTO>(CrudOperation.Delete, result, "");
-                            break;
-                        case Result.NotFound:
-                            ReturnMessage<DoctorDTO>(CrudOperation.Delete, result, "");
-                            break;
-                    }
+
+                    ReturnMessage<DoctorDTO>(CrudOperation.Delete, result, "");
                 }
             }
             catch (Exception ex)

@@ -2,6 +2,8 @@
 using Infrastructure.Repositories;
 using MediRenew.ConsoleApp.Login;
 using MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
+using MediRenew.ConsoleApp.Utils;
+using System.ComponentModel.DataAnnotations;
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp.SubMenus;
 
@@ -49,6 +51,7 @@ public class AppointmentMenu(AppointmentHandler appointmentHandler)
 
                 case "3":
                     await _appointmentHandler.GetAllAppointments();
+                    DisplayMessage.Message("");
                     break;
 
                 case "4":
