@@ -4,10 +4,10 @@ using System.Linq.Expressions;
 
 namespace Infrastructure.Interfaces
 {
-    public interface IAuthenticationRepository : IBaseRepository<AuthenticationEntity>
+    public interface IAuthenticationRepository
     {
-        new Task<AuthenticationEntity> CreateAsync(AuthenticationEntity entity);
-        new bool Exists(Expression<Func<AuthenticationEntity, bool>> predicate);
-        new Task<AuthenticationEntity> GetOneAsync(Expression<Func<AuthenticationEntity, bool>> predicate);
+        Task<AuthenticationEntity> CreateAsync(AuthenticationEntity entity);
+        bool Exists(Expression<Func<AuthenticationEntity, bool>> predicate);
+        Task<AuthenticationEntity> GetOneAsync(Expression<Func<AuthenticationEntity, bool>> predicate);
     }
 }

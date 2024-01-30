@@ -5,9 +5,8 @@ namespace Infrastructure.Interfaces
 {
     public interface IPatientRepository : IBaseRepository<PatientEntity>
     {
-        Task<IEnumerable<PatientEntity>> GetAllAsync();
+        new Task<IEnumerable<PatientEntity>> GetAllAsync();
         PatientEntity GetByIdIncludePrescription(int id);
-        Task<PatientEntity> GetOneAsync(Expression<Func<PatientEntity, bool>> predicate);
-
+        new Task<PatientEntity> GetOneAsync(Expression<Func<PatientEntity, bool>> predicate);
     }
 }
