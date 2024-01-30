@@ -1,14 +1,9 @@
 ﻿using Business.ServiceCollectionBusiness;
-using Business.Services;
-using Infrastructure.Contexts;
-using Infrastructure.Repositories;
 using Infrastructure.ServiceCollections;
 using MediRenew.ConsoleApp.Login;
 using MediRenew.ConsoleApp.ServiceCollectionUI;
 using MediRenew.ConsoleApp.ServicesConsoleApp;
-using MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
 using MediRenew.ConsoleApp.ServicesConsoleApp.SubMenus;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -27,6 +22,7 @@ class Program
                 services.BusinessDICluster();
                 services.UIDICluster();
                 services.InfrastructureDICluster();
+
             })
 
 
@@ -43,11 +39,11 @@ class Program
         using var scope = host.Services.CreateScope();
         var serviceProvider = scope.ServiceProvider;
 
-        var loginService = serviceProvider.GetRequiredService<LoginService>();
+        var mainMenu = serviceProvider.GetRequiredService<MainMenu>();
+        bool loginSuccess = await mainMenu.ShowMenuAsync();
 
-        Console.Clear();
 
-        if (loginService.Login()) 
+        if (loginSuccess)
         {
             var hospitalMenu = new HospitalMenu(
                 serviceProvider.GetRequiredService<PatientMenu>(),
@@ -63,6 +59,7 @@ class Program
         {
             Console.WriteLine("Login failed. Exiting application.");
         }
+        Console.Clear();
     }
 }
 

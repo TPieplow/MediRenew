@@ -20,6 +20,7 @@ namespace Infrastructure.ServiceCollections
             services.AddDbContext<DatabaseFirstDbContext>(
                 x => x.UseSqlServer(@"Data Source=localhost;Initial Catalog=HospitalDb;Integrated Security=True;Trust Server Certificate=True"));
 
+            services.AddScoped<AuthenticationRepository>();
             services.AddScoped<PatientRepository>();
             services.AddScoped<PrescriptionRepository>();
             services.AddScoped<DoctorRepository>();

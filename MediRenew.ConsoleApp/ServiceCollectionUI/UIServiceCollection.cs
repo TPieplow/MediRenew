@@ -10,9 +10,12 @@ public static class UIServiceCollection
 {
     public static void UIDICluster (this IServiceCollection services)
     {
+        services.AddScoped<MainMenu>();
         services.AddScoped<HospitalMenu>();
 
         services.AddScoped<LoginService>();
+
+        services.AddScoped<RegistrationHandler>();
 
         services.AddScoped<PatientHandler>();
         services.AddScoped<PatientMenu>();
