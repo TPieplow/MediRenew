@@ -1,6 +1,5 @@
 ﻿using Business.Interfaces;
 using Business.Services;
-using Infrastructure.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Business.ServiceCollectionBusiness;

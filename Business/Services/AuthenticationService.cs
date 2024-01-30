@@ -10,9 +10,9 @@ using static Infrastructure.Utils.ResultEnums;
 namespace Business.Services
 {
 
-    public class AuthenticationService(AuthenticationRepository authenticationRepository) : IAuthenticationService
+    public class AuthenticationService(IAuthenticationRepository authenticationRepository) : IAuthenticationService
     {
-        private readonly AuthenticationRepository _authenticationRepository = authenticationRepository;
+        private readonly IAuthenticationRepository _authenticationRepository = authenticationRepository;
 
         /// <summary>
         /// Checks if the user exists, if not, creates a new AuthenticationEntity and saves if to the database.
@@ -35,7 +35,7 @@ namespace Business.Services
                 PasswordHash = hashedPassword,
             };
 
-            var registrationResult = await _authenticationRepository.CreateUserAsync(newUser);
+            var registrationResult = await _authenticationRepository.CreateAsync(newUser);
             if (registrationResult != null)
             {
                 return Result.Success;

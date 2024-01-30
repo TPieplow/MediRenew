@@ -3,11 +3,10 @@ using System.Linq.Expressions;
 
 namespace Infrastructure.Interfaces
 {
-    public interface IPatientRepository
+    public interface IPatientRepository : IBaseRepository<PatientEntity>
     {
-        Task<IEnumerable<PatientEntity>> GetAllAsync();
+        new Task<IEnumerable<PatientEntity>> GetAllAsync();
         PatientEntity GetByIdIncludePrescription(int id);
-        Task<PatientEntity> GetOneAsync(Expression<Func<PatientEntity, bool>> predicate);
-        //Task<PatientEntity> UpdateAsync(PatientEntity entity);
+        new Task<PatientEntity> GetOneAsync(Expression<Func<PatientEntity, bool>> predicate);
     }
 }

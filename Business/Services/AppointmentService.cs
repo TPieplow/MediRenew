@@ -1,15 +1,17 @@
 ﻿using Business.DTOs;
 using Business.Interfaces;
 using Infrastructure.HospitalEntities;
+using Infrastructure.Interfaces;
 using Infrastructure.Repositories;
 using System.Diagnostics;
 using static Infrastructure.Utils.ResultEnums;
 
 namespace Business.Services;
 
-public class AppointmentService(AppointmentRepository appointmentRepository) : IAppointmentService
+public class AppointmentService(IAppointmentRepository appointmentRepository) : IAppointmentService
 {
-    private readonly AppointmentRepository _appointmentRepository = appointmentRepository;
+    private readonly IAppointmentRepository _appointmentRepository = appointmentRepository;
+
 
     public async Task<Result> AddApointment(AppointmentDTO newAppointment)
     {

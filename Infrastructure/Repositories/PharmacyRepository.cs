@@ -1,10 +1,11 @@
 ﻿using Infrastructure.Contexts;
 using Infrastructure.HospitalEntities;
+using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
-    public class PharmacyRepository(CodeFirstDbContext context) : BaseRepository<PharmacyEntity>(context)
+    public class PharmacyRepository(CodeFirstDbContext context) : BaseRepository<PharmacyEntity>(context), IPharmacyRepository
     {
         private readonly CodeFirstDbContext _context = context;
 

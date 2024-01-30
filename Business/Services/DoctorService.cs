@@ -1,16 +1,16 @@
 ﻿using Business.DTOs;
 using Infrastructure.HospitalEntities;
 using System.Diagnostics;
-using Infrastructure.Repositories;
 using static Infrastructure.Utils.ResultEnums;
+using Infrastructure.Interfaces;
 using Business.Interfaces;
 
 namespace Business.Services;
 
-public class DoctorService(DoctorRepository doctorRepository, DepartmentRepository departmentRepository) : IDoctorService
+public class DoctorService(IDoctorRepository doctorRepository, IDepartmentRepository departmentRepository) : IDoctorService
 {
-    private readonly DoctorRepository _doctorRepository = doctorRepository;
-    private readonly DepartmentRepository _departmentRepository = departmentRepository;
+    private readonly IDoctorRepository _doctorRepository = doctorRepository;
+    private readonly IDepartmentRepository _departmentRepository = departmentRepository;
 
     public async Task<Result> AddDoctorAsync(DoctorDTO newDoctor)
     {

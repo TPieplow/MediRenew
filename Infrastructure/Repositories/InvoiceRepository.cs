@@ -1,12 +1,13 @@
 ﻿using Infrastructure.Contexts;
 using Infrastructure.HospitalEntities;
+using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Linq.Expressions;
 
 namespace Infrastructure.Repositories
 {
-    public class InvoiceRepository(CodeFirstDbContext context) : BaseRepository<InvoiceEntity>(context)
+    public class InvoiceRepository(CodeFirstDbContext context) : BaseRepository<InvoiceEntity>(context), IInvoiceRepository
     {
         private readonly CodeFirstDbContext _context = context;
 
