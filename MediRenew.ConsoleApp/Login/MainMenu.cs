@@ -49,8 +49,8 @@ public class MainMenu(LoginService loginService, RegistrationHandler registratio
                     return await _loginService.Login();
 
                 case "2":
-                    await _registrationHandler.RegisterAsync();
-                    break;
+                    return await _registrationHandler.RegisterAsync();
+
             }
         }
         return false;

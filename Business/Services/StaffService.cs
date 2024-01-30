@@ -1,4 +1,5 @@
 ﻿using Business.DTOs;
+using Business.Interfaces;
 using Infrastructure.HospitalEntities;
 using Infrastructure.Repositories;
 using System.Diagnostics;
@@ -6,7 +7,7 @@ using static Infrastructure.Utils.ResultEnums;
 
 namespace Business.Services;
 
-public class StaffService(StaffRepository staffRepository)
+public class StaffService(StaffRepository staffRepository) : IStaffService
 {
     private readonly StaffRepository _staffRepository = staffRepository;
 

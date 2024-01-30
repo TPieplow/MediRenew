@@ -1,5 +1,5 @@
 ﻿using Business.DTOs;
-using Business.Services;
+using Business.Interfaces;
 using Infrastructure.Utils;
 using MediRenew.ConsoleApp.Utils;
 using Spectre.Console;
@@ -7,20 +7,20 @@ using static Infrastructure.Utils.ResultEnums;
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
 
-public class InvoiceHandler(InvoiceService invoiceService, PharmacyHandler pharmacyHandler, PatientHandler patientHandler)
+public class InvoiceHandler(IInvoiceService invoiceService, PharmacyHandler pharmacyHandler, PatientHandler patientHandler)
 {
-    private readonly InvoiceService _invoiceService = invoiceService;
+    private readonly IInvoiceService _invoiceService = invoiceService;
     private readonly PharmacyHandler _pharmacyHandler = pharmacyHandler;
     private readonly PatientHandler _patientHandler = patientHandler;
 
     public async Task AddInvoiceUI()
     {
         Console.Clear();
-
         var newInvoice = new InvoiceDTO();
 
         await _patientHandler.ViewAllPatients();
         TryConvert.SetPropertyWithConversion(id => newInvoice.PatientId = id, "Enter patient-ID");
+        if (newInvoice.PatientId == 0) return;
 
         await _pharmacyHandler.ViewAllPharmacies();
         TryConvert.SetPropertyWithConversion(medId => newInvoice.PharmacyId = medId, "Enter med ID");
@@ -30,12 +30,10 @@ public class InvoiceHandler(InvoiceService invoiceService, PharmacyHandler pharm
         if (newInvoice.Description == null) return;
 
         TryConvert.SetPropertyWithConversion(cost => newInvoice.Cost = cost, "Enter cost: ");
+        if (newInvoice.Cost == 0) return;
+
         TryConvert.SetPropertyWithConversion(totalCost => newInvoice.TotalCost = totalCost, "Enter total cost");
-
-        //newInvoice.PatientName = Cancel.AddOrAbort("Enter patients name (First name and last name): ");
-        //if (newInvoice.PatientName == null) return;
-
-        //Console.WriteLine("Enter IDs separated by spaces (i.e: 1 2 3");
+        if (newInvoice.TotalCost == 0) return;
 
 
         var result = await _invoiceService.AddInvoiceAsync(newInvoice);

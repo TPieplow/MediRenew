@@ -22,10 +22,7 @@ class Program
                 services.BusinessDICluster();
                 services.UIDICluster();
                 services.InfrastructureDICluster();
-
             })
-
-
             // Stoppar loggning i consolen, visar enbart error nu. 
             .ConfigureLogging(logging =>
             {
@@ -41,7 +38,6 @@ class Program
 
         var mainMenu = serviceProvider.GetRequiredService<MainMenu>();
         bool loginSuccess = await mainMenu.ShowMenuAsync();
-
 
         if (loginSuccess)
         {

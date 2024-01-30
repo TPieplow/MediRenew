@@ -1,5 +1,5 @@
 ﻿using Business.DTOs;
-using Business.Services;
+using Business.Interfaces;
 using Infrastructure.Utils;
 using MediRenew.ConsoleApp.Utils;
 using Spectre.Console;
@@ -7,14 +7,9 @@ using static Infrastructure.Utils.ResultEnums;
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers
 {
-    public class DoctorHandler
+    public class DoctorHandler(IDoctorService doctorService)
     {
-        private readonly DoctorService _doctorService;
-
-        public DoctorHandler(DoctorService doctorService)
-        {
-            _doctorService = doctorService;
-        }
+        private readonly IDoctorService _doctorService = doctorService;
 
         public async Task AddDoctor()
         {

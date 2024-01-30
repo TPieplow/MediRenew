@@ -1,4 +1,5 @@
-﻿using Infrastructure.DatabaseFirstEntities;
+﻿using Business.Interfaces;
+using Infrastructure.DatabaseFirstEntities;
 using Infrastructure.Interfaces;
 using Infrastructure.Repositories;
 using System.Security.Cryptography;
@@ -9,10 +10,16 @@ using static Infrastructure.Utils.ResultEnums;
 namespace Business.Services
 {
 
-    public class AuthenticationService(AuthenticationRepository authenticationRepository)
+    public class AuthenticationService(AuthenticationRepository authenticationRepository) : IAuthenticationService
     {
         private readonly AuthenticationRepository _authenticationRepository = authenticationRepository;
 
+        /// <summary>
+        /// Checks if the user exists, if not, creates a new AuthenticationEntity and saves if to the database.
+        /// </summary>
+        /// <param name="username">Input provided by user (username)</param>
+        /// <param name="password">Input provided by user (password)</param>
+        /// <returns></returns>
         public async Task<Result> CreateUserAndLoginAsync(string username, string password)
         {
             var hashedPassword = HashPassword(password);
@@ -29,13 +36,20 @@ namespace Business.Services
             };
 
             var registrationResult = await _authenticationRepository.CreateUserAsync(newUser);
-            if(registrationResult != null)
+            if (registrationResult != null)
             {
                 return Result.Success;
             }
             return Result.Failure;
         }
 
+        /// <summary>
+        /// Validates the user by using the GetOneAsync-method and comparing the username with the stored username.
+        /// Also validates the password by hashing and comparing using the HashPassword-method
+        /// </summary>
+        /// <param name="username">Input provided by user (username)</param>
+        /// <param name="password">Input provided by user (password)</param>
+        /// <returns>Returns true if validated, otherwise false</returns>
         public async Task<bool> ValidateUserAsync(string username, string password)
         {
             var user = await _authenticationRepository.GetOneAsync(a => a.Username == username);
@@ -49,12 +63,23 @@ namespace Business.Services
             return false;
         }
 
+        /// <summary>
+        /// Verifies the entered password, from the user and creates a new Hash, by comparing its hash the stored hash.
+        /// </summary>
+        /// <param name="enteredPassword">Input from the user (password)</param>
+        /// <param name="storedPasswordHash">The hashed password in the database</param>
+        /// <returns>True if verified, else false</returns>
         private static bool VerifyPassword(string enteredPassword, string storedPasswordHash)
         {
             var enteredPasswordHash = HashPassword(enteredPassword);
             return string.Equals(enteredPasswordHash, storedPasswordHash, StringComparison.OrdinalIgnoreCase);
         }
 
+        /// <summary>
+        /// Converts the input (password) using the SHA256 algorithm.
+        /// </summary>
+        /// <param name="password">Input from user, (password)</param>
+        /// <returns>The SHA256 hash-array converted to a string in lower case</returns>
         private static string HashPassword(string password)
         {
             var passwordBytes = Encoding.UTF8.GetBytes(password);

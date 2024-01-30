@@ -1,4 +1,5 @@
 ﻿using Business.DTOs;
+using Business.Interfaces;
 using Business.Services;
 using Infrastructure.Utils;
 using MediRenew.ConsoleApp.Utils;
@@ -7,9 +8,9 @@ using static Infrastructure.Utils.ResultEnums;
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
 
-public class PrescriptionHandler(PrescriptionService prescriptionService, PatientHandler patientHandler, DoctorHandler doctorHandler, PharmacyHandler pharmacyHandler)
+public class PrescriptionHandler(IPrescriptionService prescriptionService, PatientHandler patientHandler, DoctorHandler doctorHandler, PharmacyHandler pharmacyHandler)
 {
-    private readonly PrescriptionService _prescriptionService = prescriptionService;
+    private readonly IPrescriptionService _prescriptionService = prescriptionService;
     private readonly PatientHandler _patientHandler = patientHandler;
     private readonly DoctorHandler _doctorHandler = doctorHandler;
     private readonly PharmacyHandler _pharmacyHandler = pharmacyHandler;

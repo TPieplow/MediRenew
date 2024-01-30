@@ -1,10 +1,11 @@
-﻿using Business.Services;
+﻿using Business.Interfaces;
+using Business.Services;
 using Spectre.Console;
 namespace MediRenew.ConsoleApp.Login;
 
-public class LoginService(AuthenticationService authenticationService)
+public class LoginService(IAuthenticationService authenticationService)
 {
-    private readonly AuthenticationService _authenticationService = authenticationService;
+    private readonly IAuthenticationService _authenticationService = authenticationService;
 
     public async Task<bool> Login()
     {
