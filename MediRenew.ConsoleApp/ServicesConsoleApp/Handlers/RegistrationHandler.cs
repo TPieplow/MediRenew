@@ -9,6 +9,10 @@ namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers
     {
         private readonly IAuthenticationService _authenticationService = authenticationService;
 
+        /// <summary>
+        /// Registration menu for the application
+        /// </summary>
+        /// <returns>True or false</returns>
         public async Task<bool> RegisterAsync()
         {
             var username = AnsiConsole.Prompt(
