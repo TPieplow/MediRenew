@@ -1,4 +1,5 @@
 ﻿using Business.DTOs;
+using Business.Interfaces;
 using Infrastructure.HospitalEntities;
 using Infrastructure.Interfaces;
 using Infrastructure.Repositories;
@@ -7,7 +8,8 @@ using static Infrastructure.Utils.ResultEnums;
 
 namespace Business.Services;
 
-public class AppointmentService(IAppointmentRepository appointmentRepository)
+
+public class AppointmentService(IAppointmentRepository appointmentRepository) : IAppointmentService
 {
     private readonly IAppointmentRepository _appointmentRepository = appointmentRepository;
 

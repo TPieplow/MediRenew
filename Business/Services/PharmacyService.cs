@@ -1,11 +1,12 @@
 ﻿using Business.DTOs;
+using Business.Interfaces;
 using Infrastructure.HospitalEntities;
 using Infrastructure.Interfaces;
 using Infrastructure.Repositories;
 
 namespace Business.Services;
 
-public class PharmacyService(IPharmacyRepository repository)
+public class PharmacyService(IPharmacyRepository repository) : IPharmacyService
 {
     private readonly IPharmacyRepository _repository = repository;
 

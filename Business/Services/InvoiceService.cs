@@ -1,4 +1,5 @@
 ﻿using Business.DTOs;
+using Business.Interfaces;
 using Infrastructure.HospitalEntities;
 using Infrastructure.Interfaces;
 using Infrastructure.Repositories;
@@ -8,7 +9,7 @@ using static Infrastructure.Utils.ResultEnums;
 
 namespace Business.Services
 {
-    public class InvoiceService(IInvoiceRepository invoiceRepository)
+    public class InvoiceService(IInvoiceRepository invoiceRepository) : IInvoiceService
     {
         private readonly IInvoiceRepository _invoiceRepository = invoiceRepository;
 

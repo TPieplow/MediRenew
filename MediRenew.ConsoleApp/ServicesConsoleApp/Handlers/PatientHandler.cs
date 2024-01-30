@@ -4,18 +4,14 @@ using MediRenew.ConsoleApp.Utils;
 using Spectre.Console;
 using Infrastructure.Utils;
 using static Infrastructure.Utils.ResultEnums;
+using Business.Interfaces;
 
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
 
-public class PatientHandler
+public class PatientHandler(IPatientService patientService)
 {
-    private readonly PatientService _patientService;
-
-    public PatientHandler(PatientService patientService)
-    {
-        _patientService = patientService;
-    }
+    private readonly IPatientService _patientService = patientService;
 
     public async Task AddPatient()
     {

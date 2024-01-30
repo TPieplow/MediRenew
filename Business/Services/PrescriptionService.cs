@@ -1,11 +1,12 @@
 ﻿using Business.DTOs;
+using Business.Interfaces;
 using Infrastructure.HospitalEntities;
 using System.Diagnostics;
 using static Infrastructure.Utils.ResultEnums;
 
 namespace Business.Services;
 
-public class PrescriptionService(IPrescriptionRepository prescriptionRepository)
+public class PrescriptionService(IPrescriptionRepository prescriptionRepository) : IPrescriptionService
 {
     private readonly IPrescriptionRepository _prescriptionRepository = prescriptionRepository;
 
