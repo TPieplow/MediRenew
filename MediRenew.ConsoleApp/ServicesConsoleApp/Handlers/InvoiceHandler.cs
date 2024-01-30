@@ -24,6 +24,7 @@ public class InvoiceHandler(InvoiceService invoiceService, PharmacyHandler pharm
 
         await _pharmacyHandler.ViewAllPharmacies();
         TryConvert.SetPropertyWithConversion(medId => newInvoice.PharmacyId = medId, "Enter med ID");
+        if (newInvoice.PharmacyId == 0) return;
 
         newInvoice.Description = Cancel.AddOrAbort("Enter Description: ");
         if (newInvoice.Description == null) return;

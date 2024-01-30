@@ -26,6 +26,7 @@ public class TryConvert
         else
         {
             Console.WriteLine(errorMessage);
+            Console.ReadKey();
         }
     }
 }

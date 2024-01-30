@@ -53,7 +53,7 @@ public class LoginService(AuthenticationService authenticationService)
                 else
                 {
                     AnsiConsole.Write(new Rule("\tYou have entered wrong credentials more than 3 times. Please wait 10 minutes before trying again").LeftJustified());
-                    await Task.Delay(10 * 60 * 1000);
+                    await Task.Delay(10 * 60 * 1000);  
                     loginAttempts = 0;
                 }
             }
