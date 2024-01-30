@@ -61,7 +61,6 @@ namespace Business.Services
                     MedicationName = invoiceEntity.Pharmacy.MedicationName,
                     Patient = invoiceEntity.Patient,
                     Pharmacy = invoiceEntity.Pharmacy
-
                 };
                 return invoiceDTO;
             }
@@ -110,5 +109,4 @@ namespace Business.Services
             { Console.WriteLine($"ERROR: {ex.Message}"); return Result.Failure; }
         }
     }
-
 }

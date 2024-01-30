@@ -8,10 +8,10 @@ using static Infrastructure.Utils.ResultEnums;
 
 namespace Business.Services;
 
+
 public class AppointmentService(IAppointmentRepository appointmentRepository) : IAppointmentService
 {
     private readonly IAppointmentRepository _appointmentRepository = appointmentRepository;
-
 
     public async Task<Result> AddApointment(AppointmentDTO newAppointment)
     {
