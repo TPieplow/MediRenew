@@ -1,27 +1,22 @@
 ﻿using Business.DTOs;
 using Infrastructure.HospitalEntities;
 using System.Diagnostics;
-using Infrastructure.Repositories;
 using static Infrastructure.Utils.ResultEnums;
+using Infrastructure.Interfaces;
+using Business.Interfaces;
 
 namespace Business.Services;
 
-public class DoctorService
+public class DoctorService(IDoctorRepository doctorRepository, IDepartmentRepository departmentRepository) : IDoctorService
 {
-    private readonly DoctorRepository _doctorRepository;
-    private readonly DepartmentRepository _departmentRepository;
-
-    public DoctorService(DoctorRepository doctorRepository, DepartmentRepository departmentRepository)
-    {
-        _doctorRepository = doctorRepository;
-        _departmentRepository = departmentRepository;
-    }
+    private readonly IDoctorRepository _doctorRepository = doctorRepository;
+    private readonly IDepartmentRepository _departmentRepository = departmentRepository;
 
     public async Task<Result> AddDoctorAsync(DoctorDTO newDoctor)
     {
         try
         {
-            if(_doctorRepository.Exists(x => x.PhoneNumber == newDoctor.PhoneNumber))
+            if (_doctorRepository.Exists(x => x.PhoneNumber == newDoctor.PhoneNumber))
             {
                 return Result.Failure;
             }

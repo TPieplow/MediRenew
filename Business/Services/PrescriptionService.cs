@@ -1,13 +1,14 @@
 ﻿using Business.DTOs;
+using Business.Interfaces;
 using Infrastructure.HospitalEntities;
 using System.Diagnostics;
 using static Infrastructure.Utils.ResultEnums;
 
 namespace Business.Services;
 
-public class PrescriptionService(PrescriptionRepository prescriptionRepository)
+public class PrescriptionService(IPrescriptionRepository prescriptionRepository) : IPrescriptionService
 {
-    private readonly PrescriptionRepository _prescriptionRepository = prescriptionRepository;
+    private readonly IPrescriptionRepository _prescriptionRepository = prescriptionRepository;
 
 
     public async Task<Result> AddPrescriptionAsync(PrescriptionDTO newPrescription)

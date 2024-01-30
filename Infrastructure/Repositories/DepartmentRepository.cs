@@ -1,10 +1,11 @@
 ﻿using Infrastructure.Contexts;
 using Infrastructure.HospitalEntities;
+using Infrastructure.Interfaces;
 using System.Linq.Expressions;
 
 namespace Infrastructure.Repositories;
 
-public class DepartmentRepository : BaseRepository<DepartmentEntity>
+public class DepartmentRepository : BaseRepository<DepartmentEntity>, IDepartmentRepository
 {
     private readonly CodeFirstDbContext _context;
     public DepartmentRepository(CodeFirstDbContext context) : base(context)

@@ -1,13 +1,12 @@
 ﻿using Business.DTOs;
-using Business.Services;
-using MediRenew.ConsoleApp.Utils;
+using Business.Interfaces;
 using Spectre.Console;
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
 
-public class PharmacyHandler(PharmacyService pharmacyService)
+public class PharmacyHandler(IPharmacyService pharmacyService)
 {
-    private readonly PharmacyService _pharmacyService = pharmacyService;
+    private readonly IPharmacyService _pharmacyService = pharmacyService;
 
     public async Task ViewAllPharmacies()
     {

@@ -1,5 +1,5 @@
 ﻿using Business.DTOs;
-using Business.Services;
+using Business.Interfaces;
 using Infrastructure.Utils;
 using MediRenew.ConsoleApp.Utils;
 using Spectre.Console;
@@ -7,9 +7,9 @@ using static Infrastructure.Utils.ResultEnums;
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
 
-public class AppointmentHandler(AppointmentService appointmentService, PatientHandler patientHandler, DoctorHandler doctorHandler)
+public class AppointmentHandler(IAppointmentService appointmentService, PatientHandler patientHandler, DoctorHandler doctorHandler)
 {
-    private readonly AppointmentService _appointmentService = appointmentService;
+    private readonly IAppointmentService _appointmentService = appointmentService;
     private readonly PatientHandler _patientHandler = patientHandler;
     private readonly DoctorHandler _doctorHandler = doctorHandler;
 

@@ -5,14 +5,13 @@ using static Infrastructure.Utils.ResultEnums;
 using Spectre.Console;
 using Table = Spectre.Console.Table;
 using MediRenew.ConsoleApp.Utils;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
-using System.Transactions;
+using Business.Interfaces;
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
 
-public class StaffHandler(StaffService staffService)
+public class StaffHandler(IStaffService staffService)
 {
-    private readonly StaffService _staffService = staffService;
+    private readonly IStaffService _staffService = staffService;
 
     public async Task AddStaffMember()
     {

@@ -1,4 +1,5 @@
 ﻿using Business.DTOs;
+using Business.Interfaces;
 using Infrastructure.HospitalEntities;
 using Infrastructure.Interfaces;
 using Infrastructure.Repositories;
@@ -8,10 +9,9 @@ using static Infrastructure.Utils.ResultEnums;
 
 namespace Business.Services
 {
-    public class InvoiceService(InvoiceRepository invoiceRepository)
+    public class InvoiceService(IInvoiceRepository invoiceRepository) : IInvoiceService
     {
-        private readonly InvoiceRepository _invoiceRepository = invoiceRepository;
-
+        private readonly IInvoiceRepository _invoiceRepository = invoiceRepository;
 
         public async Task<Result> AddInvoiceAsync(InvoiceDTO invoice)
         {
@@ -61,7 +61,7 @@ namespace Business.Services
                     MedicationName = invoiceEntity.Pharmacy.MedicationName,
                     Patient = invoiceEntity.Patient,
                     Pharmacy = invoiceEntity.Pharmacy
-                    
+
                 };
                 return invoiceDTO;
             }
