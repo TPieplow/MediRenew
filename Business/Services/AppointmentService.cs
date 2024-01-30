@@ -9,9 +9,9 @@ namespace Business.Services;
 
 public class AppointmentService
 {
-    private readonly AppointmentRepository _appointmentRepository;
+    private readonly IAppointmentRepository _appointmentRepository;
 
-    public AppointmentService(AppointmentRepository appointmentRepository)
+    public AppointmentService(IAppointmentRepository appointmentRepository)
     {
         _appointmentRepository = appointmentRepository;
     }

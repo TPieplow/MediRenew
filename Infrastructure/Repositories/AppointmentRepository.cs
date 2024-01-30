@@ -1,10 +1,11 @@
 ﻿using Infrastructure.Contexts;
 using Infrastructure.HospitalEntities;
+using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
-    public class AppointmentRepository(CodeFirstDbContext context) : BaseRepository<AppointmentEntity>(context)
+    public class AppointmentRepository(CodeFirstDbContext context) : BaseRepository<AppointmentEntity>(context), IAppointmentRepository
     {
         private readonly CodeFirstDbContext _context = context;
 

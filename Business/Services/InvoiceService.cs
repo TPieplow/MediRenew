@@ -8,9 +8,9 @@ using static Infrastructure.Utils.ResultEnums;
 
 namespace Business.Services
 {
-    public class InvoiceService(InvoiceRepository invoiceRepository)
+    public class InvoiceService(IInvoiceRepository invoiceRepository)
     {
-        private readonly InvoiceRepository _invoiceRepository = invoiceRepository;
+        private readonly IInvoiceRepository _invoiceRepository = invoiceRepository;
 
 
         public async Task<Result> AddInvoiceAsync(InvoiceDTO invoice)

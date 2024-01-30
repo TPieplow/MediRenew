@@ -4,7 +4,7 @@ using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 
-public class PrescriptionRepository(CodeFirstDbContext context) : BaseRepository<PrescriptionEntity>(context)
+public class PrescriptionRepository(CodeFirstDbContext context) : BaseRepository<PrescriptionEntity>(context), IPrescriptionRepository
 {
     private readonly CodeFirstDbContext _context = context;
 
