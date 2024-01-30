@@ -13,7 +13,15 @@ public class PatientRepository(CodeFirstDbContext context) : BaseRepository<Pati
 
     public override async Task<IEnumerable<PatientEntity>> GetAllAsync()
     {
+        try
+        {
         return await _context.Patients.ToListAsync();
+
+        } catch (Exception ex)
+        {
+            Debug.WriteLine($"ERROR: {ex.Message}");
+            return null!;
+        }
     }
 
     public override async Task<PatientEntity> GetOneAsync(Expression<Func<PatientEntity, bool>> predicate)
@@ -41,7 +49,15 @@ public class PatientRepository(CodeFirstDbContext context) : BaseRepository<Pati
 
     public PatientEntity GetByIdIncludePrescription(int id)
     {
-        return _context.Patients.Include(x => x.Prescriptions)
-            .FirstOrDefault(x => x.Id == id)!;
+        try
+        {
+            return _context.Patients.Include(x => x.Prescriptions)
+                .FirstOrDefault(x => x.Id == id)!;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"ERROR: {ex.Message}");
+            return null!;
+        }
     }
 }
