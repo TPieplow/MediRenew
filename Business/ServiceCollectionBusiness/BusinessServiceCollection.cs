@@ -8,6 +8,7 @@ public static class BusinessServiceCollection
 {
     public static void BusinessDICluster(this IServiceCollection services)
     {
+        services.AddScoped<AuthenticationService>();
         services.AddScoped<PatientService>();
         services.AddScoped<PrescriptionService>();
         services.AddScoped<DoctorService>();
