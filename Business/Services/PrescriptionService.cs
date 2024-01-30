@@ -5,9 +5,9 @@ using static Infrastructure.Utils.ResultEnums;
 
 namespace Business.Services;
 
-public class PrescriptionService(PrescriptionRepository prescriptionRepository)
+public class PrescriptionService(IPrescriptionRepository prescriptionRepository)
 {
-    private readonly PrescriptionRepository _prescriptionRepository = prescriptionRepository;
+    private readonly IPrescriptionRepository _prescriptionRepository = prescriptionRepository;
 
 
     public async Task<Result> AddPrescriptionAsync(PrescriptionDTO newPrescription)

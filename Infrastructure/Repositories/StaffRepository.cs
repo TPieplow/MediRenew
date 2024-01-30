@@ -1,12 +1,13 @@
 ﻿using Infrastructure.Contexts;
 using Infrastructure.HospitalEntities;
+using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Linq.Expressions;
 
 namespace Infrastructure.Repositories;
 
-public class StaffRepository(CodeFirstDbContext context) : BaseRepository<StaffEntity>(context)
+public class StaffRepository(CodeFirstDbContext context) : BaseRepository<StaffEntity>(context), IStaffRepository
 {
     private readonly CodeFirstDbContext _context = context;
 

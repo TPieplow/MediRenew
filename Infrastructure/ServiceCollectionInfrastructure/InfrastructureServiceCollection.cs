@@ -1,4 +1,5 @@
 ﻿using Infrastructure.Contexts;
+using Infrastructure.Interfaces;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,15 +21,15 @@ namespace Infrastructure.ServiceCollections
             services.AddDbContext<DatabaseFirstDbContext>(
                 x => x.UseSqlServer(@"Data Source=localhost;Initial Catalog=HospitalDb;Integrated Security=True;Trust Server Certificate=True"));
 
-            services.AddScoped<AuthenticationRepository>();
-            services.AddScoped<PatientRepository>();
-            services.AddScoped<PrescriptionRepository>();
-            services.AddScoped<DoctorRepository>();
-            services.AddScoped<AppointmentRepository>();
-            services.AddScoped<StaffRepository>();
-            services.AddScoped<DepartmentRepository>();
-            services.AddScoped<InvoiceRepository>();
-            services.AddScoped<PharmacyRepository>();
+            services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
+            services.AddScoped<IPatientRepository, PatientRepository>();
+            services.AddScoped<IPrescriptionRepository, PrescriptionRepository>();
+            services.AddScoped<IDoctorRepository, DoctorRepository>();
+            services.AddScoped<IAppointmentRepository, AppointmentRepository > ();
+            services.AddScoped<IStaffRepository, StaffRepository>();
+            services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+            services.AddScoped<IInvoiceRepository, InvoiceRepository>();
+            services.AddScoped<IPharmacyRepository, PharmacyRepository>();
         }
     }
 }

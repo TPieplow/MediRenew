@@ -5,9 +5,9 @@ using Infrastructure.Repositories;
 
 namespace Business.Services;
 
-public class PharmacyService(PharmacyRepository repository)
+public class PharmacyService(IPharmacyRepository repository)
 {
-    private readonly PharmacyRepository _repository = repository;
+    private readonly IPharmacyRepository _repository = repository;
 
     public async Task<IEnumerable<PharmacyDTO>> ViewAllPharmacy()
     {
