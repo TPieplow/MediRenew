@@ -1,4 +1,3 @@
-
 ﻿using Business.ServiceCollectionBusiness;
 using Infrastructure.ServiceCollections;
 using MediRenew.ConsoleApp.Login;
@@ -24,8 +23,6 @@ class Program
                 services.UIDICluster();
                 services.InfrastructureDICluster();
             })
-
-
             // Stoppar loggning i consolen, visar enbart error nu. 
             .ConfigureLogging(logging =>
             {
@@ -41,7 +38,6 @@ class Program
 
         var mainMenu = serviceProvider.GetRequiredService<MainMenu>();
         bool loginSuccess = await mainMenu.ShowMenuAsync();
-
 
         if (loginSuccess)
         {

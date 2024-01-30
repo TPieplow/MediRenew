@@ -5,7 +5,6 @@ using MediRenew.ConsoleApp.ServicesConsoleApp;
 using MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
 using MediRenew.ConsoleApp.ServicesConsoleApp.SubMenus;
 using Microsoft.Extensions.DependencyInjection;
-using System.Net;
 
 namespace MediRenew.ConsoleApp.ServiceCollectionUI;
 

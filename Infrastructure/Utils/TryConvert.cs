@@ -16,7 +16,7 @@ public class TryConvert
         }
         else
         {
-            return (false, 0, "Invalid input. Please enter a valid integer");
+            return (false, 0, "Invalid input. Exiting menu...");
         }
     }
 
@@ -37,6 +37,7 @@ public class TryConvert
         else
         {
             Console.WriteLine(errorMessage);
+            Console.ReadKey();
         }
     }
 }
