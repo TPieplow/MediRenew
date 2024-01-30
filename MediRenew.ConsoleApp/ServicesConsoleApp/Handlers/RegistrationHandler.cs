@@ -1,12 +1,13 @@
-﻿using Business.Services;
+﻿using Business.Interfaces;
+using Business.Services;
 using Spectre.Console;
 using static Infrastructure.Utils.ResultEnums;
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers
 {
-    public class RegistrationHandler(AuthenticationService authenticationService)
+    public class RegistrationHandler(IAuthenticationService authenticationService)
     {
-        private readonly AuthenticationService _authenticationService = authenticationService;
+        private readonly IAuthenticationService _authenticationService = authenticationService;
 
         public async Task<bool> RegisterAsync()
         {

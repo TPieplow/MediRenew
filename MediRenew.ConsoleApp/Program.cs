@@ -1,4 +1,5 @@
-﻿using Business.Services;
+﻿using Business.Interfaces;
+using Business.Services;
 using Infrastructure.Contexts;
 using Infrastructure.Repositories;
 using MediRenew.ConsoleApp.Login;
@@ -31,7 +32,7 @@ class Program
                 services.AddScoped<HospitalMenu>();
 
                 services.AddScoped<LoginService>();
-                services.AddScoped<AuthenticationService>();
+                services.AddScoped<IAuthenticationService, AuthenticationService>();
                 services.AddScoped<AuthenticationRepository>();
                 services.AddScoped<RegistrationHandler>();
 
