@@ -4,11 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Linq.Expressions;
 
-
-
-
 namespace Infrastructure.Repositories;
-
 
 public class AuthenticationRepository(DatabaseFirstDbContext dbContext)
 {

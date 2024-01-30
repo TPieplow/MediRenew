@@ -1,11 +1,9 @@
-﻿using Business.Services;
-using Infrastructure.Contexts;
-using Infrastructure.Repositories;
+﻿using Business.ServiceCollectionBusiness;
+using Infrastructure.ServiceCollections;
 using MediRenew.ConsoleApp.Login;
+using MediRenew.ConsoleApp.ServiceCollectionUI;
 using MediRenew.ConsoleApp.ServicesConsoleApp;
-using MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
 using MediRenew.ConsoleApp.ServicesConsoleApp.SubMenus;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -17,63 +15,14 @@ class Program
 {
     static async Task Main()
     {
-        // Skapar en DI-container och förbereder det vi behöver ha tillgång till i appen.
+        //Skapar en DI - container och förbereder det vi behöver ha tillgång till i appen.
         var builder = Host.CreateDefaultBuilder()
-            .ConfigureServices((context, services) =>
+            .ConfigureServices((services) =>
             {
-                services.AddDbContext<CodeFirstDbContext>(
-                    x => x.UseSqlServer(@"Data Source=localhost;Initial Catalog=HospitalDb;Integrated Security=True;Trust Server Certificate=True"));
-
-                services.AddDbContext<DatabaseFirstDbContext>(
-                    x => x.UseSqlServer(@"Data Source=localhost;Initial Catalog=HospitalDb;Integrated Security=True;Trust Server Certificate=True"));
-
-                services.AddScoped<MainMenu>();
-                services.AddScoped<HospitalMenu>();
-
-                services.AddScoped<LoginService>();
-                services.AddScoped<AuthenticationService>();
-                services.AddScoped<AuthenticationRepository>();
-                services.AddScoped<RegistrationHandler>();
-
-                services.AddScoped<PatientRepository>();
-                services.AddScoped<PatientService>();
-                services.AddScoped<PatientHandler>();
-                services.AddScoped<PatientMenu>();
-
-                services.AddScoped<PrescriptionRepository>();
-                services.AddScoped<PrescriptionService>();
-                services.AddScoped<PrescriptionHandler>();
-                services.AddScoped<PrescriptionMenu>();
-
-                services.AddScoped<DoctorRepository>();
-                services.AddScoped<DoctorService>();
-                services.AddScoped<DoctorHandler>();
-                services.AddScoped<DoctorMenu>();
-
-                services.AddScoped<AppointmentRepository>();
-                services.AddScoped<AppointmentService>();
-                services.AddScoped<AppointmentHandler>();
-                services.AddScoped<AppointmentMenu>();
-
-                services.AddScoped<StaffRepository>();
-                services.AddScoped<StaffService>();
-                services.AddScoped<StaffHandler>();
-                services.AddScoped<StaffMenu>();
-
-                services.AddScoped<DepartmentRepository>();
-
-                services.AddScoped<InvoiceRepository>();
-                services.AddScoped<InvoiceService>();
-                services.AddScoped<InvoiceHandler>();
-                services.AddScoped<InvoiceMenu>();
-
-                services.AddScoped<PharmacyRepository>();
-                services.AddScoped<PharmacyService>();
-                services.AddScoped<PharmacyHandler>();
-                services.AddScoped<PharmacyMenu>();
-
+                services.BusinessDICluster();
+                services.UIDICluster();
+                services.InfrastructureDICluster();
             })
-
             // Stoppar loggning i consolen, visar enbart error nu. 
             .ConfigureLogging(logging =>
             {
@@ -89,7 +38,6 @@ class Program
 
         var mainMenu = serviceProvider.GetRequiredService<MainMenu>();
         bool loginSuccess = await mainMenu.ShowMenuAsync();
-
 
         if (loginSuccess)
         {
