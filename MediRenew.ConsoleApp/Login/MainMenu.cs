@@ -9,6 +9,10 @@ public class MainMenu(LoginService loginService, RegistrationHandler registratio
     private readonly LoginService _loginService = loginService;
     private readonly RegistrationHandler _registrationHandler = registrationHandler;
 
+    /// <summary>
+    /// Menu for log in and create new user.
+    /// </summary>
+    /// <returns>True or false.</returns>
     public async Task<bool> ShowMenuAsync()
     {
         bool loggedIn = true;
@@ -50,7 +54,6 @@ public class MainMenu(LoginService loginService, RegistrationHandler registratio
 
                 case "2":
                     return await _registrationHandler.RegisterAsync();
-
             }
         }
         return false;

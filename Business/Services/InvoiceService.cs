@@ -12,7 +12,6 @@ namespace Business.Services
     {
         private readonly IInvoiceRepository _invoiceRepository = invoiceRepository;
 
-
         public async Task<Result> AddInvoiceAsync(InvoiceDTO invoice)
         {
             try
@@ -61,7 +60,6 @@ namespace Business.Services
                     MedicationName = invoiceEntity.Pharmacy.MedicationName,
                     Patient = invoiceEntity.Patient,
                     Pharmacy = invoiceEntity.Pharmacy
-                    
                 };
                 return invoiceDTO;
             }
@@ -110,5 +108,4 @@ namespace Business.Services
             { Console.WriteLine($"ERROR: {ex.Message}"); return Result.Failure; }
         }
     }
-
 }

@@ -15,6 +15,10 @@ public class HospitalMenu(PatientMenu patientMenu, PrescriptionMenu prescription
     public readonly PharmacyMenu _pharmacyMenu = pharmacyMenu;
     private readonly AppointmentMenu _appointmentMenu = appointmentMenu;
 
+    /// <summary>
+    /// The main menu for the UI.
+    /// </summary>
+    /// <returns></returns>
     public async Task MenuAsync()
     {
         while (true)
