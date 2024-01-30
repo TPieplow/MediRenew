@@ -1,5 +1,6 @@
 ﻿using Business.DTOs;
 using Business.Interfaces;
+using Business.Services;
 using Infrastructure.Utils;
 using MediRenew.ConsoleApp.Utils;
 using Spectre.Console;
@@ -7,9 +8,10 @@ using static Infrastructure.Utils.ResultEnums;
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers
 {
-    public class DoctorHandler(IDoctorService doctorService)
+    public class DoctorHandler(IDoctorService doctorService, DepartmentHandler departmentHandler)
     {
         private readonly IDoctorService _doctorService = doctorService;
+        private readonly DepartmentHandler _departmentHandler = departmentHandler;
 
         public async Task AddDoctor()
         {
@@ -28,6 +30,7 @@ namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers
                 newDoctor.PhoneNumber = Cancel.AddOrAbort("Enter phone number:");
                 if (newDoctor.PhoneNumber == null) return;
 
+                await _departmentHandler.GetAllDepartments();
                 newDoctor.DepartmentId = Convert.ToInt32(Cancel.AddOrAbort("Enter the department-ID: "));
                 if (newDoctor.DepartmentId == 0) return;
 

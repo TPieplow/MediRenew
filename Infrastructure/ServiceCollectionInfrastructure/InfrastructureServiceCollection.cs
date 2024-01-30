@@ -30,6 +30,7 @@ namespace Infrastructure.ServiceCollections
             services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             services.AddScoped<IInvoiceRepository, InvoiceRepository>();
             services.AddScoped<IPharmacyRepository, PharmacyRepository>();
+            services.AddScoped<IDepartmentRepository, DepartmentRepository>();
         }
     }
 }

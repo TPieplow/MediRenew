@@ -26,21 +26,21 @@ public class PrescriptionHandler(IPrescriptionService prescriptionService, Patie
             newPrescription.Date = DateTime.Now;
 
             await _doctorHandler.ViewAllDoctors();
-            newPrescription.DoctorId = Convert.ToInt32(Cancel.AddOrAbort("Enter your DoctorId: "));
+            TryConvert.SetPropertyWithConversion(doctorId => newPrescription.DoctorId = doctorId, "Enter Doctor-ID");
             if (newPrescription.DoctorId == 0) return;
 
             await _patientHandler.ViewAllPatients();
-            newPrescription.PatientId = Convert.ToInt32(Cancel.AddOrAbort("Enter the patients Id: "));
+            TryConvert.SetPropertyWithConversion(patientId => newPrescription.PatientId = patientId, "Enter patient-ID");
             if (newPrescription.PatientId == 0) return;
 
             await _pharmacyHandler.ViewAllPharmacies();
-            newPrescription.PharmacyId = Convert.ToInt32(Cancel.AddOrAbort("Enter the medication Id (check medication-list for ID-No): "));
+            TryConvert.SetPropertyWithConversion(pharmacyId => newPrescription.PharmacyId = pharmacyId, "Enter pharmacy-ID");
             if (newPrescription.PharmacyId == 0) return;
 
-            newPrescription.Dosage = Cancel.AddOrAbort("Enter Dosage: ");
+            newPrescription.Dosage = Cancel.AddOrAbort("Enter Dosage");
             if (newPrescription.Dosage == null) return;
 
-            newPrescription.Cost = Convert.ToDecimal(Cancel.AddOrAbort("Enter the cost: "));
+            TryConvert.SetPropertyWithConversion(cost => newPrescription.Cost = cost, "Enter the cost");
             if (newPrescription.Cost == 0) return;
 
             var result = await _prescriptionService.AddPrescriptionAsync(newPrescription);

@@ -40,5 +40,7 @@ public static class UIServiceCollection
 
         services.AddScoped<PharmacyHandler>();
         services.AddScoped<PharmacyMenu>();
+
+        services.AddScoped<DepartmentHandler>();
     }
 }

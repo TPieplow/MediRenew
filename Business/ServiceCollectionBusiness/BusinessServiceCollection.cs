@@ -17,5 +17,6 @@ public static class BusinessServiceCollection
         services.AddScoped<DepartmentService>();
         services.AddScoped<IInvoiceService, InvoiceService>();
         services.AddScoped<IPharmacyService, PharmacyService>();
+        services.AddScoped<IDepartmentService, DepartmentService>();
     }
 }
