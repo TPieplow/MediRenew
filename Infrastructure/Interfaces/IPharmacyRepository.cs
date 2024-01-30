@@ -4,6 +4,6 @@ namespace Infrastructure.Interfaces
 {
     public interface IPharmacyRepository : IBaseRepository<PharmacyEntity>
     {
-        Task<IEnumerable<PharmacyEntity>> GetAllAsync();
+        new Task<IEnumerable<PharmacyEntity>> GetAllAsync();
     }
 }

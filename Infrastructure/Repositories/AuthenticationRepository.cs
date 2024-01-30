@@ -49,20 +49,20 @@ public class AuthenticationRepository(DatabaseFirstDbContext dbContext) : IAuthe
         }
     }
 
-    public Task<bool> DeleteAsync(Expression<Func<AuthenticationEntity, bool>> predicate)
-    {
-        throw new NotImplementedException();
-    }
+    //public Task<bool> DeleteAsync(Expression<Func<AuthenticationEntity, bool>> predicate)
+    //{
+    //    throw new NotImplementedException();
+    //}
 
-    public Task<IEnumerable<AuthenticationEntity>> GetAllAsync()
-    {
-        throw new NotImplementedException();
-    }
+    //public Task<IEnumerable<AuthenticationEntity>> GetAllAsync()
+    //{
+    //    throw new NotImplementedException();
+    //}
 
-    public Task<AuthenticationEntity> UpdateAsync(AuthenticationEntity entity)
-    {
-        throw new NotImplementedException();
-    }
+    //public Task<AuthenticationEntity> UpdateAsync(AuthenticationEntity entity)
+    //{
+    //    throw new NotImplementedException();
+    //}
 }
 
 
