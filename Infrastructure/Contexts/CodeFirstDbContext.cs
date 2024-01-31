@@ -17,7 +17,6 @@ public class CodeFirstDbContext(DbContextOptions<CodeFirstDbContext> options) : 
     public virtual DbSet<PrescriptionEntity> Prescriptions { get; set; }
     public virtual DbSet<InvoiceEntity> Invoices { get; set; }
 
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
 
