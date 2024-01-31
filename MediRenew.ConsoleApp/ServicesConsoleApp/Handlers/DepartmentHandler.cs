@@ -1,12 +1,13 @@
 ﻿using Business.DTOs;
+using Business.Interfaces;
 using Business.Services;
 using Spectre.Console;
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
 
-public class DepartmentHandler(DepartmentService departmentService)
+public class DepartmentHandler(IDepartmentService departmentService)
 {
-    private readonly DepartmentService _departmentService = departmentService;
+    private readonly IDepartmentService _departmentService = departmentService;
 
     public async Task GetAllDepartments()
     {

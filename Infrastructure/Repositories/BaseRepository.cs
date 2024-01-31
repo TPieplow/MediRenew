@@ -56,6 +56,18 @@ public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where T
         return Enumerable.Empty<TEntity>();
     }
 
+    public virtual async Task<TEntity> UpdateAsync(TEntity entity)
+    {
+        try
+        {
+            var entityToUpdate = _context.Set<TEntity>().Update(entity).Entity;
+            await _context.SaveChangesAsync();
+            return entityToUpdate;
+        }
+        catch (Exception ex) { Debug.WriteLine($"ERROR : {ex.Message}"); }
+        return null!;
+    }
+
     public virtual async Task<bool> DeleteAsync(Expression<Func<TEntity, bool>> predicate)
     {
         try
@@ -74,17 +86,6 @@ public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where T
         return false;
     }
 
-    public virtual async Task<TEntity> UpdateAsync(TEntity entity)
-    {
-        try
-        {
-            var entityToUpdate = _context.Set<TEntity>().Update(entity).Entity;
-            await _context.SaveChangesAsync();
-            return entityToUpdate;
-        }
-        catch (Exception ex) { Debug.WriteLine($"ERROR : {ex.Message}"); }
-        return null!;
-    }
 
     public virtual bool Exists(Expression<Func<TEntity, bool>> predicate)
     {
