@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediRenew.ConsoleApp", "Med
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business", "Business\Business.csproj", "{065BDFEB-BF13-445F-9ABB-F16EB2830449}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Tests", "Infrastructure.Tests\Infrastructure.Tests.csproj", "{EA910ED5-4CEA-4456-92D6-84222DB3B13D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{065BDFEB-BF13-445F-9ABB-F16EB2830449}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{065BDFEB-BF13-445F-9ABB-F16EB2830449}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{065BDFEB-BF13-445F-9ABB-F16EB2830449}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA910ED5-4CEA-4456-92D6-84222DB3B13D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA910ED5-4CEA-4456-92D6-84222DB3B13D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA910ED5-4CEA-4456-92D6-84222DB3B13D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA910ED5-4CEA-4456-92D6-84222DB3B13D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

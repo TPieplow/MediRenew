@@ -1,4 +1,5 @@
 ﻿using Business.ServiceCollectionBusiness;
+using Business.Services;
 using Infrastructure.ServiceCollections;
 using MediRenew.ConsoleApp.Login;
 using MediRenew.ConsoleApp.ServiceCollectionUI;
@@ -22,7 +23,9 @@ class Program
                 services.BusinessDICluster();
                 services.UIDICluster();
                 services.InfrastructureDICluster();
+
             })
+
             // Stoppar loggning i consolen, visar enbart error nu. 
             .ConfigureLogging(logging =>
             {
@@ -39,16 +42,17 @@ class Program
         var mainMenu = serviceProvider.GetRequiredService<MainMenu>();
         bool loginSuccess = await mainMenu.ShowMenuAsync();
 
+
         if (loginSuccess)
         {
             var hospitalMenu = new HospitalMenu(
-                serviceProvider.GetRequiredService<PatientMenu>(),
-                serviceProvider.GetRequiredService<PrescriptionMenu>(),
-                serviceProvider.GetRequiredService<DoctorMenu>(),
-                serviceProvider.GetRequiredService<StaffMenu>(),
-                serviceProvider.GetRequiredService<InvoiceMenu>(),
-                serviceProvider.GetRequiredService<PharmacyMenu>(),
-                serviceProvider.GetRequiredService<AppointmentMenu>());
+            serviceProvider.GetRequiredService<PatientMenu>(),
+            serviceProvider.GetRequiredService<PrescriptionMenu>(),
+            serviceProvider.GetRequiredService<DoctorMenu>(),
+            serviceProvider.GetRequiredService<StaffMenu>(),
+            serviceProvider.GetRequiredService<InvoiceMenu>(),
+            serviceProvider.GetRequiredService<PharmacyMenu>(),
+            serviceProvider.GetRequiredService<AppointmentMenu>());
             await hospitalMenu.MenuAsync();
         }
         else
