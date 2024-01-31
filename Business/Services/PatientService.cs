@@ -104,7 +104,6 @@ public class PatientService(IPatientRepository patientRepository, IPrescriptionR
         catch (Exception ex)
         { Console.WriteLine($"ERROR: {ex.Message}"); }
         return null!;
-
     }
 
     public async Task<Result> UpdatePatientAsync(PatientDTO updatedPatient)
