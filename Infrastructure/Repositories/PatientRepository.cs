@@ -15,9 +15,9 @@ public class PatientRepository(CodeFirstDbContext context) : BaseRepository<Pati
     {
         try
         {
-        return await _context.Patients.ToListAsync();
-
-        } catch (Exception ex)
+            return await _context.Patients.ToListAsync();
+        }
+        catch (Exception ex)
         {
             Debug.WriteLine($"ERROR: {ex.Message}");
             return null!;
