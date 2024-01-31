@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
-    public class AppointmentRepository(CodeFirstDbContext context) : BaseRepository<AppointmentEntity>(context), IAppointmentRepository
+    public class AppointmentRepository(CodeFirstDbContext context) : BaseRepository<AppointmentEntity>(context), IAuthentcationRepository
     {
         private readonly CodeFirstDbContext _context = context;
 

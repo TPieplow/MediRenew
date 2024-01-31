@@ -13,10 +13,20 @@ public class AuthenticationRepository(DatabaseFirstDbContext dbContext) : IAuthe
 
     public virtual async Task<AuthenticationEntity> CreateAsync(AuthenticationEntity entity)
     {
-        await _dbContext.Authentications.AddAsync(entity);
-        await _dbContext.SaveChangesAsync();
-
-        return entity;
+        try
+        {
+            if (entity is not null)
+            {
+                await _dbContext.Authentications.AddAsync(entity);
+                await _dbContext.SaveChangesAsync();
+                return entity;
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"ERROR: {ex.Message}");
+        }
+        return null!;
     }
 
     public virtual async Task<AuthenticationEntity> GetOneAsync(Expression<Func<AuthenticationEntity, bool>> predicate)

@@ -14,7 +14,6 @@ public static class BusinessServiceCollection
         services.AddScoped<IDoctorService, DoctorService>();
         services.AddScoped<IAppointmentService, AppointmentService>();
         services.AddScoped<IStaffService, StaffService>();
-        services.AddScoped<DepartmentService>();
         services.AddScoped<IInvoiceService, InvoiceService>();
         services.AddScoped<IPharmacyService, PharmacyService>();
         services.AddScoped<IDepartmentService, DepartmentService>();
