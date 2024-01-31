@@ -95,7 +95,8 @@ public class AuthenticationRepository_Tests
         var testUser = new AuthenticationEntity { Username = "username", PasswordHash = "password" };
         await repo.CreateAsync(testUser);
         // Simulates a simple SQL-injection ('; = end of query AND -- will comment everything after it. That leaves us with the DROP query).
-        var maliciousInput = "'; DROP TABLE Authentications; --";
+        var maliciousInput = "'; CREATE TABLE MaliciousAuthentications (id INT); --";
+
         Expression<Func<AuthenticationEntity, bool>> predicate = user => user.Username == maliciousInput;
 
         // Act
