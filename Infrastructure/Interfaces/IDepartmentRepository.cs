@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace Infrastructure.Interfaces
 {
-    public interface IDepartmentRepository
+    public interface IDepartmentRepository : IBaseRepository<DepartmentEntity>
     {
         /// <summary>
         /// Gets all departments from the database.

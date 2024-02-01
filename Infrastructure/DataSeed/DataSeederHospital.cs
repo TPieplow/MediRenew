@@ -189,7 +189,7 @@ namespace Infrastructure.DataSeed
                 {
                     PatientId = 1,
                     DoctorId = 1,
-                    Date = DateTime.Now,
+                    Date = new DateTime(2024, 04, 01, 14, 45, 00),
                     Comments = "Headfraction"
                 },
                 
@@ -197,7 +197,7 @@ namespace Infrastructure.DataSeed
                 {
                     PatientId = 2,
                     DoctorId = 2,
-                    Date = DateTime.Now,
+                    Date = new DateTime(2024, 04, 01, 10, 30, 00),
                     Comments = "Pungbråck"
                 },
                 
@@ -205,7 +205,7 @@ namespace Infrastructure.DataSeed
                 {
                     PatientId = 3,
                     DoctorId = 3,
-                    Date = DateTime.Now,
+                    Date = new DateTime(2024, 04, 01, 09, 00, 00),
                     Comments = "Headfraction"
                 });
         }
