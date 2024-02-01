@@ -2,7 +2,7 @@
 
 namespace Infrastructure.Interfaces
 {
-    public interface IAuthentcationRepository : IBaseRepository<AppointmentEntity>
+    public interface IAppointmentRepository : IBaseRepository<AppointmentEntity>
     {
         new Task<IEnumerable<AppointmentEntity>> GetAllAsync();
     }

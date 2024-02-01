@@ -16,7 +16,7 @@ namespace Infrastructure.ServiceCollections
             services.AddScoped<IPatientRepository, PatientRepository>();
             services.AddScoped<IPrescriptionRepository, PrescriptionRepository>();
             services.AddScoped<IDoctorRepository, DoctorRepository>();
-            services.AddScoped<IAuthentcationRepository, AppointmentRepository > ();
+            services.AddScoped<IAppointmentRepository, AppointmentRepository > ();
             services.AddScoped<IStaffRepository, StaffRepository>();
             services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             services.AddScoped<IInvoiceRepository, InvoiceRepository>();

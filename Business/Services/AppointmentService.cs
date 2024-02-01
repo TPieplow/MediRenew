@@ -9,9 +9,9 @@ using static Infrastructure.Utils.ResultEnums;
 namespace Business.Services;
 
 
-public class AppointmentService(IAuthentcationRepository appointmentRepository) : IAppointmentService
+public class AppointmentService(IAppointmentRepository appointmentRepository) : IAppointmentService
 {
-    private readonly IAuthentcationRepository _appointmentRepository = appointmentRepository;
+    private readonly IAppointmentRepository _appointmentRepository = appointmentRepository;
 
     public async Task<Result> AddApointment(AppointmentDTO newAppointment)
     {

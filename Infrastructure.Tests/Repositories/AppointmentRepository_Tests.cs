@@ -17,7 +17,7 @@ public class AppointmentRepository_Tests
     public async Task Create_Appointment_Should_SaveToDatabase_And_Return_Entity()
     {
         //Arrange
-        IAuthentcationRepository appointmentRepository = new AppointmentRepository(_context);
+        IAppointmentRepository appointmentRepository = new AppointmentRepository(_context);
         var appointmentEntity = new AppointmentEntity { Comments = "test", Date = DateTime.Now, DoctorId = 1, PatientId = 1 };
 
         //Act
@@ -32,7 +32,7 @@ public class AppointmentRepository_Tests
     public async Task CreateAsync_Appointment_ShouldNot_SaveToDatabase_And_Return_Null()
     {
         //Arrange
-        IAuthentcationRepository appointmentRepository = new AppointmentRepository(_context);
+        IAppointmentRepository appointmentRepository = new AppointmentRepository(_context);
         var appointmentEntity = new AppointmentEntity();
 
         //Act
@@ -46,7 +46,7 @@ public class AppointmentRepository_Tests
     public async Task GetOneAsync_Appointment_ShouldFindByPatientId_ReturnOneAppointment()
     {
         //Arrange
-        IAuthentcationRepository appointmentRepository = new AppointmentRepository(_context);
+        IAppointmentRepository appointmentRepository = new AppointmentRepository(_context);
         var appointmentEntity = new AppointmentEntity { Comments = "test", Date = DateTime.Now, DoctorId = 1, PatientId = 1 };
         await appointmentRepository.CreateAsync(appointmentEntity);
 
@@ -62,7 +62,7 @@ public class AppointmentRepository_Tests
     public async Task GetOneAsync_Appointment_ShouldNotFindByPatientId_ReturnNull()
     {
         //Arrange
-        IAuthentcationRepository appointmentRepository = new AppointmentRepository(_context);
+        IAppointmentRepository appointmentRepository = new AppointmentRepository(_context);
         var appointmentEntity = new AppointmentEntity { Comments = "test", Date = DateTime.Now, DoctorId = 1, PatientId = 1 };
 
         //Act
@@ -76,7 +76,7 @@ public class AppointmentRepository_Tests
     public async Task GetAllAsync_Appointments_ShouldReturn_IEnumerable()
     {
         //Arrange
-        IAuthentcationRepository appointmentRepository = new AppointmentRepository(_context);
+        IAppointmentRepository appointmentRepository = new AppointmentRepository(_context);
         var appointmentEntity = new AppointmentEntity { Comments = "test", Date = DateTime.Now, DoctorId = 1, PatientId = 1 };
         await appointmentRepository.CreateAsync(appointmentEntity);
 
@@ -92,7 +92,7 @@ public class AppointmentRepository_Tests
     public async Task UpdateAsync_Should_UpdateOneAppointment_AndReturn_UpdatedEntity()
     {
         //Arrange
-        IAuthentcationRepository appointmentRepository = new AppointmentRepository(_context);
+        IAppointmentRepository appointmentRepository = new AppointmentRepository(_context);
         var appointmentEntity = new AppointmentEntity { Comments = "test", Date = DateTime.Now, DoctorId = 1, PatientId = 1 };
         appointmentEntity = await appointmentRepository.CreateAsync(appointmentEntity);
 
@@ -109,7 +109,7 @@ public class AppointmentRepository_Tests
     public async Task DeleteAsync_Should_DeleteOneAppointment_ByPatientId_AndReturn_True()
     {
         //Arrange
-        IAuthentcationRepository appointmentRepository = new AppointmentRepository(_context);
+        IAppointmentRepository appointmentRepository = new AppointmentRepository(_context);
         var appointmentEntity = new AppointmentEntity { Comments = "test", Date = DateTime.Now, DoctorId = 1, PatientId = 1 };
         await appointmentRepository.CreateAsync(appointmentEntity);
 
@@ -124,7 +124,7 @@ public class AppointmentRepository_Tests
     public async Task DeleteAsync_Should_NotFind_ByPatientId_Return_False()
     {
         //Arrange
-        IAuthentcationRepository appointmentRepository = new AppointmentRepository(_context);
+        IAppointmentRepository appointmentRepository = new AppointmentRepository(_context);
         var appointmentEntity = new AppointmentEntity { Comments = "test", Date = DateTime.Now, DoctorId = 1, PatientId = 1 };
 
         //Act
