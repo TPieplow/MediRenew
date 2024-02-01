@@ -3,11 +3,6 @@ using Infrastructure.Interfaces;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.ServiceCollections
 {
@@ -30,7 +25,6 @@ namespace Infrastructure.ServiceCollections
             services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             services.AddScoped<IInvoiceRepository, InvoiceRepository>();
             services.AddScoped<IPharmacyRepository, PharmacyRepository>();
-            services.AddScoped<IDepartmentRepository, DepartmentRepository>();
         }
     }
 }
