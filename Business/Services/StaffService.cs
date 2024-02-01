@@ -119,19 +119,17 @@ public class StaffService(IStaffRepository staffRepository) : IStaffService
         return Result.Failure;
     }
 
-    public async Task<Result> DeleteStaffMember(int patientId)
+    public async Task<Result> DeleteStaffMember(int staffId)
     {
         try
         {
-            var staffToDelete = await _staffRepository.DeleteAsync(x => x.Id == patientId);
+            var staffToDelete = await _staffRepository.DeleteAsync(x => x.Id == staffId);
 
             if (staffToDelete)
             {
                 return Result.Success;
             }
             else { return Result.Failure; }
-
-
         }
         catch (Exception ex) { Debug.WriteLine($"ERROR : {ex.Message} "); }
         return Result.Failure;

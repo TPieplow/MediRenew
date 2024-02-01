@@ -9,18 +9,18 @@ namespace Infrastructure.Interfaces
         /// Gets all departments from the database.
         /// </summary>
         /// <returns>A list of departments</returns>
-        Task<IEnumerable<DepartmentEntity>> GetAllAsync();
+        new Task<IEnumerable<DepartmentEntity>> GetAllAsync();
         /// <summary>
         /// Gets one department
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        Task<DepartmentEntity> GetOneAsync(Expression<Func<DepartmentEntity, bool>> predicate);
+        new Task<DepartmentEntity> GetOneAsync(Expression<Func<DepartmentEntity, bool>> predicate);
         /// <summary>
         /// Updates the departments
         /// </summary>
         /// <param name="entity">The entity to update.</param>
         /// <returns></returns>
-        Task<DepartmentEntity> UpdateAsync(DepartmentEntity entity);
+        new Task<DepartmentEntity> UpdateAsync(DepartmentEntity entity);
     }
 }
