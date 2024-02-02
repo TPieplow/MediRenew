@@ -13,8 +13,8 @@ public class InvoiceRepository_Tests
         .UseInMemoryDatabase($"{Guid.NewGuid()}")
         .Options);
 
-    [Fact]
 
+    [Fact]
     public async Task CreateAsync_Should_SaveToDatabase_And_Return_InvoiceEntity_AndInclude_PharmacyAndPatient()
     {
         // Arrange
@@ -224,7 +224,7 @@ public class InvoiceRepository_Tests
     }
 
     [Fact]
-    public async Task RemoveAsync_ShouldNot_RemoveInvoice_UsingId_ThenReturn_False()
+    public async Task DeleteAsync_ShouldNot_RemoveInvoice_UsingId_ThenReturn_False()
     {
         IInvoiceRepository invoice = new InvoiceRepository(_context);
         var invoiceEntity = new InvoiceEntity
