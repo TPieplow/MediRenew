@@ -20,7 +20,7 @@ public class AuthenticationRepository_Tests
     public async Task CreateAsync_Should_SaveToDatabase_And_Return_Entity()
     {
         // Arrange
-        IAuthenticationRepository repo = new AuthenticationRepository( _context );
+        IAuthenticationRepository repo = new AuthenticationRepository(_context);
         var authenticationEntity = new AuthenticationEntity
         {
             Username = "username",
@@ -28,11 +28,11 @@ public class AuthenticationRepository_Tests
         };
 
         // Act
-        var result = await repo.CreateAsync( authenticationEntity );
+        var result = await repo.CreateAsync(authenticationEntity);
 
         // Assert
-        Assert.True(result != null, "Test should not be null" );
-        Assert.Equal( authenticationEntity.Username, result.Username );
+        Assert.True(result != null, "Test should not be null");
+        Assert.Equal(authenticationEntity.Username, result.Username);
     }
 
     [Fact]
@@ -55,7 +55,7 @@ public class AuthenticationRepository_Tests
         // Arrange
         IAuthenticationRepository repo = new AuthenticationRepository(_context);
         var testUser = new AuthenticationEntity { Username = "username", PasswordHash = "password" };
-        await repo.CreateAsync ( testUser );
+        await repo.CreateAsync(testUser);
 
         Expression<Func<AuthenticationEntity, bool>> predicate = user => user.Username == "username";
 
@@ -64,7 +64,7 @@ public class AuthenticationRepository_Tests
         Debug.WriteLine($"Result: {result?.Username}");
 
         //Assert
-        Assert.NotNull( result );
+        Assert.NotNull(result);
         Assert.Equal(testUser.Username, result?.Username);
     }
 
@@ -101,7 +101,7 @@ public class AuthenticationRepository_Tests
 
         // Act
         var result = await repo.GetOneAsync(predicate);
-        
+
         // Assert
         Assert.Null(result);
     }

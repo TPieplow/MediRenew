@@ -204,7 +204,7 @@ public class InvoiceRepository_Tests
     }
 
     [Fact]
-    public async Task RemoveAsync_Should_RemoveInvoice_UsingId_ThenReturn_True()
+    public async Task DeleteAsync_Should_RemoveInvoice_UsingId_ThenReturn_True()
     {
         IInvoiceRepository invoice = new InvoiceRepository(_context);
         var invoiceEntity = new InvoiceEntity

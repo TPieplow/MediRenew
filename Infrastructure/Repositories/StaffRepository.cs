@@ -11,9 +11,29 @@ public class StaffRepository(CodeFirstDbContext context) : BaseRepository<StaffE
 {
     private readonly CodeFirstDbContext _context = context;
 
-    public override Task<bool> DeleteAsync(Expression<Func<StaffEntity, bool>> predicate)
+    public override async Task<StaffEntity> GetOneAsync(Expression<Func<StaffEntity, bool>> predicate)
     {
-        return base.DeleteAsync(predicate);
+        try
+        {
+            var staff = await _context.Set<StaffEntity>()
+                .Include(x => x.Department)
+                .FirstOrDefaultAsync(predicate);
+
+            if (staff is not null)
+            {
+                return staff;
+            }
+            else
+            {
+                Debug.WriteLine("Staff not found");
+                return null!;
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"ERROR: {ex.Message}");
+            return null!;
+        }
     }
 
     public async Task<IEnumerable<StaffEntity>> GetAllStaffMembersIncludeDepartAsync()
@@ -43,28 +63,9 @@ public class StaffRepository(CodeFirstDbContext context) : BaseRepository<StaffE
         }
     }
 
-    public override async Task<StaffEntity> GetOneAsync(Expression<Func<StaffEntity, bool>> predicate)
+    public override Task<bool> DeleteAsync(Expression<Func<StaffEntity, bool>> predicate)
     {
-        try
-        {
-            var staff = await _context.Set<StaffEntity>()
-                .Include(x => x.Department)
-                .FirstOrDefaultAsync(predicate);
-
-            if (staff is not null)
-            {
-                return staff;
-            }
-            else
-            {
-                Debug.WriteLine("Staff not found");
-                return null!;
-            }
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine($"ERROR: {ex.Message}");
-            return null!;
-        }
+        return base.DeleteAsync(predicate);
     }
+
 }
