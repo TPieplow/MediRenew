@@ -14,7 +14,6 @@ public class AppointmentRepository_Tests
 
 
     [Fact]
-
     public async Task Create_Appointment_Should_SaveToDatabase_And_Return_Entity()
     {
         //Arrange
@@ -23,7 +22,6 @@ public class AppointmentRepository_Tests
 
         //Act
         var result = await appointmentRepository.CreateAsync(appointmentEntity);
-
 
         //Assert
         Assert.NotNull(result);
@@ -39,7 +37,6 @@ public class AppointmentRepository_Tests
 
         //Act
         var result = await appointmentRepository.CreateAsync(appointmentEntity);
-
 
         //Assert
         Assert.Null(result);
