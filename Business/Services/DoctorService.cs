@@ -89,12 +89,6 @@ public class DoctorService(IDoctorRepository doctorRepository, IDepartmentReposi
     {
         try
         {
-            var existingDoctorPhone = await _doctorRepository.GetOneAsync(x => x.PhoneNumber == updatedDoctor.PhoneNumber);
-            if (existingDoctorPhone is not null)
-            {
-                return Result.Failure;
-            }
-
             var existingDoctor = await _doctorRepository.GetOneAsync(x => x.Id == updatedDoctor.Id);
             if (existingDoctor is not null)
             {
