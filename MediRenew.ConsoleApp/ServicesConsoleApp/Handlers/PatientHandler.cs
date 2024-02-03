@@ -43,7 +43,8 @@ public class PatientHandler(IPatientService patientService)
             if (newPatient.City == null) return;
 
             var result = await _patientService.AddPatientAsync(newPatient);
-            ReturnMessage<PatientDTO>(CrudOperation.Create, result, "");
+            
+            ReturnMessage<PatientDTO>(CrudOperation.Create, result, "Failed to add patient due to existing mail");
         }
         catch (Exception ex)
         {

@@ -13,20 +13,42 @@ public class InvoiceRepository_Tests
         .UseInMemoryDatabase($"{Guid.NewGuid()}")
         .Options);
 
+    private InvoiceEntity CreateTestInvoiceEntity()
+    {
+        return new InvoiceEntity
+        {
+            Id = 1,
+            Description = "Twice a day",
+            Cost = 20,
+            TotalCost = 30,
+            PatientId = 1,
+            PharmacyId = 1,
+        };
+    }
+
+    private PatientEntity CreateTestPatientEntity()
+    {
+        return new PatientEntity
+        {
+            Id = 1,
+            FirstName = "Test",
+            LastName = "Test",
+            Address = "Test",
+            Email = "Test",
+            City = "Test",
+            PhoneNumber = "Test",
+            PostalCode = "Test",
+            PharmacyId = 1,
+        };
+    }
 
     [Fact]
     public async Task CreateAsync_Should_SaveToDatabase_And_Return_InvoiceEntity_AndInclude_PharmacyAndPatient()
     {
         // Arrange
         IInvoiceRepository invoice = new InvoiceRepository(_context);
-        var invoiceEntity = new InvoiceEntity
-        {
-            Description = "Twice a day",
-            Cost = 20m,
-            TotalCost = 30m,
-            PatientId = 1,
-            PharmacyId = 1,
-        };
+        var invoiceEntity = CreateTestInvoiceEntity();
+        
 
         // Act
         var result = await invoice.CreateAsync(invoiceEntity);
@@ -58,18 +80,7 @@ public class InvoiceRepository_Tests
         IPharmacyRepository pharmacy = new PharmacyRepository(_context);
         IInvoiceRepository invoice = new InvoiceRepository(_context);
 
-        var patientEntity = new PatientEntity
-        {
-            Id = 1,
-            FirstName = "Test",
-            LastName = "Test",
-            Address = "Test",
-            Email = "Test",
-            City = "Test",
-            PhoneNumber = "Test",
-            PostalCode = "Test",
-            PharmacyId = 1,
-        };
+        var patientEntity = CreateTestPatientEntity();
         await patient.CreateAsync(patientEntity);
 
         var pharmacyEntity = new PharmacyEntity
@@ -79,15 +90,7 @@ public class InvoiceRepository_Tests
         };
         await pharmacy.CreateAsync(pharmacyEntity);
 
-        var invoiceEntity = new InvoiceEntity
-        {
-            Id = 1,
-            Description = "Twice a day",
-            Cost = 20,
-            TotalCost = 30,
-            PatientId = 1,
-            PharmacyId = 1,
-        };
+        var invoiceEntity = CreateTestInvoiceEntity();
         await invoice.CreateAsync(invoiceEntity);
 
         // Act
@@ -108,18 +111,7 @@ public class InvoiceRepository_Tests
         IPharmacyRepository pharmacy = new PharmacyRepository(_context);
         IInvoiceRepository invoice = new InvoiceRepository(_context);
 
-        var patientEntity = new PatientEntity
-        {
-            Id = 1,
-            FirstName = "Test",
-            LastName = "Test",
-            Address = "Test",
-            Email = "Test",
-            City = "Test",
-            PhoneNumber = "Test",
-            PostalCode = "Test",
-            PharmacyId = 1,
-        };
+        var patientEntity = CreateTestPatientEntity();
 
         var pharmacyEntity = new PharmacyEntity
         {
@@ -127,15 +119,7 @@ public class InvoiceRepository_Tests
             MedicationName = "Test",
         };
 
-        var invoiceEntity = new InvoiceEntity
-        {
-            Id = 1,
-            Description = "Twice a day",
-            Cost = 20,
-            TotalCost = 30,
-            PatientId = 1,
-            PharmacyId = 1,
-        };
+        var invoiceEntity = CreateTestInvoiceEntity();
 
         // Act
         var result = await invoice.GetOneAsync(x => x.Id == invoiceEntity.Id);
@@ -149,15 +133,7 @@ public class InvoiceRepository_Tests
     {
         // Arrange
         IInvoiceRepository invoice = new InvoiceRepository(_context);
-        var invoiceEntity = new InvoiceEntity
-        {
-            Id = 1,
-            Description = "Twice a day",
-            Cost = 20,
-            TotalCost = 30,
-            PatientId = 1,
-            PharmacyId = 1,
-        };
+        var invoiceEntity = CreateTestInvoiceEntity();
         await invoice.CreateAsync(invoiceEntity);
 
         var invoiceEntity2 = new InvoiceEntity
@@ -183,15 +159,7 @@ public class InvoiceRepository_Tests
     {
         // Arrange
         IInvoiceRepository invoice = new InvoiceRepository(_context);
-        var invoiceEntity = new InvoiceEntity
-        {
-            Id = 1,
-            Description = "Twice a day",
-            Cost = 20,
-            TotalCost = 30,
-            PatientId = 1,
-            PharmacyId = 1,
-        };
+        var invoiceEntity = CreateTestInvoiceEntity();
         await invoice.CreateAsync(invoiceEntity);
 
         // Act
@@ -207,15 +175,7 @@ public class InvoiceRepository_Tests
     public async Task DeleteAsync_Should_RemoveInvoice_UsingId_ThenReturn_True()
     {
         IInvoiceRepository invoice = new InvoiceRepository(_context);
-        var invoiceEntity = new InvoiceEntity
-        {
-            Id = 1,
-            Description = "Twice a day",
-            Cost = 20,
-            TotalCost = 30,
-            PatientId = 1,
-            PharmacyId = 1,
-        };
+        var invoiceEntity = CreateTestInvoiceEntity();
         await invoice.CreateAsync(invoiceEntity);
 
         var result = await invoice.DeleteAsync(x => x.Id == invoiceEntity.Id);
@@ -227,15 +187,7 @@ public class InvoiceRepository_Tests
     public async Task DeleteAsync_ShouldNot_RemoveInvoice_UsingId_ThenReturn_False()
     {
         IInvoiceRepository invoice = new InvoiceRepository(_context);
-        var invoiceEntity = new InvoiceEntity
-        {
-            Id = 1,
-            Description = "Twice a day",
-            Cost = 20,
-            TotalCost = 30,
-            PatientId = 1,
-            PharmacyId = 1,
-        };
+        var invoiceEntity = CreateTestInvoiceEntity();
         await invoice.CreateAsync(invoiceEntity);
 
         var result = await invoice.DeleteAsync(x => x.Id == 2);
