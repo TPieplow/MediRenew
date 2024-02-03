@@ -14,16 +14,21 @@ namespace Infrastructure.Tests.Repositories
             .UseInMemoryDatabase($"{Guid.NewGuid()}")
             .Options);
 
+        private PharmacyEntity CreateTestPharmacyEntity()
+        {
+            return new PharmacyEntity
+            {
+                Id = 1,
+                MedicationName = "Test",
+            };
+        }
+
         [Fact]
         public async Task CreateAsync_ShouldCreate_NewPharmacy_AndReturn_Entity()
         {
             // Arrange
             IPharmacyRepository repo = new PharmacyRepository(_context);
-            var pharmacyEntity = new PharmacyEntity
-            {
-                Id = 1,
-                MedicationName = "Test",
-            };
+            var pharmacyEntity = CreateTestPharmacyEntity();
 
             // Act
             var result = await repo.CreateAsync(pharmacyEntity);
@@ -53,11 +58,7 @@ namespace Infrastructure.Tests.Repositories
         {
             // Arrange
             IPharmacyRepository repo = new PharmacyRepository(_context);
-            var pharmacyEntity = new PharmacyEntity
-            {
-                Id = 1,
-                MedicationName = "TestMedication",
-            };
+            var pharmacyEntity = CreateTestPharmacyEntity();
             await repo.CreateAsync(pharmacyEntity);
 
             // Act
@@ -87,11 +88,7 @@ namespace Infrastructure.Tests.Repositories
         {
             // Arrange
             IPharmacyRepository repo = new PharmacyRepository(_context);
-            var pharmacyEntity = new PharmacyEntity
-            {
-                Id = 1,
-                MedicationName = "TestMedication",
-            };
+            var pharmacyEntity = CreateTestPharmacyEntity();
             await repo.CreateAsync(pharmacyEntity);
 
             var pharmacyEntity2 = new PharmacyEntity
@@ -113,11 +110,7 @@ namespace Infrastructure.Tests.Repositories
         {
             // Arrange
             IPharmacyRepository repo = new PharmacyRepository(_context);
-            var pharmacyEntity = new PharmacyEntity
-            {
-                Id = 1,
-                MedicationName = "TestMedication",
-            };
+            var pharmacyEntity = CreateTestPharmacyEntity();
             await repo.CreateAsync(pharmacyEntity);
 
             // Act
@@ -134,11 +127,7 @@ namespace Infrastructure.Tests.Repositories
         {
             // Arrange
             IPharmacyRepository repo = new PharmacyRepository(_context);
-            var pharmacyEntity = new PharmacyEntity
-            {
-                Id = 1,
-                MedicationName = "TestMedication",
-            };
+            var pharmacyEntity = CreateTestPharmacyEntity();
             await repo.CreateAsync(pharmacyEntity);
 
             // Act
@@ -153,11 +142,7 @@ namespace Infrastructure.Tests.Repositories
         {
             // Arrange
             IPharmacyRepository repo = new PharmacyRepository(_context);
-            var pharmacyEntity = new PharmacyEntity
-            {
-                Id = 1,
-                MedicationName = "TestMedication",
-            };
+            var pharmacyEntity = CreateTestPharmacyEntity();
             await repo.CreateAsync(pharmacyEntity);
 
             // Act
@@ -172,11 +157,7 @@ namespace Infrastructure.Tests.Repositories
         {
             // Arrange
             IPharmacyRepository repo = new PharmacyRepository(_context);
-            var pharmacyEntity = new PharmacyEntity
-            {
-                Id = 1,
-                MedicationName = "TestMedication",
-            };
+            var pharmacyEntity = CreateTestPharmacyEntity();
             await repo.CreateAsync(pharmacyEntity);
 
             // Act

@@ -13,13 +13,9 @@ namespace Infrastructure.Tests.Repositories
         private readonly CodeFirstDbContext _context = new(new DbContextOptionsBuilder<CodeFirstDbContext>()
             .UseInMemoryDatabase($"{Guid.NewGuid()}")
             .Options);
-
-        [Fact]
-        public async Task CreateAsync_Should_CreateNewStaffMember_ReturnEntity()
+        private StaffEntity CreateTestStaffEntity()
         {
-            // Arrange
-            IStaffRepository staff = new StaffRepository(_context);
-            var newStaff = new StaffEntity
+            return new StaffEntity
             {
                 Id = 1,
                 FirstName = "TestFName",
@@ -28,6 +24,23 @@ namespace Infrastructure.Tests.Repositories
                 RoleName = "TestRole",
                 DepartmentId = 1,
             };
+        }
+
+        private DepartmentEntity CreateTestDepartmentEntity()
+        {
+            return new DepartmentEntity
+            {
+                Id = 1,
+                DepartmentName = "TestName",
+            };
+        }
+
+        [Fact]
+        public async Task CreateAsync_Should_CreateNewStaffMember_ReturnEntity()
+        {
+            // Arrange
+            IStaffRepository staff = new StaffRepository(_context);
+            var newStaff = CreateTestStaffEntity();
 
             // Act
             var result = await staff.CreateAsync(newStaff);
@@ -42,15 +55,7 @@ namespace Infrastructure.Tests.Repositories
         {
             // Arrange
             IStaffRepository staff = new StaffRepository(_context);
-            var newStaff = new StaffEntity
-            {
-                Id = 1,
-                FirstName = "TestFName",
-                LastName = "TestLName",
-                PhoneNumber = "TestNumber",
-                RoleName = "TestRole",
-                DepartmentId = 1,
-            };
+            var newStaff = CreateTestStaffEntity();
             await staff.CreateAsync(newStaff);
 
             var newStaff2 = new StaffEntity
@@ -90,22 +95,10 @@ namespace Infrastructure.Tests.Repositories
             IStaffRepository teststaff = new StaffRepository(_context);
             IDepartmentRepository department = new DepartmentRepository(_context);
 
-            var newDepartment = new DepartmentEntity
-            {
-                Id = 1,
-                DepartmentName = "TestName",
-            };
+            var newDepartment = CreateTestDepartmentEntity();
             await department.CreateAsync(newDepartment);
 
-            var newStaff = new StaffEntity
-            {
-                Id = 1,
-                FirstName = "TestFName",
-                LastName = "TestLName",
-                PhoneNumber = "TestNumber",
-                RoleName = "TestRole",
-                DepartmentId = 1,
-            };
+            var newStaff = CreateTestStaffEntity();
             await teststaff.CreateAsync(newStaff);
             Expression<Func<StaffEntity, bool>> predicate = staff => staff.Id == newStaff.Id;
 
@@ -138,22 +131,10 @@ namespace Infrastructure.Tests.Repositories
             IStaffRepository staff = new StaffRepository(_context);
             IDepartmentRepository department = new DepartmentRepository(_context);
 
-            var newDepartment = new DepartmentEntity
-            {
-                Id = 1,
-                DepartmentName = "TestName",
-            };
+            var newDepartment = CreateTestDepartmentEntity();
             await department.CreateAsync(newDepartment);
 
-            var newStaff = new StaffEntity
-            {
-                Id = 1,
-                FirstName = "TestFName",
-                LastName = "TestLName",
-                PhoneNumber = "TestNumber",
-                RoleName = "TestRole",
-                DepartmentId = 1,
-            };
+            var newStaff = CreateTestStaffEntity();
             await staff.CreateAsync(newStaff);
             var newStaff2 = new StaffEntity
             {
@@ -181,22 +162,10 @@ namespace Infrastructure.Tests.Repositories
             IStaffRepository staff = new StaffRepository(_context);
             IDepartmentRepository department = new DepartmentRepository(_context);
 
-            var newDepartment = new DepartmentEntity
-            {
-                Id = 1,
-                DepartmentName = "TestName",
-            };
+            var newDepartment = CreateTestDepartmentEntity();
             await department.CreateAsync(newDepartment);
 
-            var newStaff = new StaffEntity
-            {
-                Id = 1,
-                FirstName = "TestFName",
-                LastName = "TestLName",
-                PhoneNumber = "TestNumber",
-                RoleName = "TestRole",
-                DepartmentId = 1,
-            };
+            var newStaff = CreateTestStaffEntity();
             await staff.CreateAsync(newStaff);
 
             // Act
@@ -214,22 +183,10 @@ namespace Infrastructure.Tests.Repositories
             IStaffRepository staff = new StaffRepository(_context);
             IDepartmentRepository department = new DepartmentRepository(_context);
 
-            var newDepartment = new DepartmentEntity
-            {
-                Id = 1,
-                DepartmentName = "TestName",
-            };
+            var newDepartment = CreateTestDepartmentEntity();
             await department.CreateAsync(newDepartment);
 
-            var newStaff = new StaffEntity
-            {
-                Id = 1,
-                FirstName = "TestFName",
-                LastName = "TestLName",
-                PhoneNumber = "TestNumber",
-                RoleName = "TestRole",
-                DepartmentId = 1,
-            };
+            var newStaff = CreateTestStaffEntity();
             await staff.CreateAsync(newStaff);
 
             // Act
@@ -246,22 +203,10 @@ namespace Infrastructure.Tests.Repositories
             IStaffRepository staff = new StaffRepository(_context);
             IDepartmentRepository department = new DepartmentRepository(_context);
 
-            var newDepartment = new DepartmentEntity
-            {
-                Id = 1,
-                DepartmentName = "TestName",
-            };
+            var newDepartment = CreateTestDepartmentEntity();
             await department.CreateAsync(newDepartment);
 
-            var newStaff = new StaffEntity
-            {
-                Id = 1,
-                FirstName = "TestFName",
-                LastName = "TestLName",
-                PhoneNumber = "TestNumber",
-                RoleName = "TestRole",
-                DepartmentId = 1,
-            };
+            var newStaff = CreateTestStaffEntity();
             await staff.CreateAsync(newStaff);
 
             // Act
