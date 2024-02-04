@@ -35,8 +35,14 @@ namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers
                 if (newDoctor.DepartmentId == 0) return;
 
                 var result = await _doctorService.AddDoctorAsync(newDoctor);
-
-                ReturnMessage<DoctorDTO>(CrudOperation.Create, result, "");
+                if (result == Result.Success)
+                {
+                    ReturnMessage<DoctorDTO>(CrudOperation.Create, result, "");
+                }
+                else if (result == Result.Failure)
+                {
+                    ReturnMessage<DoctorDTO>(CrudOperation.Create, result, "A doctor with this phone number already exists");
+                }
             }
             catch (Exception ex)
             {
@@ -160,7 +166,14 @@ namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers
                         doctorToUpdate.DepartmentId = Convert.ToInt32(Console.ReadLine());
 
                         var result = await _doctorService.UpdateDoctorAsync(doctorToUpdate);
-                        ReturnMessage<DoctorDTO>(CrudOperation.Update, result, "");
+                        if (result == Result.Success)
+                        {
+                            ReturnMessage<DoctorDTO>(CrudOperation.Update, result, "");
+                        }
+                        else if (result == Result.Failure)
+                        {
+                            ReturnMessage<DoctorDTO>(CrudOperation.Update, result, "A doctor with this phone number already exists");
+                        }
                     }
                 }
             }

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using static Infrastructure.Utils.ResultEnums;
 using Infrastructure.Interfaces;
 using Business.Interfaces;
+using Infrastructure.Repositories;
 
 namespace Business.Services;
 
@@ -89,6 +90,12 @@ public class DoctorService(IDoctorRepository doctorRepository, IDepartmentReposi
     {
         try
         {
+            var existingPhone = await _doctorRepository.GetOneAsync(x => x.PhoneNumber == updatedDoctor.PhoneNumber);
+            if (existingPhone is not null && !existingPhone.Id.Equals(updatedDoctor.Id))
+            {
+                return Result.Failure;
+            }
+
             var existingDoctor = await _doctorRepository.GetOneAsync(x => x.Id == updatedDoctor.Id);
             if (existingDoctor is not null)
             {

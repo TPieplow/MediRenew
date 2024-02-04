@@ -43,7 +43,15 @@ public class PatientHandler(IPatientService patientService)
             if (newPatient.City == null) return;
 
             var result = await _patientService.AddPatientAsync(newPatient);
-            ReturnMessage<PatientDTO>(CrudOperation.Create, result, "");
+
+            if (result == Result.Failure)
+            {
+                ReturnMessage<PatientDTO>(CrudOperation.Create, result, "A patient with this email already exists");
+            }
+            else
+            {
+                ReturnMessage<PatientDTO>(CrudOperation.Create, result, "");
+            }
         }
         catch (Exception ex)
         {
@@ -183,7 +191,14 @@ public class PatientHandler(IPatientService patientService)
                     patientToUpdate.Email = Console.ReadLine()!;
 
                     var result = await _patientService.UpdatePatientAsync(patientToUpdate);
-                    ReturnMessage<PatientDTO>(CrudOperation.Create, result, "");
+                    if (result == Result.Success)
+                    {
+                        ReturnMessage<PatientDTO>(CrudOperation.Update, result, "");
+                    }
+                    else if (result == Result.Failure)
+                    {
+                        ReturnMessage<PatientDTO>(CrudOperation.Update, result, "A patient with this email already exists");
+                    }
                 }
             }
         }

@@ -42,9 +42,13 @@ public class AppointmentHandler(IAppointmentService appointmentService, PatientH
             if (result == Result.Failure)
             {
                 existingDate = await _appointmentService.GetOneAppointment(newAppointment.PatientId);
+                ReturnMessage<AppointmentDTO>(CrudOperation.Create, result, $"Patient already has an appointment: {existingDate.Date}");
+            }
+            else
+            {
+                ReturnMessage<AppointmentDTO>(CrudOperation.Create, result, "");
             }
 
-            ReturnMessage<AppointmentDTO>(CrudOperation.Create, result, "");
 
         }
         catch (Exception ex)

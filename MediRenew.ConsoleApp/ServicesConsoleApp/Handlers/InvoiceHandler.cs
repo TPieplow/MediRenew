@@ -37,7 +37,7 @@ public class InvoiceHandler(IInvoiceService invoiceService, PharmacyHandler phar
 
 
         var result = await _invoiceService.AddInvoiceAsync(newInvoice);
-        ReturnMessage<InvoiceDTO>(CrudOperation.Create, result, $"New invoice created for {newInvoice.PatientId}");
+        ReturnMessage<InvoiceDTO>(CrudOperation.Create, result, "");
     }
 
     public async Task ViewOneInvoice()

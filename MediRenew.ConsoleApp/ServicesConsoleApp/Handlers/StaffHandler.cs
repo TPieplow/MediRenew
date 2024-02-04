@@ -6,6 +6,7 @@ using Spectre.Console;
 using Table = Spectre.Console.Table;
 using MediRenew.ConsoleApp.Utils;
 using Business.Interfaces;
+using System.Diagnostics.Eventing.Reader;
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
 
@@ -60,6 +61,7 @@ public class StaffHandler(IStaffService staffService)
         try
         {
             Console.Clear();
+            await ViewAllStaff();
             Console.Write("Enter [ID]:");
             StaffDTO staff = null!;
 
@@ -93,6 +95,14 @@ public class StaffHandler(IStaffService staffService)
                     AnsiConsole.Write(table);
                     Console.ReadKey();
                 }
+                else
+                {
+                    DisplayMessage.Message("Staff not found");
+                }
+            }
+            else
+            {
+                DisplayMessage.Message("Please enter a valid input");
             }
         }
         catch (Exception ex) { Console.WriteLine($"ERROR : {ex.Message}"); }
@@ -107,6 +117,7 @@ public class StaffHandler(IStaffService staffService)
 
             if (staffMembers is not null)
             {
+                Console.Clear();
                 var table = new Table();
 
                 table.AddColumn("ID");
@@ -128,9 +139,7 @@ public class StaffHandler(IStaffService staffService)
                         staff.DepartmentName
                         );
                 }
-
                 AnsiConsole.Write(table);
-                DisplayMessage.Message("");
             }
         }
         catch (Exception ex) { Console.WriteLine(ex.Message); }
@@ -140,6 +149,7 @@ public class StaffHandler(IStaffService staffService)
     {
         try
         {
+            await ViewAllStaff();
             Console.WriteLine("Enter [ID] to update:");
             if (int.TryParse(Console.ReadLine(), out var staffId))
             {
@@ -165,10 +175,10 @@ public class StaffHandler(IStaffService staffService)
                     switch (result)
                     {
                         case Result.Success:
-                            ReturnMessage<StaffDTO>(CrudOperation.Update, result, "Patient successfully updated.");
+                            ReturnMessage<StaffDTO>(CrudOperation.Update, result, "Staff successfully updated.");
                             break;
                         case Result.NotFound:
-                            ReturnMessage<StaffDTO>(CrudOperation.Update, result, "Patient not found.");
+                            ReturnMessage<StaffDTO>(CrudOperation.Update, result, "Staff not found.");
                             break;
                         case Result.Failure:
                             ReturnMessage<StaffDTO>(CrudOperation.Update, result, "Phone number already exists.");
@@ -178,6 +188,14 @@ public class StaffHandler(IStaffService staffService)
                             break;
                     }
                 }
+                else
+                {
+                    DisplayMessage.Message("Staff not found");
+                }
+            }
+            else
+            {
+                DisplayMessage.Message("Please enter a valid input");
             }
 
         }
@@ -187,6 +205,7 @@ public class StaffHandler(IStaffService staffService)
     public async Task DeleteStaff()
     {
         Console.Clear();
+        await ViewAllStaff();
         Console.Write("Enter [ID] to DELETE: ");
         if (int.TryParse(Console.ReadLine(), out var staffId))
         {
@@ -197,7 +216,7 @@ public class StaffHandler(IStaffService staffService)
                     ReturnMessage<StaffDTO>(CrudOperation.Delete, result, "");
                     break;
                 case Result.Failure:
-                    ReturnMessage<StaffDTO>(CrudOperation.Delete, result, "");
+                    ReturnMessage<StaffDTO>(CrudOperation.Delete, result, "Staff not found");
                     break;
                 case Result.NotFound:
                     ReturnMessage<StaffDTO>(CrudOperation.Delete, result, "");
@@ -205,9 +224,11 @@ public class StaffHandler(IStaffService staffService)
                 default:
                     ReturnMessage<StaffDTO>(CrudOperation.Delete, result, "");
                     break;
-
-
             }
+        }
+        else
+        {
+            DisplayMessage.Message("Please enter a valid input");
         }
     }
 }

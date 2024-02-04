@@ -111,7 +111,7 @@ public class PatientService(IPatientRepository patientRepository, IPrescriptionR
         try
         {
             var existingEmail = await _patientRepository.GetOneAsync(x => x.Email == updatedPatient.Email);
-            if (existingEmail is not null)
+            if (existingEmail is not null && !existingEmail.Id.Equals(updatedPatient.Id))
             {
                 return Result.Failure;
             }

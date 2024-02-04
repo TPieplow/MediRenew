@@ -16,10 +16,10 @@ public class StaffService(IStaffRepository staffRepository) : IStaffService
     {
         try
         {
-            if (staff.DepartmentId <= 0)
-            {
-                return Result.Failure;
-            }
+            //if (staff.DepartmentId <= 0)
+            //{
+            //    return Result.Failure;
+            //}
 
             var department = await _staffRepository.GetDepartmentByIdAsync(staff.DepartmentId);
 
@@ -97,7 +97,7 @@ public class StaffService(IStaffRepository staffRepository) : IStaffService
         try
         {
             var existingNumber = await _staffRepository.GetOneAsync(x => x.PhoneNumber == staff.PhoneNumber);
-            if (existingNumber is not null)
+            if (existingNumber is not null && !existingNumber.Id.Equals(staff.Id))
             {
                 return Result.Failure;
             }
