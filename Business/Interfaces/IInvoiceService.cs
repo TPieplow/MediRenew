@@ -17,7 +17,7 @@ namespace Business.Interfaces
         /// </summary>
         /// <param name="patientId">The patientId used to search the database for the right invoice retreive.</param>
         /// <returns>A DTO containing the retrieved InvoideId.</returns>
-        Task<InvoiceDTO> GetOneInvoice(int patientId);
+        Task<InvoiceDTO> GetOneInvoiceAsync(int patientId);
 
         /// <summary>
         /// Removes a given invoice using invoiceId.

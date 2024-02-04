@@ -12,11 +12,16 @@ public class StaffService(IStaffRepository staffRepository) : IStaffService
 {
     private readonly IStaffRepository _staffRepository = staffRepository;
 
-    public async Task<Result> AddStaffMember(StaffDTO staff)
+    public async Task<Result> AddStaffMemberAsync(StaffDTO staff)
     {
         try
         {
             if (staff.DepartmentId <= 0)
+            {
+                return Result.Failure;
+            }
+
+            if(_staffRepository.Exists(x => x.Id == staff.Id))
             {
                 return Result.Failure;
             }
@@ -46,7 +51,7 @@ public class StaffService(IStaffRepository staffRepository) : IStaffService
         return Result.Failure;
     }
 
-    public async Task<StaffDTO> GetOneStaffMember(int staffId)
+    public async Task<StaffDTO> GetOneStaffMemberAsync(int staffId)
     {
         try
         {
@@ -73,7 +78,7 @@ public class StaffService(IStaffRepository staffRepository) : IStaffService
         return null!;
     }
 
-    public async Task<IEnumerable<StaffDTO>> GetAllStaff()
+    public async Task<IEnumerable<StaffDTO>> GetAllStaffAsync()
     {
         try
         {
@@ -119,7 +124,7 @@ public class StaffService(IStaffRepository staffRepository) : IStaffService
         return Result.Failure;
     }
 
-    public async Task<Result> DeleteStaffMember(int staffId)
+    public async Task<Result> DeleteStaffMemberAsync(int staffId)
     {
         try
         {

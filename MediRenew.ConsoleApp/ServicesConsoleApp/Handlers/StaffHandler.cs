@@ -36,7 +36,7 @@ public class StaffHandler(IStaffService staffService)
             newStaff.DepartmentId = departmentid;
         }
 
-        var result = await _staffService.AddStaffMember(newStaff);
+        var result = await _staffService.AddStaffMemberAsync(newStaff);
 
         switch (result)
         {
@@ -65,7 +65,7 @@ public class StaffHandler(IStaffService staffService)
 
             if (int.TryParse(Console.ReadLine(), out int Id))
             {
-                staff = await _staffService.GetOneStaffMember(Id);
+                staff = await _staffService.GetOneStaffMemberAsync(Id);
 
                 if (staff is not null)
                 {
@@ -103,7 +103,7 @@ public class StaffHandler(IStaffService staffService)
     {
         try
         {
-            IEnumerable<StaffDTO> staffMembers = await _staffService.GetAllStaff();
+            IEnumerable<StaffDTO> staffMembers = await _staffService.GetAllStaffAsync();
 
             if (staffMembers is not null)
             {
@@ -143,7 +143,7 @@ public class StaffHandler(IStaffService staffService)
             Console.WriteLine("Enter [ID] to update:");
             if (int.TryParse(Console.ReadLine(), out var staffId))
             {
-                var staffToUpdate = await _staffService.GetOneStaffMember(staffId);
+                var staffToUpdate = await _staffService.GetOneStaffMemberAsync(staffId);
                 if (staffToUpdate is not null)
                 {
                     staffToUpdate.FirstName = Cancel.AddOrAbort("First Name: ");
@@ -190,7 +190,7 @@ public class StaffHandler(IStaffService staffService)
         Console.Write("Enter [ID] to DELETE: ");
         if (int.TryParse(Console.ReadLine(), out var staffId))
         {
-            var result = await _staffService.DeleteStaffMember(staffId);
+            var result = await _staffService.DeleteStaffMemberAsync(staffId);
             switch (result)
             {
                 case Result.Success:

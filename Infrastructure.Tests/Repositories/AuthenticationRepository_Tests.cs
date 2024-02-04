@@ -1,5 +1,4 @@
-﻿using Azure.Identity;
-using Infrastructure.Contexts;
+﻿using Infrastructure.Contexts;
 using Infrastructure.DatabaseFirstEntities;
 using Infrastructure.Interfaces;
 using Infrastructure.Repositories;
@@ -99,7 +98,7 @@ public class AuthenticationRepository_Tests
         IAuthenticationRepository repo = new AuthenticationRepository(_context);
         var testUser = CreateTestAuthenticationEntity();
         await repo.CreateAsync(testUser);
-        // Simulates a simple SQL-injection ('; = end of query AND -- will comment everything after it. That leaves us with the CREATE query).
+        // Simulates a simple SQL-injection ('; = end of query AND -- will comment out everything after it. That leaves us with the CREATE query).
         var maliciousInput = "'; CREATE TABLE MaliciousAuthentications (id INT); --";
 
         Expression<Func<AuthenticationEntity, bool>> predicate = user => user.Username == maliciousInput;
