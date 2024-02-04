@@ -31,7 +31,7 @@ namespace Business.Services
             };
 
             var registrationResult = await _authenticationRepository.CreateAsync(newUser);
-            if (registrationResult != null)
+            if (registrationResult is not null)
             {
                 return Result.Success;
             }
@@ -76,8 +76,6 @@ namespace Business.Services
 
             return hashString;
         }
-
-
     }
 };
 
