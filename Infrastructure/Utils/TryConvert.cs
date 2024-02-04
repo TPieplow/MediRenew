@@ -2,7 +2,6 @@
 
 public class TryConvert
 {
-
     /// <summary>
     /// A tuple-method, using TryParse, converts a string to int.
     /// </summary>

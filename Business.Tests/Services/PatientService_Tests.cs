@@ -239,40 +239,4 @@ public class PatientService_Tests
         //Assert
         Assert.Equal(Result.Failure, result);
     }
-
-    [Fact]
-    public async Task UpdateStaffAsync_Should_UpdateOneStaff_AndReturn_ResultEnum_Success()
-    {
-        // Arrange
-        IStaffRepository staffRepository = new StaffRepository(_context);
-        IStaffService staffService = new StaffService(staffRepository);
-        IDepartmentRepository departmentRepository = new DepartmentRepository(_context);
-
-        var departmentEntity = new DepartmentEntity
-        {
-            Id = 1,
-            HospitalId = 1,
-            DepartmentName = "test"
-        };
-        await departmentRepository.CreateAsync(departmentEntity);
-
-        var staffDTO = new StaffDTO
-        {
-            Id = 1,
-            Department = departmentEntity,
-            FirstName = "test",
-            LastName = "test 2",
-            PhoneNumber = "000",
-            DepartmentId = 1,
-            RoleName = "tast"
-        };
-        await staffService.AddStaffMember(staffDTO);
-
-        //Act
-        staffDTO.FirstName = "Updated name";
-        var result = await staffService.UpdateStaffAsync(staffDTO);
-
-        //Assert
-        Assert.Equal(Result.Success, result);
-    }
 }

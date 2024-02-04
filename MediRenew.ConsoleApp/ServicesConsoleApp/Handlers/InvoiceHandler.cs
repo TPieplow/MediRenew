@@ -51,7 +51,7 @@ public class InvoiceHandler(IInvoiceService invoiceService, PharmacyHandler phar
 
             if (int.TryParse(Console.ReadLine(), out int invoiceId))
             {
-                newInvoice = await _invoiceService.GetOneInvoice(invoiceId);
+                newInvoice = await _invoiceService.GetOneInvoiceAsync(invoiceId);
 
                 if (newInvoice is not null)
                 {

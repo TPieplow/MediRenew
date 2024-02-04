@@ -39,7 +39,7 @@ namespace Business.Services
             return Result.Failure;
         }
 
-        public async Task<InvoiceDTO> GetOneInvoice(int patientId)
+        public async Task<InvoiceDTO> GetOneInvoiceAsync(int patientId)
         {
             try
             {
