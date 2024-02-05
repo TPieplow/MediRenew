@@ -14,19 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-<<<<<<< HEAD
-<<<<<<< HEAD
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d673a38a2c88f4b5c78c8053125c4e8c88dfb352")]
-=======
-<<<<<<< HEAD
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+127f4ff5d5e7f9a609b750a56f955f1abf631daa")]
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e76e588f91f31d26bc02bf2331331b5f8994699b")]
->>>>>>> d673a38a2c88f4b5c78c8053125c4e8c88dfb352
->>>>>>> teds_branch
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+13f75a6013e5fcc13018e8c637c119a8007d6389")]
->>>>>>> teds_branch
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+667f5a8c4e5a659f4ba81806f82d49a0631809f0")]
 [assembly: System.Reflection.AssemblyProductAttribute("Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
