@@ -2,6 +2,7 @@
 using Infrastructure.HospitalEntities;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace Infrastructure.Repositories
 {
@@ -11,11 +12,17 @@ namespace Infrastructure.Repositories
 
         public override async Task<IEnumerable<AppointmentEntity>> GetAllAsync()
         {
-            var appointments = await _context.Appointments
-                .Include(x => x.Patient)
-                .Include(x => x.Doctor)
-                .ToListAsync();
-            return appointments;
+            try
+            {
+                var appointments = await _context.Appointments
+                    .Include(x => x.Patient)
+                    .Include(x => x.Doctor)
+                    .ToListAsync();
+                return appointments;
+            }
+            catch (Exception ex)
+            { Debug.WriteLine($"ERROR : {ex.Message}"); }
+            return null!;
         }
     }
 }

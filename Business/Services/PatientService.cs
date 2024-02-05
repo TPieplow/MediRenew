@@ -2,7 +2,6 @@
 using Business.Interfaces;
 using Infrastructure.HospitalEntities;
 using Infrastructure.Interfaces;
-using Infrastructure.Repositories;
 using System.Diagnostics;
 using static Infrastructure.Utils.ResultEnums;
 
@@ -34,7 +33,6 @@ public class PatientService(IPatientRepository patientRepository, IPrescriptionR
             var result = await _patientRepository.CreateAsync(newPatientEntity);
             if (result is not null)
                 return Result.Success;
-
         }
         catch (Exception ex)
         {
@@ -150,5 +148,4 @@ public class PatientService(IPatientRepository patientRepository, IPrescriptionR
         catch (Exception ex)
         { Console.WriteLine($"ERROR: {ex.Message}"); return Result.Failure; }
     }
-
 }

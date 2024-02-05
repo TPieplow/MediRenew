@@ -28,7 +28,6 @@ namespace Infrastructure.ServiceCollections
                 x => x.UseSqlServer(@"Data Source=localhost;Initial Catalog=HospitalDb;Integrated Security=True;Trust Server Certificate=True"));
 
             services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
-
         }
     }
 }

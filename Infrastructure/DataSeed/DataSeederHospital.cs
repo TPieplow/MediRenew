@@ -98,7 +98,7 @@ namespace Infrastructure.DataSeed
                 new StaffEntity()
                 {
                     Id = 1,
-                    FirstName = "SexyNurse1",
+                    FirstName = "Tina",
                     LastName = "test",
                     RoleName = "Nurse",
                     PhoneNumber = "0124356879",
@@ -107,7 +107,7 @@ namespace Infrastructure.DataSeed
                 new StaffEntity()
                 {
                     Id = 2,
-                    FirstName = "SexyNurse2",
+                    FirstName = "Stina",
                     LastName= "test",
                     RoleName = "Cleaner",
                     PhoneNumber = "009988774",
@@ -116,7 +116,7 @@ namespace Infrastructure.DataSeed
                 new StaffEntity()
                 {
                     Id = 3,
-                    FirstName = "SexyNurse3",
+                    FirstName = "Tommy",
                     LastName = "test",
                     RoleName = "Receptionist",
                     PhoneNumber = "5432167890",
