@@ -4,14 +4,12 @@ using System.Diagnostics;
 using static Infrastructure.Utils.ResultEnums;
 using Infrastructure.Interfaces;
 using Business.Interfaces;
-using Infrastructure.Repositories;
 
 namespace Business.Services;
 
-public class DoctorService(IDoctorRepository doctorRepository, IDepartmentRepository departmentRepository) : IDoctorService
+public class DoctorService(IDoctorRepository doctorRepository) : IDoctorService
 {
     private readonly IDoctorRepository _doctorRepository = doctorRepository;
-    private readonly IDepartmentRepository _departmentRepository = departmentRepository;
 
     public async Task<Result> AddDoctorAsync(DoctorDTO newDoctor)
     {
@@ -50,7 +48,6 @@ public class DoctorService(IDoctorRepository doctorRepository, IDepartmentReposi
             {
                 return null!;
             }
-
 
             var doctorDTO = new DoctorDTO
             {
@@ -104,7 +101,6 @@ public class DoctorService(IDoctorRepository doctorRepository, IDepartmentReposi
                 existingDoctor.PhoneNumber = updatedDoctor.PhoneNumber;
                 existingDoctor.DepartmentId = updatedDoctor.DepartmentId;
 
-
                 await _doctorRepository.UpdateAsync(existingDoctor);
                 return Result.Success;
             }
@@ -113,7 +109,6 @@ public class DoctorService(IDoctorRepository doctorRepository, IDepartmentReposi
         catch (Exception ex)
         { Console.WriteLine($"ERROR: {ex.Message}"); return Result.Failure; }
     }
-
 
     public async Task<Result> RemoveDoctorAsync(int doctorId)
     {
@@ -129,7 +124,6 @@ public class DoctorService(IDoctorRepository doctorRepository, IDepartmentReposi
         catch (Exception ex)
         { Console.WriteLine($"ERROR: {ex.Message}"); return Result.Failure; }
     }
-
 }
 
 

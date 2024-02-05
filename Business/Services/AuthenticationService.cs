@@ -1,21 +1,19 @@
 ﻿using Business.Interfaces;
 using Infrastructure.DatabaseFirstEntities;
 using Infrastructure.Interfaces;
-using Infrastructure.Repositories;
 using System.Security.Cryptography;
 using System.Text;
 using static Infrastructure.Utils.ResultEnums;
 
+namespace Business.Services;
 
-namespace Business.Services
+public class AuthenticationService(IAuthenticationRepository authenticationRepository) : IAuthenticationService
 {
+    private readonly IAuthenticationRepository _authenticationRepository = authenticationRepository;
 
-    public class AuthenticationService(IAuthenticationRepository authenticationRepository) : IAuthenticationService
+    public async Task<Result> CreateUserAndLoginAsync(string username, string password)
     {
-        private readonly IAuthenticationRepository _authenticationRepository = authenticationRepository;
-
-
-        public async Task<Result> CreateUserAndLoginAsync(string username, string password)
+        try
         {
             var hashedPassword = HashPassword(password);
 
@@ -37,8 +35,14 @@ namespace Business.Services
             }
             return Result.Failure;
         }
+        catch (Exception ex)
+        { Console.WriteLine($"ERROR: {ex.Message}"); }
+        return Result.Failure;
+    }
 
-        public async Task<bool> ValidateUserAsync(string username, string password)
+    public async Task<bool> ValidateUserAsync(string username, string password)
+    {
+        try
         {
             var user = await _authenticationRepository.GetOneAsync(a => a.Username == username);
             var hashedPassword = HashPassword(password);
@@ -50,25 +54,37 @@ namespace Business.Services
 
             return false;
         }
+        catch (Exception ex)
+        { Console.WriteLine($"ERROR: {ex.Message}"); }
+        return false;
+    }
 
-        /// <summary>
-        /// Verifies the entered password, from the user and creates a new Hash, by comparing its hash the stored hash.
-        /// </summary>
-        /// <param name="enteredPassword">Input from the user (password)</param>
-        /// <param name="storedPasswordHash">The hashed password in the database</param>
-        /// <returns>True if verified, else false</returns>
-        private static bool VerifyPassword(string enteredPassword, string storedPasswordHash)
+    /// <summary>
+    /// Verifies the entered password, from the user and creates a new Hash, by comparing its hash the stored hash.
+    /// </summary>
+    /// <param name="enteredPassword">Input from the user (password)</param>
+    /// <param name="storedPasswordHash">The hashed password in the database</param>
+    /// <returns>True if verified, else false</returns>
+    private static bool VerifyPassword(string enteredPassword, string storedPasswordHash)
+    {
+        try
         {
             var enteredPasswordHash = HashPassword(enteredPassword);
             return string.Equals(enteredPasswordHash, storedPasswordHash, StringComparison.OrdinalIgnoreCase);
         }
+        catch (Exception ex)
+        { Console.WriteLine($"ERROR: {ex.Message}"); }
+        return false;
+    }
 
-        /// <summary>
-        /// Converts the input (password) using the SHA256 algorithm.
-        /// </summary>
-        /// <param name="password">Input from user, (password)</param>
-        /// <returns>The SHA256 hash-array converted to a string in lower case</returns>
-        private static string HashPassword(string password)
+    /// <summary>
+    /// Converts the input (password) using the SHA256 algorithm.
+    /// </summary>
+    /// <param name="password">Input from user, (password)</param>
+    /// <returns>The SHA256 hash-array converted to a string in lower case</returns>
+    private static string HashPassword(string password)
+    {
+        try
         {
             var passwordBytes = Encoding.UTF8.GetBytes(password);
             var hashBytes = SHA256.HashData(passwordBytes);
@@ -76,6 +92,9 @@ namespace Business.Services
 
             return hashString;
         }
+        catch (Exception ex)
+        { Console.WriteLine($"ERROR: {ex.Message}"); }
+        return string.Empty;
     }
-};
+}
 

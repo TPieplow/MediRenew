@@ -2,6 +2,7 @@
 using Infrastructure.HospitalEntities;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace Infrastructure.Repositories
 {
@@ -11,9 +12,17 @@ namespace Infrastructure.Repositories
 
         public override async Task<IEnumerable<PharmacyEntity>> GetAllAsync()
         {
-            var pharmacies = await _context.Pharmacys
-                .ToListAsync();
-            return pharmacies;
+            try
+            {
+                var pharmacies = await _context.Pharmacys
+                    .ToListAsync();
+                return pharmacies;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"ERROR: {ex.Message}");
+                return null!;
+            }
         }
     }
 }
