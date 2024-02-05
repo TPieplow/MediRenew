@@ -47,6 +47,4 @@ public class CodeFirstDbContext(DbContextOptions<CodeFirstDbContext> options) : 
 
         DataSeederHospital.HospitalSeeder(modelBuilder);
     }
-
-
 }
