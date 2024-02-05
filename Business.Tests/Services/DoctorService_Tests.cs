@@ -23,7 +23,7 @@ public class DoctorService_Tests
         //Arrange
         IDoctorRepository doctorRepository = new DoctorRepository(_context);
         IDepartmentRepository departmentRepository = new DepartmentRepository(_context);
-        IDoctorService doctorService = new DoctorService(doctorRepository, departmentRepository);
+        IDoctorService doctorService = new DoctorService(doctorRepository);
 
         var doctorDTO = new DoctorDTO
         {
@@ -49,7 +49,7 @@ public class DoctorService_Tests
         //Arrange
         IDoctorRepository doctorRepository = new DoctorRepository(_context);
         IDepartmentRepository departmentRepository = new DepartmentRepository(_context);
-        IDoctorService doctorService = new DoctorService(doctorRepository, departmentRepository);
+        IDoctorService doctorService = new DoctorService(doctorRepository);
 
         var doctorDTO = new DoctorDTO
         {
@@ -76,7 +76,7 @@ public class DoctorService_Tests
         //Arrange
         IDoctorRepository doctorRepository = new DoctorRepository(_context);
         IDepartmentRepository departmentRepository = new DepartmentRepository(_context);
-        IDoctorService doctorService = new DoctorService(doctorRepository, departmentRepository);
+        IDoctorService doctorService = new DoctorService(doctorRepository);
 
         var doctorDTO = new DoctorDTO();
 
@@ -95,7 +95,7 @@ public class DoctorService_Tests
         //Arrange
         IDoctorRepository doctorRepository = new DoctorRepository(_context);
         IDepartmentRepository departmentRepository = new DepartmentRepository(_context);
-        IDoctorService doctorService = new DoctorService(doctorRepository, departmentRepository);
+        IDoctorService doctorService = new DoctorService(doctorRepository);
 
         var departmentEntity = new DepartmentEntity
         {
@@ -130,7 +130,7 @@ public class DoctorService_Tests
         //Arrange
         IDoctorRepository doctorRepository = new DoctorRepository(_context);
         IDepartmentRepository departmentRepository = new DepartmentRepository(_context);
-        IDoctorService doctorService = new DoctorService(doctorRepository, departmentRepository);
+        IDoctorService doctorService = new DoctorService(doctorRepository);
 
         var doctorDTO = new DoctorDTO();
 
@@ -147,7 +147,7 @@ public class DoctorService_Tests
         //Arrange
         IDoctorRepository doctorRepository = new DoctorRepository(_context);
         IDepartmentRepository departmentRepository = new DepartmentRepository(_context);
-        IDoctorService doctorService = new DoctorService(doctorRepository, departmentRepository);
+        IDoctorService doctorService = new DoctorService(doctorRepository);
 
         //Act
         var result = await doctorService.GetAllDoctors();
@@ -161,7 +161,7 @@ public class DoctorService_Tests
     {
         IDoctorRepository doctorRepository = new DoctorRepository(_context);
         IDepartmentRepository departmentRepository = new DepartmentRepository(_context);
-        IDoctorService doctorService = new DoctorService(doctorRepository, departmentRepository);
+        IDoctorService doctorService = new DoctorService(doctorRepository);
 
         var departmentEntity = new DepartmentEntity
         {
@@ -195,7 +195,7 @@ public class DoctorService_Tests
         //Arrange
         IDoctorRepository doctorRepository = new DoctorRepository(_context);
         IDepartmentRepository departmentRepository = new DepartmentRepository(_context);
-        IDoctorService doctorService = new DoctorService(doctorRepository, departmentRepository);
+        IDoctorService doctorService = new DoctorService(doctorRepository);
 
         var doctorDTO = new DoctorDTO
         {
@@ -220,7 +220,7 @@ public class DoctorService_Tests
         //Arrange
         IDoctorRepository doctorRepository = new DoctorRepository(_context);
         IDepartmentRepository departmentRepository = new DepartmentRepository(_context);
-        IDoctorService doctorService = new DoctorService(doctorRepository, departmentRepository);
+        IDoctorService doctorService = new DoctorService(doctorRepository);
 
         var doctorDTO = new DoctorDTO
         {
