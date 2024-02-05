@@ -10,18 +10,10 @@ public class PrescriptionService(IPrescriptionRepository prescriptionRepository)
 {
     private readonly IPrescriptionRepository _prescriptionRepository = prescriptionRepository;
 
-
     public async Task<Result> AddPrescriptionAsync(PrescriptionDTO newPrescription)
     {
         try
         {
-            //if (!_prescriptionRepository.Exists(x => x.Doctor.Id == newPrescription.DoctorId)
-            //    || !_prescriptionRepository.Exists(x => x.PatientId == newPrescription.PatientId)
-            //    || !_prescriptionRepository.Exists(x => x.PharmacyId == newPrescription.PharmacyId))
-            //{
-            //    return Result.Failure;
-            //} denna snear av nån anledning men allt verkar funka ändå
-
             var newPrescriptionEntity = new PrescriptionEntity
             {
                 Date = newPrescription.Date,
