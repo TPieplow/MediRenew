@@ -26,6 +26,7 @@ namespace Business.Tests.Services
             // Act
             var result = await pharmacyService.ViewAllPharmacy();
 
+
             // Assert
             Assert.IsAssignableFrom<IEnumerable<PharmacyDTO>>(result);
         }

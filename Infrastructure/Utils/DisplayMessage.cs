@@ -1,4 +1,6 @@
-﻿namespace MediRenew.ConsoleApp.Utils
+﻿using Spectre.Console;
+
+namespace MediRenew.ConsoleApp.Utils
 {
     public class DisplayMessage
     {
@@ -8,8 +10,8 @@
         /// <param name="message">The message to be shown</param>
         public static void Message(string message)
         {
-            Console.WriteLine(message);
-            Console.WriteLine("Press any key to continue...");
+            AnsiConsole.Write(new Markup($"\n[Red]{message}[/]"));
+            AnsiConsole.Write(new Markup("\n[Green]Press any key to continue...[/]"));
             Console.ReadKey();
         }
     }

@@ -18,7 +18,7 @@ public class HospitalMenu(PatientMenu patientMenu, PrescriptionMenu prescription
     /// <summary>
     /// The main menu for the UI.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>The chosen menu</returns>
     public async Task MenuAsync()
     {
         while (true)

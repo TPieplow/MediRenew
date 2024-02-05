@@ -15,7 +15,7 @@ public class TryConvert
         }
         else
         {
-            return (false, 0, "Invalid input. Exiting menu...");
+            return (false, 0, "\nExiting menu...");
         }
     }
 

@@ -7,6 +7,10 @@ public class LoginService(IAuthenticationService authenticationService)
 {
     private readonly IAuthenticationService _authenticationService = authenticationService;
 
+    /// <summary>
+    /// A simple login structure calling the ValidateUserAsync method.
+    /// </summary>
+    /// <returns>True if validations succedded, otherwise false.</returns>
     public async Task<bool> Login()
     {
         int loginAttempts = 0;
