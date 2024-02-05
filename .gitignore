@@ -5,7 +5,8 @@
 
 # Entity Framework Migrations
 
-/Migrations/*.Designer.cs
+/Migrations/
+*.Designer.cs
 
 # User-specific files
 *.rsuser
