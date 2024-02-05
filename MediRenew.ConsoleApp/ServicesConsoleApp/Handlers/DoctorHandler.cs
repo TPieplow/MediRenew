@@ -19,9 +19,9 @@ namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers
             {
                 Console.Clear();
                 var newDoctor = new DoctorDTO();
-                Console.WriteLine("Enter cancel to abort.");
+                AnsiConsole.Write(new Markup("[Red]Type cancel to abort operation[/]"));
 
-                newDoctor.FirstName = Cancel.AddOrAbort("Enter first name: ");
+                newDoctor.FirstName = Cancel.AddOrAbort("\nEnter first name: ");
                 if (newDoctor.FirstName == null) return;
 
                 newDoctor.LastName = Cancel.AddOrAbort("Enter last name: ");
@@ -31,12 +31,18 @@ namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers
                 if (newDoctor.PhoneNumber == null) return;
 
                 await _departmentHandler.GetAllDepartments();
-                newDoctor.DepartmentId = Convert.ToInt32(Cancel.AddOrAbort("Enter the department-ID: "));
+                TryConvert.SetPropertyWithConversion(id => newDoctor.DepartmentId = id, "Enter department-ID");
                 if (newDoctor.DepartmentId == 0) return;
 
                 var result = await _doctorService.AddDoctorAsync(newDoctor);
-
-                ReturnMessage<DoctorDTO>(CrudOperation.Create, result, "");
+                if (result == Result.Success)
+                {
+                    ReturnMessage<DoctorDTO>(CrudOperation.Create, result, "");
+                }
+                else if (result == Result.Failure)
+                {
+                    ReturnMessage<DoctorDTO>(CrudOperation.Create, result, "A doctor with this phone number already exists");
+                }
             }
             catch (Exception ex)
             {
@@ -87,7 +93,7 @@ namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers
                 }
                 else
                 {
-                    DisplayMessage.Message("Invalid input.");
+                    DisplayMessage.Message("Invalid ID, please try again...");
                 }
             }
             catch (Exception ex)
@@ -160,8 +166,19 @@ namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers
                         doctorToUpdate.DepartmentId = Convert.ToInt32(Console.ReadLine());
 
                         var result = await _doctorService.UpdateDoctorAsync(doctorToUpdate);
-                        ReturnMessage<DoctorDTO>(CrudOperation.Update, result, "");
+                        if (result == Result.Success)
+                        {
+                            ReturnMessage<DoctorDTO>(CrudOperation.Update, result, "");
+                        }
+                        else if (result == Result.Failure)
+                        {
+                            ReturnMessage<DoctorDTO>(CrudOperation.Update, result, "A doctor with this phone number already exists");
+                        }
                     }
+                }
+                else
+                {
+                    DisplayMessage.Message("Invalid ID, please try again...");
                 }
             }
             catch (Exception ex)
@@ -176,13 +193,23 @@ namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers
             {
                 Console.Clear();
                 await ViewAllDoctors();
-                Console.WriteLine("WARNING! DELETING A DOCTOR WILL REMOVE IT'S APPOINTMENTS"); //Röd text här
+                AnsiConsole.Write(new Markup("[Red]WARNING! DELETING A DOCTOR WILL REMOVE IT'S APPOINTMENTS[/]"));
                 Console.WriteLine("Enter Id of the doctor you want to remove: ");
                 if (int.TryParse(Console.ReadLine(), out var doctorId))
                 {
                     var result = await _doctorService.RemoveDoctorAsync(doctorId);
-
-                    ReturnMessage<DoctorDTO>(CrudOperation.Delete, result, "");
+                    if (result == Result.Failure)
+                    {
+                        ReturnMessage<DoctorDTO>(CrudOperation.Delete, result, "Invalid ID, please try again.");
+                    }
+                    else
+                    {
+                        ReturnMessage<DoctorDTO>(CrudOperation.Delete, result, "");
+                    }
+                }
+                else
+                {
+                    DisplayMessage.Message("Invalid ID, please try again...");
                 }
             }
             catch (Exception ex)

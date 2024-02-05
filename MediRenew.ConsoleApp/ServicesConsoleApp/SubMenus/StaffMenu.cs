@@ -1,5 +1,6 @@
 ﻿using MediRenew.ConsoleApp.Login;
 using MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
+using MediRenew.ConsoleApp.Utils;
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp.SubMenus;
 
@@ -49,6 +50,7 @@ public class StaffMenu
 
                 case "3":
                     await _staffHandler.ViewAllStaff();
+                    DisplayMessage.Message("");
                     break;
 
                 case "4":

@@ -1,11 +1,9 @@
 ﻿using Business.DTOs;
-using Business.Services;
 using MediRenew.ConsoleApp.Utils;
 using Spectre.Console;
 using Infrastructure.Utils;
 using static Infrastructure.Utils.ResultEnums;
 using Business.Interfaces;
-
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
 
@@ -43,8 +41,15 @@ public class PatientHandler(IPatientService patientService)
             if (newPatient.City == null) return;
 
             var result = await _patientService.AddPatientAsync(newPatient);
-            
-            ReturnMessage<PatientDTO>(CrudOperation.Create, result, "Failed to add patient due to existing mail");
+
+            if (result == Result.Failure)
+            {
+                ReturnMessage<PatientDTO>(CrudOperation.Create, result, "A patient with this email already exists");
+            }
+            else
+            {
+                ReturnMessage<PatientDTO>(CrudOperation.Create, result, "");
+            }
         }
         catch (Exception ex)
         {
@@ -184,8 +189,19 @@ public class PatientHandler(IPatientService patientService)
                     patientToUpdate.Email = Console.ReadLine()!;
 
                     var result = await _patientService.UpdatePatientAsync(patientToUpdate);
-                    ReturnMessage<PatientDTO>(CrudOperation.Create, result, "");
+                    if (result == Result.Success)
+                    {
+                        ReturnMessage<PatientDTO>(CrudOperation.Update, result, "");
+                    }
+                    else if (result == Result.Failure)
+                    {
+                        ReturnMessage<PatientDTO>(CrudOperation.Update, result, "A patient with this email already exists");
+                    }
                 }
+            }
+            else
+            {
+                DisplayMessage.Message("Invalid ID, please try again... ");
             }
         }
         catch (Exception ex)
@@ -200,12 +216,16 @@ public class PatientHandler(IPatientService patientService)
         {
             Console.Clear();
             await ViewAllPatients();
-            Console.WriteLine("WARNING! DELETING A PATIENT WILL REMOVE IT'S APPOINTMENTS"); //Röd text här
-            Console.WriteLine("Enter Id of the patient you want to remove: ");
+            AnsiConsole.Write(new Markup("[Red]WARNING! DELETING A PATIENT WILL REMOVE IT'S APPOINTMENTS[/]"));
+            Console.WriteLine("\nEnter Id of the patient you want to remove: ");
             if (int.TryParse(Console.ReadLine(), out var patientId))
             {
                 var result = await _patientService.RemovePatientAsync(patientId);
                 ReturnMessage<PatientDTO>(CrudOperation.Delete, result, "");
+            }
+            else
+            {
+                DisplayMessage.Message("Invalid Id, please try again...");
             }
         }
         catch (Exception ex)
@@ -215,5 +235,3 @@ public class PatientHandler(IPatientService patientService)
         return null;
     }
 }
-
-//JAG GÅR UT MED HUNDARNA HASSAN! 

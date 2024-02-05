@@ -1,5 +1,4 @@
 ﻿using Business.Interfaces;
-using Business.Services;
 using Spectre.Console;
 using static Infrastructure.Utils.ResultEnums;
 
@@ -36,7 +35,7 @@ namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers
             else
             {
                 Console.Clear();
-                AnsiConsole.Write(new Rule("/t[yellow]User registration failed, user already exists.[/]"));
+                AnsiConsole.Write(new Rule("/t[red]User registration failed, user already exists.[/]"));
                 Console.ReadKey();
                 return false;
             }

@@ -1,6 +1,5 @@
 ﻿using Business.DTOs;
 using Business.Interfaces;
-using Business.Services;
 using Infrastructure.Utils;
 using MediRenew.ConsoleApp.Utils;
 using Spectre.Console;
@@ -19,14 +18,14 @@ public class PrescriptionHandler(IPrescriptionService prescriptionService, Patie
     {
         try
         {
-
             Console.Clear();
             var newPrescription = new PrescriptionDTO();
 
             newPrescription.Date = DateTime.Now;
 
             await _doctorHandler.ViewAllDoctors();
-            TryConvert.SetPropertyWithConversion(doctorId => newPrescription.DoctorId = doctorId, "Enter Doctor-ID");
+            AnsiConsole.Write(new Markup("[Red]Type cancel to abort operation[/]"));
+            TryConvert.SetPropertyWithConversion(doctorId => newPrescription.DoctorId = doctorId, "\nEnter Doctor-ID");
             if (newPrescription.DoctorId == 0) return;
 
             await _patientHandler.ViewAllPatients();
@@ -44,21 +43,13 @@ public class PrescriptionHandler(IPrescriptionService prescriptionService, Patie
             if (newPrescription.Cost == 0) return;
 
             var result = await _prescriptionService.AddPrescriptionAsync(newPrescription);
-
-            switch (result)
+            if (result == Result.Failure)
             {
-                case Result.Success:
-                    ReturnMessage<PrescriptionDTO>(CrudOperation.Create, result, "");
-                    break;
-                case Result.Failure:
-                    ReturnMessage<PrescriptionDTO>(CrudOperation.Create, result, "Invalid ID input (non-existent)");
-                    break;
-                case Result.NotFound:
-                    ReturnMessage<PrescriptionDTO>(CrudOperation.Create, result, "");
-                    break;
-                default:
-                    ReturnMessage<PrescriptionDTO>(CrudOperation.Create, result, "");
-                    break;
+                ReturnMessage<PrescriptionDTO>(CrudOperation.Create, result, "Couldnt add prescription, please try again.");
+            }
+            else
+            {
+                ReturnMessage<PrescriptionDTO>(CrudOperation.Create, result, "");
             }
         }
         catch (Exception ex)
@@ -66,7 +57,6 @@ public class PrescriptionHandler(IPrescriptionService prescriptionService, Patie
             Console.WriteLine($"ERROR: {ex.Message}");
         }
     }
-
 
     public async Task ViewAllPrescriptions()
     {
@@ -108,6 +98,9 @@ public class PrescriptionHandler(IPrescriptionService prescriptionService, Patie
         }
         catch (Exception ex) { Console.WriteLine(ex.Message); }
     }
+
+
+
 
 
     public async Task ViewOnePrescriptionWithId()
@@ -159,18 +152,18 @@ public class PrescriptionHandler(IPrescriptionService prescriptionService, Patie
             if (int.TryParse(Console.ReadLine(), out var prescriptionId))
             {
                 var result = await _prescriptionService.RemovePrescriptionAsync(prescriptionId);
-                switch (result)
+                if (result == Result.Failure)
                 {
-                    case Result.Success:
-                        ReturnMessage<PrescriptionDTO>(CrudOperation.Delete, result, "");
-                        break;
-                    case Result.Failure:
-                        ReturnMessage<PrescriptionDTO>(CrudOperation.Delete, result, "");
-                        break;
-                    case Result.NotFound:
-                        ReturnMessage<PrescriptionDTO>(CrudOperation.Delete, result, "");
-                        break;
+                    ReturnMessage<PrescriptionDTO>(CrudOperation.Delete, result, "Couldnt delete prescription, please try again.");
                 }
+                else
+                {
+                    ReturnMessage<PrescriptionDTO>(CrudOperation.Delete, result, "");
+                }
+            }
+            else
+            {
+                DisplayMessage.Message("Invalid ID, please try again...");
             }
         }
         catch (Exception ex)

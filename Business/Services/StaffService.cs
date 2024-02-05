@@ -16,10 +16,10 @@ public class StaffService(IStaffRepository staffRepository) : IStaffService
     {
         try
         {
-            if (staff.DepartmentId <= 0)
-            {
-                return Result.Failure;
-            }
+            //if (staff.DepartmentId <= 0)
+            //{
+            //    return Result.Failure;
+            //}
 
             if(_staffRepository.Exists(x => x.Id == staff.Id))
             {
