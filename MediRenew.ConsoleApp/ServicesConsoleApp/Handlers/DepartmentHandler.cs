@@ -1,6 +1,5 @@
 ﻿using Business.DTOs;
 using Business.Interfaces;
-using Business.Services;
 using Spectre.Console;
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;

@@ -17,18 +17,17 @@ public class AppointmentHandler(IAppointmentService appointmentService, PatientH
     {
         try
         {
-
             Console.Clear();
             var existingDate = new AppointmentDTO();
             var newAppointment = new AppointmentDTO();
-            Console.WriteLine("Enter cancel or empty field to abort.");
+            AnsiConsole.Write(new Markup("[Red]Type cancel to abort operation[/]"));
 
             await _doctorHandler.ViewAllDoctors();
-            newAppointment.DoctorId = Convert.ToInt32(Cancel.AddOrAbort("Enter ID for the doctor: "));
+            TryConvert.SetPropertyWithConversion(id => newAppointment.DoctorId = id, "Enter doctor-ID");
             if (newAppointment.DoctorId == 0) return;
 
             await _patientHandler.ViewAllPatients();
-            newAppointment.PatientId = Convert.ToInt32(Cancel.AddOrAbort("Enter ID for the patient: "));
+            TryConvert.SetPropertyWithConversion(id => newAppointment.PatientId = id, "Enter patient-ID");
             if (newAppointment.PatientId == 0) return;
 
             newAppointment.Date = Convert.ToDateTime(Cancel.AddOrAbort("Enter the appointment-date (format as xxxx-xx-xx xx:xx:xx): "));
@@ -48,8 +47,6 @@ public class AppointmentHandler(IAppointmentService appointmentService, PatientH
             {
                 ReturnMessage<AppointmentDTO>(CrudOperation.Create, result, "");
             }
-
-
         }
         catch (Exception ex)
         {
@@ -166,8 +163,19 @@ public class AppointmentHandler(IAppointmentService appointmentService, PatientH
 
                     var result = await _appointmentService.UpdateAppointment(appointmentToUpdate);
 
-                    ReturnMessage<AppointmentDTO>(CrudOperation.Update, result, "");
+                    if (result == Result.Failure)
+                    {
+                        ReturnMessage<AppointmentDTO>(CrudOperation.Update, result, "Invalid ID, couldnt update appointment. Please try again...");
+                    }
+                    else
+                    {
+                        ReturnMessage<DoctorDTO>(CrudOperation.Update, result, "");
+                    }
                 }
+            }
+            else
+            {
+                DisplayMessage.Message("Invalid ID. Please try again...");
             }
         }
         catch (Exception ex)
@@ -186,18 +194,18 @@ public class AppointmentHandler(IAppointmentService appointmentService, PatientH
             if (int.TryParse(Console.ReadLine(), out var patientId))
             {
                 var result = await _appointmentService.RemoveAppointmentAsync(patientId);
-                switch (result)
+                if (result == Result.Failure)
                 {
-                    case Result.Success:
-                        ReturnMessage<AppointmentDTO>(CrudOperation.Delete, result, "");
-                        break;
-                    case Result.Failure:
-                        ReturnMessage<AppointmentDTO>(CrudOperation.Delete, result, "");
-                        break;
-                    case Result.NotFound:
-                        ReturnMessage<AppointmentDTO>(CrudOperation.Delete, result, "");
-                        break;
+                    ReturnMessage<DoctorDTO>(CrudOperation.Delete, result, "Invalid ID, couldnt delete appointment. Please try again...");
                 }
+                else
+                {
+                    ReturnMessage<DoctorDTO>(CrudOperation.Delete, result, "");
+                }
+            }
+            else
+            {
+                DisplayMessage.Message("Invalid ID, please try again...");
             }
         }
         catch (Exception ex)

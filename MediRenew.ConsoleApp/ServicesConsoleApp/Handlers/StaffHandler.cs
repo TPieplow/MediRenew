@@ -1,25 +1,25 @@
 ﻿using Business.DTOs;
-using Business.Services;
 using Infrastructure.Utils;
 using static Infrastructure.Utils.ResultEnums;
 using Spectre.Console;
 using Table = Spectre.Console.Table;
 using MediRenew.ConsoleApp.Utils;
 using Business.Interfaces;
-using System.Diagnostics.Eventing.Reader;
 
 namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers;
 
-public class StaffHandler(IStaffService staffService)
+public class StaffHandler(IStaffService staffService, DepartmentHandler departmentHandler)
 {
     private readonly IStaffService _staffService = staffService;
+    private readonly DepartmentHandler _departmentHandler = departmentHandler;
 
     public async Task AddStaffMember()
     {
         var newStaff = new StaffDTO();
 
-        Console.WriteLine("Type cancel to abort operation");
-        newStaff.FirstName = Cancel.AddOrAbort("Enter first name: ");
+        Console.Clear();
+        AnsiConsole.Write(new Markup("[Red]Type cancel to abort operation[/]"));
+        newStaff.FirstName = Cancel.AddOrAbort("\nEnter first name: ");
         if (newStaff.FirstName is null) return;
 
         newStaff.LastName = Cancel.AddOrAbort("Enter last name: ");
@@ -31,28 +31,18 @@ public class StaffHandler(IStaffService staffService)
         newStaff.PhoneNumber = Cancel.AddOrAbort("Enter phone number: ");
         if (newStaff.PhoneNumber is null) return;
 
-        Console.WriteLine("Department [ID]");
-        if (int.TryParse(Console.ReadLine(), out int departmentid))
-        {
-            newStaff.DepartmentId = departmentid;
-        }
+        await _departmentHandler.GetAllDepartments();
+        TryConvert.SetPropertyWithConversion(id => newStaff.DepartmentId = id, "Enter department-ID");
 
         var result = await _staffService.AddStaffMemberAsync(newStaff);
 
-        switch (result)
+        if (result == Result.Failure)
         {
-            case Result.Success:
-                ReturnMessage<StaffDTO>(CrudOperation.Create, result, "");
-                break;
-            case Result.Failure:
-                ReturnMessage<StaffDTO>(CrudOperation.Create, result, $"{newStaff.FirstName} added successfully.");
-                break;
-            case Result.NotFound:
-                ReturnMessage<StaffDTO>(CrudOperation.Create, result, "");
-                break;
-            default:
-                ReturnMessage<StaffDTO>(CrudOperation.Create, result, "");
-                break;
+            ReturnMessage<StaffDTO>(CrudOperation.Create, result, "A staffmember with this phone number already exists.");
+        }
+        else
+        {
+            ReturnMessage<StaffDTO>(CrudOperation.Create, result, "");
         }
     }
 
@@ -102,7 +92,7 @@ public class StaffHandler(IStaffService staffService)
             }
             else
             {
-                DisplayMessage.Message("Please enter a valid input");
+                DisplayMessage.Message("Invalid ID, please try again...");
             }
         }
         catch (Exception ex) { Console.WriteLine($"ERROR : {ex.Message}"); }
@@ -120,16 +110,15 @@ public class StaffHandler(IStaffService staffService)
                 Console.Clear();
                 var table = new Table();
 
-                table.AddColumn("ID");
-                table.AddColumn("First Name");
-                table.AddColumn("Last Name");
-                table.AddColumn("Role ");
-                table.AddColumn("Phone Number");
-                table.AddColumn("Department ID");
+                table.AddColumn("[yellow]ID[/]");
+                table.AddColumn("[yellow]First Name[/]");
+                table.AddColumn("[yellow]Last Name[/]");
+                table.AddColumn("[yellow]Role[/]");
+                table.AddColumn("[yellow]Phone Number[/]");
+                table.AddColumn("[yellow]Department ID[/]");
 
                 foreach (StaffDTO staff in staffMembers)
                 {
-
                     table.AddRow(
                         staff.Id.ToString(),
                         staff.FirstName,
@@ -149,8 +138,10 @@ public class StaffHandler(IStaffService staffService)
     {
         try
         {
+            Console.Clear();
             await ViewAllStaff();
-            Console.WriteLine("Enter [ID] to update:");
+            AnsiConsole.Write(new Markup("[Red]Type cancel to abort operation[/]"));
+            Console.WriteLine("\nEnter [ID] to update:");
             if (int.TryParse(Console.ReadLine(), out var staffId))
             {
                 var staffToUpdate = await _staffService.GetOneStaffMemberAsync(staffId);
@@ -172,20 +163,14 @@ public class StaffHandler(IStaffService staffService)
                     if (staffToUpdate.DepartmentName == null) { return; }
 
                     var result = await _staffService.UpdateStaffAsync(staffToUpdate);
-                    switch (result)
+
+                    if (result == Result.Failure)
                     {
-                        case Result.Success:
-                            ReturnMessage<StaffDTO>(CrudOperation.Update, result, "Staff successfully updated.");
-                            break;
-                        case Result.NotFound:
-                            ReturnMessage<StaffDTO>(CrudOperation.Update, result, "Staff not found.");
-                            break;
-                        case Result.Failure:
-                            ReturnMessage<StaffDTO>(CrudOperation.Update, result, "Phone number already exists.");
-                            break;
-                        default:
-                            ReturnMessage<StaffDTO>(CrudOperation.Update, result, "Unexpected error from update operation.");
-                            break;
+                        ReturnMessage<StaffDTO>(CrudOperation.Update, result, "A staffmember with this phone number already exists.");
+                    }
+                    else
+                    {
+                        ReturnMessage<StaffDTO>(CrudOperation.Update, result, "");
                     }
                 }
                 else
@@ -195,7 +180,7 @@ public class StaffHandler(IStaffService staffService)
             }
             else
             {
-                DisplayMessage.Message("Please enter a valid input");
+                DisplayMessage.Message("Invalid ID, please try again...");
             }
 
         }
@@ -206,29 +191,15 @@ public class StaffHandler(IStaffService staffService)
     {
         Console.Clear();
         await ViewAllStaff();
-        Console.Write("Enter [ID] to DELETE: ");
+        AnsiConsole.Write(new Markup("Enter [Green]ID[/] to delete: "));
         if (int.TryParse(Console.ReadLine(), out var staffId))
         {
             var result = await _staffService.DeleteStaffMemberAsync(staffId);
-            switch (result)
-            {
-                case Result.Success:
-                    ReturnMessage<StaffDTO>(CrudOperation.Delete, result, "");
-                    break;
-                case Result.Failure:
-                    ReturnMessage<StaffDTO>(CrudOperation.Delete, result, "Staff not found");
-                    break;
-                case Result.NotFound:
-                    ReturnMessage<StaffDTO>(CrudOperation.Delete, result, "");
-                    break;
-                default:
-                    ReturnMessage<StaffDTO>(CrudOperation.Delete, result, "");
-                    break;
-            }
+            ReturnMessage<StaffDTO>(CrudOperation.Delete, result, "");
         }
         else
         {
-            DisplayMessage.Message("Please enter a valid input");
+            DisplayMessage.Message("Invalid ID, please try again...");
         }
     }
 }

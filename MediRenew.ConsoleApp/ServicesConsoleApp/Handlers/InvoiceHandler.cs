@@ -35,9 +35,15 @@ public class InvoiceHandler(IInvoiceService invoiceService, PharmacyHandler phar
         TryConvert.SetPropertyWithConversion(totalCost => newInvoice.TotalCost = totalCost, "Enter total cost");
         if (newInvoice.TotalCost == 0) return;
 
-
         var result = await _invoiceService.AddInvoiceAsync(newInvoice);
-        ReturnMessage<InvoiceDTO>(CrudOperation.Create, result, "");
+        if (result == Result.Failure)
+        {
+            ReturnMessage<InvoiceDTO>(CrudOperation.Create, result, "Invalid ID, patient doesnt exist. Please try again");
+        }
+        else
+        {
+            ReturnMessage<InvoiceDTO>(CrudOperation.Create, result, "");
+        }
     }
 
     public async Task ViewOneInvoice()
@@ -83,6 +89,10 @@ public class InvoiceHandler(IInvoiceService invoiceService, PharmacyHandler phar
                 {
                     DisplayMessage.Message("Invoice not found");
                 }
+            }
+            else
+            {
+                DisplayMessage.Message("Invalid ID, please try again...");
             }
         }
         catch (Exception ex)
@@ -138,18 +148,18 @@ public class InvoiceHandler(IInvoiceService invoiceService, PharmacyHandler phar
             if (int.TryParse(Console.ReadLine(), out var invoiceId))
             {
                 var result = await _invoiceService.RemoveInvoiceAsync(invoiceId);
-                switch (result)
+                if (result == Result.Failure)
                 {
-                    case Result.Success:
-                        ReturnMessage<InvoiceDTO>(CrudOperation.Delete, result, "");
-                        break;
-                    case Result.Failure:
-                        ReturnMessage<InvoiceDTO>(CrudOperation.Delete, result, "");
-                        break;
-                    case Result.NotFound:
-                        ReturnMessage<InvoiceDTO>(CrudOperation.Delete, result, "");
-                        break;
+                    ReturnMessage<InvoiceDTO>(CrudOperation.Delete, result, "Invalid ID. Please try again");
                 }
+                else
+                {
+                    ReturnMessage<InvoiceDTO>(CrudOperation.Delete, result, "");
+                }
+            }
+            else
+            {
+                DisplayMessage.Message("Invalid ID, please try again...");
             }
         }
         catch (Exception ex)

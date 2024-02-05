@@ -11,6 +11,7 @@ public class MainMenu(LoginService loginService, RegistrationHandler registratio
 
     /// <summary>
     /// Menu for log in and create new user.
+    /// Used Spectre.Console to style the UI.
     /// </summary>
     /// <returns>True or false.</returns>
     public async Task<bool> ShowMenuAsync()

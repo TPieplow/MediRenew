@@ -16,7 +16,7 @@ class Program
 {
     static async Task Main()
     {
-        //Skapar en DI - container och förbereder det vi behöver ha tillgång till i appen.
+        // DI-container, prepares all dependencies.
         var builder = Host.CreateDefaultBuilder()
             .ConfigureServices((services) =>
             {
@@ -25,7 +25,7 @@ class Program
                 services.InfrastructureDICluster();
             })
 
-            // Stoppar loggning i consolen, visar enbart error nu. 
+            // Stops the visable loggin in the console, only displays error messages. 
             .ConfigureLogging(logging =>
             {
                 logging.ClearProviders();
@@ -33,7 +33,7 @@ class Program
                 logging.AddConsole();
             });
 
-        // Mainbuilder, som håller inloggning och de DI som behövs.
+        // Mainbuilder with service provider
         using var host = builder.Build();
         using var scope = host.Services.CreateScope();
         var serviceProvider = scope.ServiceProvider;
@@ -41,6 +41,7 @@ class Program
         var mainMenu = serviceProvider.GetRequiredService<MainMenu>();
         bool loginSuccess = await mainMenu.ShowMenuAsync();
         
+        // If login returns true, access HospitalMenu. 
         if (loginSuccess)
         {
             var hospitalMenu = new HospitalMenu(
