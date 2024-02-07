@@ -19,13 +19,6 @@ public class LoginService(IAuthenticationService authenticationService)
         Console.Clear();
         Header.StaticHeader();
 
-        AnsiConsole.Write(
-        new Table()
-        .BorderStyle(Color.HotPink)
-            .AddColumn(new TableColumn("[Yellow]Login Credentials[/]").Centered())
-            .AddRow("[Yellow]Username: Hans@domain.com[/]")
-            .AddRow("[Yellow]Password: Bytmig123![/]").Centered());
-
         do
         {
             var rule = new Rule("[Yellow]Log in[/]");
