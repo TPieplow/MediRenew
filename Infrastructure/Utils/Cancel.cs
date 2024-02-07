@@ -12,7 +12,7 @@ public class Cancel
     /// <returns>Returns null if prompt is "cancel", else the input</returns>
     public static string AddOrAbort(string prompt)
     {
-        Console.WriteLine(prompt);
+        Console.Write(prompt);
         string input = Console.ReadLine()?.Trim()!;
 
         if (input.Equals("cancel", StringComparison.CurrentCultureIgnoreCase) || String.IsNullOrWhiteSpace(input))

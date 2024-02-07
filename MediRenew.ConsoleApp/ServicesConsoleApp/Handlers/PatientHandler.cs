@@ -17,9 +17,9 @@ public class PatientHandler(IPatientService patientService)
         {
             Console.Clear();
             var newPatient = new PatientDTO();
-            Console.WriteLine("Enter cancel to abort.");
+            AnsiConsole.Write(new Markup("[Red]Type cancel to abort operation[/]"));
 
-            newPatient.FirstName = Cancel.AddOrAbort("Enter first name: ");
+            newPatient.FirstName = Cancel.AddOrAbort("\nEnter first name: ");
             if (newPatient.FirstName == null) return;
 
             newPatient.LastName = Cancel.AddOrAbort("Enter last name: ");
@@ -63,7 +63,6 @@ public class PatientHandler(IPatientService patientService)
         {
             Console.Clear();
             await ViewAllPatients();
-            Console.WriteLine("Enter Id");
             PatientDTO patient = null!;
 
             if (int.TryParse(Console.ReadLine()!, out int Id))
