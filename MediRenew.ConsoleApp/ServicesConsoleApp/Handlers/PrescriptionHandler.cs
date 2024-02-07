@@ -25,21 +25,22 @@ public class PrescriptionHandler(IPrescriptionService prescriptionService, Patie
 
             await _doctorHandler.ViewAllDoctors();
             AnsiConsole.Write(new Markup("[Red]Type cancel to abort operation[/]"));
-            TryConvert.SetPropertyWithConversion(doctorId => newPrescription.DoctorId = doctorId, "\nEnter Doctor-ID");
+
+            TryConvert.SetPropertyWithConversion(doctorId => newPrescription.DoctorId = doctorId, "\nEnter Doctor-ID: ");
             if (newPrescription.DoctorId == 0) return;
 
             await _patientHandler.ViewAllPatients();
-            TryConvert.SetPropertyWithConversion(patientId => newPrescription.PatientId = patientId, "Enter patient-ID");
+            TryConvert.SetPropertyWithConversion(patientId => newPrescription.PatientId = patientId, "Enter patient-ID: ");
             if (newPrescription.PatientId == 0) return;
 
             await _pharmacyHandler.ViewAllPharmacies();
-            TryConvert.SetPropertyWithConversion(pharmacyId => newPrescription.PharmacyId = pharmacyId, "Enter pharmacy-ID");
+            TryConvert.SetPropertyWithConversion(pharmacyId => newPrescription.PharmacyId = pharmacyId, "Enter pharmacy-ID: ");
             if (newPrescription.PharmacyId == 0) return;
 
-            newPrescription.Dosage = Cancel.AddOrAbort("Enter Dosage");
+            newPrescription.Dosage = Cancel.AddOrAbort("Enter Dosage: ");
             if (newPrescription.Dosage == null) return;
 
-            TryConvert.SetPropertyWithConversion(cost => newPrescription.Cost = cost, "Enter the cost");
+            TryConvert.SetPropertyWithConversion(cost => newPrescription.Cost = cost, "Enter the cost: ");
             if (newPrescription.Cost == 0) return;
 
             var result = await _prescriptionService.AddPrescriptionAsync(newPrescription);
@@ -99,17 +100,13 @@ public class PrescriptionHandler(IPrescriptionService prescriptionService, Patie
         catch (Exception ex) { Console.WriteLine(ex.Message); }
     }
 
-
-
-
-
     public async Task ViewOnePrescriptionWithId()
     {
         try
         {
             Console.Clear();
             await _patientHandler.ViewAllPatients();
-            Console.Write("Enter the Id of the patient: ");
+            Console.Write("\nEnter the Id of the patient: ");
 
             if (int.TryParse(Console.ReadLine(), out int id))
             {

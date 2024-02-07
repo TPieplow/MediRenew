@@ -20,14 +20,15 @@ public class AppointmentHandler(IAppointmentService appointmentService, PatientH
             Console.Clear();
             var existingDate = new AppointmentDTO();
             var newAppointment = new AppointmentDTO();
-            AnsiConsole.Write(new Markup("[Red]Type cancel to abort operation[/]"));
 
             await _doctorHandler.ViewAllDoctors();
-            TryConvert.SetPropertyWithConversion(id => newAppointment.DoctorId = id, "Enter doctor-ID");
+            AnsiConsole.Write(new Markup("[Red]Type cancel to abort operation[/]"));
+
+            TryConvert.SetPropertyWithConversion(id => newAppointment.DoctorId = id, "\nEnter doctor-ID: ");
             if (newAppointment.DoctorId == 0) return;
 
             await _patientHandler.ViewAllPatients();
-            TryConvert.SetPropertyWithConversion(id => newAppointment.PatientId = id, "Enter patient-ID");
+            TryConvert.SetPropertyWithConversion(id => newAppointment.PatientId = id, "Enter patient-ID: ");
             if (newAppointment.PatientId == 0) return;
 
             newAppointment.Date = Convert.ToDateTime(Cancel.AddOrAbort("Enter the appointment-date (format as xxxx-xx-xx xx:xx:xx): "));

@@ -19,11 +19,13 @@ public class InvoiceHandler(IInvoiceService invoiceService, PharmacyHandler phar
         var newInvoice = new InvoiceDTO();
 
         await _patientHandler.ViewAllPatients();
-        TryConvert.SetPropertyWithConversion(id => newInvoice.PatientId = id, "Enter patient-ID");
+        AnsiConsole.Write(new Markup("[Red]Type cancel to abort operation[/]"));
+
+        TryConvert.SetPropertyWithConversion(id => newInvoice.PatientId = id, "\nEnter patient-ID: ");
         if (newInvoice.PatientId == 0) return;
 
         await _pharmacyHandler.ViewAllPharmacies();
-        TryConvert.SetPropertyWithConversion(medId => newInvoice.PharmacyId = medId, "Enter med ID");
+        TryConvert.SetPropertyWithConversion(medId => newInvoice.PharmacyId = medId, "Enter pharmacy-ID: ");
         if (newInvoice.PharmacyId == 0) return;
 
         newInvoice.Description = Cancel.AddOrAbort("Enter Description: ");
@@ -32,7 +34,7 @@ public class InvoiceHandler(IInvoiceService invoiceService, PharmacyHandler phar
         TryConvert.SetPropertyWithConversion(cost => newInvoice.Cost = cost, "Enter cost: ");
         if (newInvoice.Cost == 0) return;
 
-        TryConvert.SetPropertyWithConversion(totalCost => newInvoice.TotalCost = totalCost, "Enter total cost");
+        TryConvert.SetPropertyWithConversion(totalCost => newInvoice.TotalCost = totalCost, "Enter total cost: ");
         if (newInvoice.TotalCost == 0) return;
 
         var result = await _invoiceService.AddInvoiceAsync(newInvoice);
@@ -52,7 +54,8 @@ public class InvoiceHandler(IInvoiceService invoiceService, PharmacyHandler phar
         {
             Console.Clear();
             await ViewAllInvoices();
-            Console.WriteLine("Enter Id of the invoice you want to see: ");
+            AnsiConsole.Write(new Markup("[Red]Type cancel to abort operation[/]"));
+            Console.WriteLine("\nEnter Id of the invoice you want to see: ");
             var newInvoice = new InvoiceDTO();
 
             if (int.TryParse(Console.ReadLine(), out int invoiceId))
