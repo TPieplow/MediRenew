@@ -193,7 +193,7 @@ namespace MediRenew.ConsoleApp.ServicesConsoleApp.Handlers
             {
                 Console.Clear();
                 await ViewAllDoctors();
-                AnsiConsole.Write(new Markup("[Red]WARNING! DELETING A DOCTOR WILL REMOVE IT'S APPOINTMENTS[/]"));
+                AnsiConsole.Write(new Markup("[Red]WARNING! DELETING A DOCTOR WILL REMOVE IT'S APPOINTMENTS[/]\n"));
                 Console.WriteLine("Enter Id of the doctor you want to remove: ");
                 if (int.TryParse(Console.ReadLine(), out var doctorId))
                 {
