@@ -63,6 +63,7 @@ public class PatientHandler(IPatientService patientService)
         {
             Console.Clear();
             await ViewAllPatients();
+            Console.WriteLine("Enter Id");
             PatientDTO patient = null!;
 
             if (int.TryParse(Console.ReadLine()!, out int Id))

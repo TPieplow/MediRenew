@@ -2,6 +2,7 @@
 using Business.Interfaces;
 using Infrastructure.Utils;
 using MediRenew.ConsoleApp.Utils;
+using Moq.Protected;
 using Spectre.Console;
 using static Infrastructure.Utils.ResultEnums;
 
@@ -114,15 +115,33 @@ public class PrescriptionHandler(IPrescriptionService prescriptionService, Patie
 
                 if (patientPres.Any())
                 {
+                    var table = new Table();
+
+                    table.AddColumn("[yellow]Prescription No.[/]");
+                    table.AddColumn("[yellow]Patient-ID[/]");
+                    table.AddColumn("[yellow]Patient name[/]");
+                    table.AddColumn("[yellow]Doctor-ID[/]");
+                    table.AddColumn("[yellow]Doctor name[/]");
+                    table.AddColumn("[yellow]Medication[/]");
+                    table.AddColumn("[yellow]Dosage[/]");
+                    table.AddColumn("[yellow]Cost[/]");
+                    table.AddColumn("[yellow]Date[/]");
+
                     foreach (var item in patientPres)
                     {
-                        Console.WriteLine($"PrescriptionNo. {item.Id}");
-                        Console.WriteLine($"Doctor: {item.Doctor.FirstName} {item.Doctor.LastName}");
-                        Console.WriteLine($"Patient: {item.Patient.FirstName} {item.Patient.LastName}");
-                        Console.WriteLine($"Cost: {item.Cost}");
-                        Console.WriteLine($"Dosage: {item.Dosage}");
-                        Console.WriteLine($"MedicationName: {item.Pharmacy.MedicationName}");
+                        table.AddRow(
+                            item.Id.ToString(),
+                            item.PatientId.ToString(),
+                            item.Patient.FirstName + " " + item.Patient.LastName,
+                            item.DoctorId.ToString(),
+                            item.Doctor.FirstName + " " + item.Doctor.LastName,
+                            item.Pharmacy.MedicationName,
+                            item.Dosage,
+                            item.Cost.ToString(),
+                            item.Date.ToString()
+                        );
                     }
+                    AnsiConsole.Write(table);
                     Console.ReadKey();
                 }
                 else

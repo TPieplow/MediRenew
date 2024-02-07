@@ -13,8 +13,8 @@ namespace Business.Tests.Services;
 public class DoctorService_Tests
 {
     private readonly CodeFirstDbContext _context = new(new DbContextOptionsBuilder<CodeFirstDbContext>()
-.UseInMemoryDatabase($"{Guid.NewGuid()}")
-.Options);
+        .UseInMemoryDatabase($"{Guid.NewGuid()}")
+        .Options);
 
 
     [Fact]
